@@ -266,12 +266,12 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 </style>
 </head>
 <body>
-<div class="demo" id="demoBar">
+<div class="demo" id="demoBar" hidden>
   <div class="wrap demoin">
-    <span>منصة الأستاذ شادي عبيد · نظام الحماية وقفل الجهاز مفعّل 🛡️</span>
+    <span>🔒 وضع الإدارة — الأستاذ شادي عبيد (هذا الشريط يظهر لك أنت فقط ولا يراه الطلاب)</span>
     <div class="seg" role="group" aria-label="تبديل الواجهة">
-      <button type="button" data-act="view" data-view="student" aria-pressed="true">واجهة الطالب</button>
-      <button type="button" data-act="view" data-view="admin" aria-pressed="false">لوحة تحكم المدرّس <span class="badge" id="pc"></span></button>
+      <button type="button" data-act="view" data-view="admin" aria-pressed="true">لوحة تحكم المدرّس <span class="badge" id="pc"></span></button>
+      <button type="button" data-act="view" data-view="student" aria-pressed="false">معاينة واجهة الطالب</button>
     </div>
   </div>
 </div>
@@ -288,7 +288,7 @@ const STORAGE_KEY = 'SHADI_PLATFORM_STATE_V2';
 const DEVICE_KEY  = 'SHADI_DEVICE_FP_V2';
 
 // ضع رابط نشر Google Apps Script Web App هنا (أو من داخل لوحة تحكم الأستاذ -> الأسعار والدفع)
-let API_URL = localStorage.getItem('SHADI_GAS_API_URL') || 'https://script.google.com/macros/s/AKfycbyHaiA7xhs3cquq9LFj7jxofpuPJeaB86jZiW-sccj_zlL-8VmHD4eSgAd9lnj99ofMUQ/exec';
+let API_URL = localStorage.getItem('SHADI_GAS_API_URL') || '';
 
 const now = Date.now(), DAY = 864e5, HR = 36e5;
 const SUBJ = { math: 'الرياضيات', phys: 'الفيزياء' };
@@ -373,8 +373,9 @@ let S = {
   rf: 'pending',
   as: 'math',
   q: '',
-  demoBar: true,
+  demoBar: false,
   maxDevices: 1,
+  adminUser: 'shadi_admin',
   adminPhone: '0988 765 432',
   adminPass: 'shadi2026',
   prices: { m1: 10, m2: 18, t1: 25, t2: 45 },
@@ -703,10 +704,11 @@ const A = {
         <div class="fgrid">${S.wallets.map((w, i) => `<label>${w.n}<input id="w_${i}" dir="ltr" value="${esc(w.v)}"></label>`).join('')}<label>رقم واتساب الأستاذ<input id="waN" dir="ltr" value="${esc(S.wa)}"></label></div>
       </div>
       <div class="panel" style="margin-top:16px">
-        <h3>إعدادات الأمان وقاعدة البيانات السحابية (Google Apps Script)</h3>
+        <h3>إعدادات الأمان وبيانات دخول الأستاذ وقاعدة البيانات</h3>
         <div class="fgrid">
           <label>عدد الأجهزة المسموحة لكل طالب<select id="maxDev"><option value="1" ${S.maxDevices === 1 ? 'selected' : ''}>جهاز واحد فقط (حماية قصوى)</option><option value="2" ${S.maxDevices === 2 ? 'selected' : ''}>جهازان (موبايل + لابتوب)</option></select></label>
-          <label>كلمة مرور الأستاذ للدخول للوحة<input id="admPass" type="text" dir="ltr" value="${esc(S.adminPass)}"></label>
+          <label>اسم المستخدم السري للأستاذ<input id="admUser" type="text" dir="ltr" value="${esc(S.adminUser || 'shadi_admin')}"></label>
+          <label>كلمة المرور السرية للأستاذ<input id="admPass" type="text" dir="ltr" value="${esc(S.adminPass)}"></label>
           <label style="grid-column:1/-1">رابط خادم Google Apps Script Web App (اتركه فارغاً للتشغيل المحلي الفوري أو الصق رابط النشر)<input id="gasUrl" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(API_URL)}"></label>
         </div>
       </div>
@@ -759,9 +761,14 @@ function rAdmin() {
 }
 
 function render() {
+  const isAdmin = !!(S.user && S.user.role === 'admin');
+  if (!isAdmin) S.view = 'student';
+  const db = $('#demoBar');
+  if (db) db.hidden = !isAdmin;
   document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === S.view)));
   app.innerHTML = S.view === 'student' ? rStudent() : rAdmin();
-  $('#pc').textContent = S.requests.filter(r => r.st === 'pending').length || '';
+  const pc = $('#pc');
+  if (pc) pc.textContent = S.requests.filter(r => r.st === 'pending').length || '';
 }
 
 /* ============================================================================
@@ -822,14 +829,13 @@ function authM(mode) {
   openM(`<h3>${su ? 'إنشاء حساب طالب' : 'تسجيل الدخول'}</h3>
   <form id="authF" class="form" data-mode="${mode}" novalidate>
     ${su ? '<label>الاسم الكامل<input id="fName" autocomplete="name" placeholder="مثال: أحمد الحسن"></label>' : ''}
-    <label>رقم الجوال<input id="fPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="09xx xxx xxx"></label>
+    <label>${su ? 'رقم الجوال' : 'رقم الجوال أو اسم المستخدم'}<input id="fPhone" type="text" autocomplete="username" dir="ltr" placeholder="09xx xxx xxx"></label>
     <label>كلمة المرور<input id="fPass" type="password" autocomplete="${su ? 'new-password' : 'current-password'}"></label>
     <p class="err" id="authErr"></p>
     <button class="btn full">${su ? 'إنشاء الحساب وربط الجهاز' : 'دخول'}</button>
     <p class="switch">${su ? 'لديك حساب؟ <button type="button" class="btn link" data-act="auth" data-mode="login">سجّل الدخول</button>' : 'جديد هنا؟ <button type="button" class="btn link" data-act="auth" data-mode="signup">أنشئ حسابًا</button>'}</p>
     <div class="tip" style="margin:0;font-size:13px">
       🛡️ <b>حماية الحساب:</b> يُربط الحساب بجهازك الحالي (<span dir="ltr">${esc(MY_DEVICE_LABEL)}</span>) لمنع تسريب ومشاركة الحساب.
-      ${su ? '' : '<br>للتجربة كطالب: <b dir="ltr">0936 527 904</b> (كلمة المرور: 1234)<br>لدخول الأستاذ: <b dir="ltr">0988 765 432</b> (كلمة المرور: shadi2026)'}
     </div>
   </form>`);
 }
@@ -840,7 +846,7 @@ function payBody(p, amt) {
     return `<p>تواصل مع الأستاذ مباشرة، وبعد الدفع يرسل لك كود تفعيل تُدخله في تبويب «كود تفعيل».</p><a class="btn wa full" href="https://wa.me/963${digits(S.wa).replace(/^0/, '')}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${I.wa} فتح محادثة واتساب</a><p class="small" style="margin:0">الرقم: <span dir="ltr">${esc(S.wa)}</span></p>`;
   }
   if (sub.tab === 'code') {
-    return `<label class="inl" style="margin:0">كود التفعيل<input id="codeIn" dir="ltr" placeholder="SH-XXXX-XX" autocomplete="off"></label><p class="err" id="codeErr"></p><button type="button" class="btn full" data-act="redeem">تفعيل الاشتراك</button><p class="small" style="margin:0">للتجربة: الكود <b dir="ltr">SH-4KQ7-M2</b> يفتح المادتين لمدة شهر.</p>`;
+    return `<label class="inl" style="margin:0">كود التفعيل<input id="codeIn" dir="ltr" placeholder="SH-XXXX-XX" autocomplete="off"></label><p class="err" id="codeErr"></p><button type="button" class="btn full" data-act="redeem">تفعيل الاشتراك</button><p class="small" style="margin:0">أدخل الكود الذي حصلت عليه من الأستاذ لتفعيل اشتراكك فورًا.</p>`;
   }
   return `<p>حوّل <b>${amt} $</b> إلى أحد الأرقام التالية، ثم أدخل رقم عملية التحويل وارفع صورة الإشعار:</p>
   <div class="wallets">${S.wallets.map((w, i) => `<label class="wl"><input type="radio" name="wal" value="${i}" ${i === sub.w ? 'checked' : ''}><span><b>${esc(w.n)}</b><span dir="ltr">${esc(w.v)}</span></span><button type="button" class="btn link sm" data-act="copy" data-v="${esc(w.v)}">نسخ</button></label>`).join('')}</div>
@@ -1316,8 +1322,7 @@ document.addEventListener('click', e => {
       render();
       doneM(
         'تم إرسال طلبك بنجاح',
-        'سيراجع الأستاذ إشعار الدفع ورقم العملية، وتُفتح الدروس في حسابك فور الموافقة.',
-        'للتجربة الآن: افتح «لوحة تحكم المدرّس» واقبل الطلب، ثم ارجع لواجهة الطالب لترى الدروس مفتوحة.'
+        'سيراجع الأستاذ إشعار الدفع ورقم العملية، وتُفتح الدروس في حسابك فور الموافقة.'
       );
       break;
     }
@@ -1461,18 +1466,32 @@ document.addEventListener('submit', e => {
     const pw = $('#fPass').value;
     const er = $('#authErr');
 
-    if (su && name.length < 3) { er.textContent = 'اكتب اسمك الكامل (3 أحرف على الأقل).'; return; }
-    if (normPh.length < 9) { er.textContent = 'اكتب رقم جوال صحيح.'; return; }
+    const admUser = String(S.adminUser || 'shadi_admin').trim().toLowerCase();
+    const isAdmMatch = !su && (
+      ph.toLowerCase() === admUser ||
+      ph.toLowerCase() === 'shadi' ||
+      (normPh.length >= 9 && normPh === digits(S.adminPhone))
+    );
+
     if (pw.length < 4) { er.textContent = 'كلمة المرور 4 أحرف أو أرقام على الأقل.'; return; }
 
-    // فحص دخول الأستاذ (المدير)
-    if (!su && normPh === digits(S.adminPhone) && pw === S.adminPass) {
+    // فحص دخول الأستاذ (المدير) بالاسم السري أو الرقم السري وكلمة المرور السرية
+    if (isAdmMatch) {
+      if (pw !== S.adminPass) {
+        er.textContent = 'بيانات الدخول غير صحيحة.';
+        return;
+      }
       S.user = { id: 0, name: 'الأستاذ شادي عبيد', phone: S.adminPhone, role: 'admin', subs: { math: now + 3650 * DAY, phys: now + 3650 * DAY } };
+      S.view = 'admin';
       saveState();
       closeM();
-      toast('أهلاً بك أستاذ شادي — تم تفعيل صلاحيات الإدارة');
+      window.scrollTo(0, 0);
+      toast('أهلاً بك أستاذ شادي — تم فتح لوحة التحكم');
       return;
     }
+
+    if (su && name.length < 3) { er.textContent = 'اكتب اسمك الكامل (3 أحرف على الأقل).'; return; }
+    if (normPh.length < 9) { er.textContent = 'اكتب رقم جوال صحيح.'; return; }
 
     if (su) {
       if (S.students.some(s => digits(s.phone) === normPh) || normPh === digits(S.adminPhone)) {
@@ -1593,6 +1612,7 @@ document.addEventListener('submit', e => {
     S.wallets.forEach((w, i) => { w.v = $('#w_' + i).value.trim() || w.v; });
     S.wa = $('#waN').value.trim() || S.wa;
     S.maxDevices = Number($('#maxDev').value) || 1;
+    if ($('#admUser') && $('#admUser').value.trim().length >= 3) S.adminUser = $('#admUser').value.trim();
     if ($('#admPass').value.trim().length >= 4) S.adminPass = $('#admPass').value.trim();
     const gasInput = $('#gasUrl').value.trim();
     API_URL = gasInput;
