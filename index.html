@@ -284,8 +284,9 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 /* ============================================================================
  * 1. إعدادات الاتصال بخادم Google Apps Script والبصمة الأمنية للجهاز
  * ============================================================================ */
-const STORAGE_KEY = 'SHADI_PLATFORM_STATE_V2';
+const STORAGE_KEY = 'SHADI_PLATFORM_PRODUCTION_V1';
 const DEVICE_KEY  = 'SHADI_DEVICE_FP_V2';
+try { localStorage.removeItem('SHADI_PLATFORM_STATE_V2'); } catch (e) {}
 
 // ضع رابط نشر Google Apps Script Web App هنا (أو من داخل لوحة تحكم الأستاذ -> الأسعار والدفع)
 let API_URL = localStorage.getItem('SHADI_GAS_API_URL') || '';
@@ -341,26 +342,8 @@ const MY_DEVICE_LABEL = getDeviceLabel();
  * 2. البيانات الافتراضية والحفظ الدائم (LocalStorage + Google Sheets Sync)
  * ============================================================================ */
 const DEFAULT_LESSONS = {
-  math: [
-    { id: 'm1', u: 'التوابع والنهايات', t: 'النهايات والاستمرار', d: '12:40', free: true, f: 'lim f(x) = L', v: 412, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'm2', u: 'التوابع والنهايات', t: 'المقاربات', d: '09:15', free: true, f: 'y = ax + b', v: 356, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'm3', u: 'الاشتقاق', t: 'قواعد الاشتقاق', d: '14:05', free: false, f: "(xⁿ)' = n·xⁿ⁻¹", v: 298, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'm4', u: 'الاشتقاق', t: 'دراسة تغيّرات تابع', d: '16:30', free: false, f: "f'(x) > 0 ⇒ f ↗", v: 251, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'm5', u: 'التكامل', t: 'التابع الأصلي', d: '11:20', free: false, f: '∫ f(x) dx = F(x) + C', v: 214, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'm6', u: 'التكامل', t: 'حساب المساحات', d: '13:45', free: false, f: 'A = ∫ |f(x)| dx', v: 187, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'm7', u: 'الأعداد العقدية', t: 'الشكل الجبري والمثلثي', d: '15:10', free: false, f: 'z = r(cosθ + i·sinθ)', v: 176, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'm8', u: 'الأعداد العقدية', t: 'حل المعادلات في C', d: '12:00', free: false, f: 'z² + 1 = 0 ⇒ z = ±i', v: 149, provider: 'chalkboard', videoSource: '', pdfUrl: '' }
-  ],
-  phys: [
-    { id: 'p1', u: 'الاهتزازات', t: 'النوّاس المرن', d: '13:25', free: true, f: 'T₀ = 2π√(m/k)', v: 389, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'p2', u: 'الاهتزازات', t: 'النوّاس الثقلي', d: '11:50', free: true, f: 'T₀ = 2π√(l/g)', v: 301, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'p3', u: 'الأمواج', t: 'الأمواج الميكانيكية', d: '12:35', free: false, f: 'v = λ · f', v: 233, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'p4', u: 'الأمواج', t: 'تداخل الأمواج', d: '10:40', free: false, f: 'Δd = k·λ', v: 198, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'p5', u: 'التيار المتناوب', t: 'الممانعة والتجاوب', d: '15:55', free: false, f: 'Z = √(R² + (Lω − 1/Cω)²)', v: 205, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'p6', u: 'التيار المتناوب', t: 'الدارة المهتزة', d: '14:20', free: false, f: 'T₀ = 2π√(LC)', v: 166, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'p7', u: 'الكهرطيسية', t: 'التحريض الكهرطيسي', d: '13:00', free: false, f: 'ε = −dΦ/dt', v: 158, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
-    { id: 'p8', u: 'الكهرطيسية', t: 'قوة لابلاس', d: '11:30', free: false, f: 'F = I·L·B·sinα', v: 131, provider: 'chalkboard', videoSource: '', pdfUrl: '' }
-  ]
+  math: [],
+  phys: []
 };
 
 let L = JSON.parse(JSON.stringify(DEFAULT_LESSONS));
@@ -376,35 +359,19 @@ let S = {
   demoBar: false,
   maxDevices: 1,
   adminUser: 'shadi_admin',
-  adminPhone: '0988 765 432',
+  adminPhone: '0988765432',
   adminPass: 'shadi2026',
   prices: { m1: 10, m2: 18, t1: 25, t2: 45 },
   wallets: [
-    { n: 'شام كاش', v: '0991 234 567' },
-    { n: 'سيريتل كاش', v: '0933 456 789' },
-    { n: 'MTN كاش', v: '0944 567 890' }
+    { n: 'شام كاش', v: '' },
+    { n: 'سيريتل كاش', v: '' },
+    { n: 'MTN كاش', v: '' }
   ],
-  wa: '0988 765 432',
+  wa: '',
   progress: {},
-  students: [
-    { id: 1, name: 'رهف سليمان', phone: '0932 118 420', pass: '1234', subs: { math: now + 24 * DAY, phys: now + 24 * DAY }, deviceFp: 'DEV-89A1-K2', deviceLabel: 'Android · Chrome', deviceAlerts: 0, status: 'active', joined: now - 40 * DAY },
-    { id: 2, name: 'محمد الخطيب', phone: '0945 302 771', pass: '1234', subs: { math: now + 9 * DAY }, deviceFp: 'DEV-44B9-M1', deviceLabel: 'Windows · Chrome', deviceAlerts: 2, status: 'active', joined: now - 21 * DAY },
-    { id: 3, name: 'لين حداد', phone: '0988 640 215', pass: '1234', subs: { phys: now + 17 * DAY }, deviceFp: 'DEV-71C2-P9', deviceLabel: 'iOS · Safari', deviceAlerts: 0, status: 'active', joined: now - 18 * DAY },
-    { id: 4, name: 'عمر الحلبي', phone: '0936 527 904', pass: '1234', subs: {}, deviceFp: '', deviceLabel: '', deviceAlerts: 0, status: 'active', joined: now - 6 * DAY },
-    { id: 5, name: 'سارة النجار', phone: '0991 473 386', pass: '1234', subs: { math: now - 3 * DAY }, deviceFp: 'DEV-12F5-X0', deviceLabel: 'Android · Chrome', deviceAlerts: 0, status: 'active', joined: now - 60 * DAY },
-    { id: 6, name: 'يوسف العلي', phone: '0957 210 648', pass: '1234', subs: {}, deviceFp: '', deviceLabel: '', deviceAlerts: 0, status: 'active', joined: now - 2 * DAY }
-  ],
-  requests: [
-    { id: 11, sid: 6, plan: 'm1', subj: 'phys', method: 'سيريتل كاش', txRef: '48211507', amount: 10, at: now - 0.6 * HR, st: 'pending' },
-    { id: 10, sid: 4, plan: 'm2', subj: 'both', method: 'شام كاش', txRef: '48211370', amount: 18, at: now - 3.2 * HR, st: 'pending' },
-    { id: 9, sid: 1, plan: 'm2', subj: 'both', method: 'شام كاش', txRef: '48211233', amount: 18, at: now - 6 * DAY, st: 'ok' },
-    { id: 8, sid: 3, plan: 'm1', subj: 'phys', method: 'MTN كاش', txRef: '48211096', amount: 10, at: now - 13 * DAY, st: 'ok' },
-    { id: 7, sid: 2, plan: 'm1', subj: 'math', method: 'شام كاش', txRef: '48210959', amount: 10, at: now - 21 * DAY, st: 'ok' }
-  ],
-  codes: [
-    { c: 'SH-4KQ7-M2', subj: 'both', mo: 1, used: false },
-    { c: 'SH-9TX3-P8', subj: 'math', mo: 1, used: true, by: 'سارة النجار' }
-  ]
+  students: [],
+  requests: [],
+  codes: []
 };
 
 function loadState() {
@@ -530,7 +497,7 @@ function parseVideoUrl(rawUrl) {
   return { provider: 'direct', id: url };
 }
 
-const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" role="img" aria-label="شاشة درس على سبورة مع زر تشغيل"><defs><linearGradient id="bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c5a4c"/><stop offset="1" stop-color="#16302a"/></linearGradient><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a6a37"/><stop offset="1" stop-color="#6e4520"/></linearGradient></defs><rect x="14" y="22" width="540" height="334" rx="20" fill="#0b1915" opacity=".55"/><rect x="4" y="4" width="540" height="334" rx="18" fill="url(#wd)"/><rect x="18" y="18" width="512" height="262" rx="8" fill="url(#bd)"/><g fill="none" stroke="#f3f0e6" stroke-width="2.4" stroke-linecap="round" opacity=".88"><path d="M52 210H262M70 232V70"/><path d="M70 150c18-60 36-60 54 0s36 60 54 0 36-60 54 0" stroke="#f5b83d"/><path d="M372 64H492"/><path d="M432 64L462 178" stroke-dasharray="0"/><path d="M432 64L402 178" stroke-dasharray="4 7" opacity=".6"/><path d="M398 192q32 22 68 0" stroke-dasharray="3 6" opacity=".7"/></g><circle cx="465" cy="190" r="15" fill="#f3f0e6" opacity=".9"/><circle cx="460" cy="185" r="5" fill="#fff"/><g font-family="Caveat,cursive" font-weight="700" fill="#f3f0e6"><text x="88" y="64" font-size="28">f(x) = sin x</text><text x="356" y="250" font-size="30" fill="#fff3c9">T₀ = 2π√(l/g)</text><text x="60" y="262" font-size="24" opacity=".85">∫ sin x dx = −cos x + C</text></g><g><circle cx="274" cy="146" r="38" fill="#f5b83d"/><circle cx="274" cy="146" r="38" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="6"/><path d="M262 128v36l30-18z" fill="#2a1d00"/></g><text x="300" y="112" font-size="13" fill="#f3f0e6" opacity=".35" transform="rotate(-10 300 112)" font-family="Tahoma,sans-serif">أحمد · 0933 000 000</text><rect x="18" y="290" width="512" height="36" rx="8" fill="#0c1915"/><rect x="34" y="306" width="300" height="4" rx="2" fill="#2c4a42"/><rect x="34" y="306" width="118" height="4" rx="2" fill="#f5b83d"/><circle cx="152" cy="308" r="7" fill="#f5b83d"/><text x="514" y="313" font-size="13" fill="#cfd8d3" text-anchor="end" font-family="Tahoma,sans-serif">04:58 / 11:50</text><text x="420" y="313" font-size="13" fill="#9fb0a9" text-anchor="end" font-family="Tahoma,sans-serif">النوّاس الثقلي</text></svg>`;
+const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" role="img" aria-label="شاشة درس على سبورة مع زر تشغيل"><defs><linearGradient id="bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c5a4c"/><stop offset="1" stop-color="#16302a"/></linearGradient><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a6a37"/><stop offset="1" stop-color="#6e4520"/></linearGradient></defs><rect x="14" y="22" width="540" height="334" rx="20" fill="#0b1915" opacity=".55"/><rect x="4" y="4" width="540" height="334" rx="18" fill="url(#wd)"/><rect x="18" y="18" width="512" height="262" rx="8" fill="url(#bd)"/><g fill="none" stroke="#f3f0e6" stroke-width="2.4" stroke-linecap="round" opacity=".88"><path d="M52 210H262M70 232V70"/><path d="M70 150c18-60 36-60 54 0s36 60 54 0 36-60 54 0" stroke="#f5b83d"/><path d="M372 64H492"/><path d="M432 64L462 178" stroke-dasharray="0"/><path d="M432 64L402 178" stroke-dasharray="4 7" opacity=".6"/><path d="M398 192q32 22 68 0" stroke-dasharray="3 6" opacity=".7"/></g><circle cx="465" cy="190" r="15" fill="#f3f0e6" opacity=".9"/><circle cx="460" cy="185" r="5" fill="#fff"/><g font-family="Caveat,cursive" font-weight="700" fill="#f3f0e6"><text x="88" y="64" font-size="28">f(x) = sin x</text><text x="356" y="250" font-size="30" fill="#fff3c9">T₀ = 2π√(l/g)</text><text x="60" y="262" font-size="24" opacity=".85">∫ sin x dx = −cos x + C</text></g><g><circle cx="274" cy="146" r="38" fill="#f5b83d"/><circle cx="274" cy="146" r="38" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="6"/><path d="M262 128v36l30-18z" fill="#2a1d00"/></g><text x="300" y="112" font-size="13" fill="#f3f0e6" opacity=".35" transform="rotate(-10 300 112)" font-family="Tahoma,sans-serif">منصة الأستاذ شادي عبيد</text><rect x="18" y="290" width="512" height="36" rx="8" fill="#0c1915"/><rect x="34" y="306" width="300" height="4" rx="2" fill="#2c4a42"/><rect x="34" y="306" width="118" height="4" rx="2" fill="#f5b83d"/><circle cx="152" cy="308" r="7" fill="#f5b83d"/><text x="514" y="313" font-size="13" fill="#cfd8d3" text-anchor="end" font-family="Tahoma,sans-serif">04:58 / 11:50</text><text x="420" y="313" font-size="13" fill="#9fb0a9" text-anchor="end" font-family="Tahoma,sans-serif">النوّاس الثقلي</text></svg>`;
 
 /* ============================================================================
  * 3. بناء واجهة الطالب (Student View)
@@ -546,7 +513,11 @@ function header() {
 
 function hero() {
   const all = [...L.math, ...L.phys], fr = all.filter(l => l.free).length;
-  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1>دروس الرياضيات والفيزياء بالفيديو مع الأستاذ شادي عبيد</h1><p>شروحات قصيرة ومركّزة لطلاب البكالوريا العلمي. شاهد الدروس المجانية الآن، واشترك لتفتح بقية الدروس مع ملخصات القوانين.</p><div class="ctas"><button type="button" class="btn" data-act="play" data-subj="phys" data-id="p2">${I.play} شاهد درسًا مجانيًا</button><a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts"><li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li><li><b>2</b>مادتان</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
+  const firstFree = [...L.math.map(l => ({ ...l, k: 'math' })), ...L.phys.map(l => ({ ...l, k: 'phys' }))].find(l => l.free);
+  const ctaBtn = firstFree
+    ? `<button type="button" class="btn" data-act="play" data-subj="${firstFree.k}" data-id="${firstFree.id}">${I.play} شاهد درسًا مجانيًا</button>`
+    : `<a class="btn" href="#lessons">${I.play} تصفّح الدروس</a>`;
+  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1>دروس الرياضيات والفيزياء بالفيديو مع الأستاذ شادي عبيد</h1><p>شروحات قصيرة ومركّزة لطلاب البكالوريا العلمي. شاهد الدروس المجانية الآن، واشترك لتفتح بقية الدروس مع ملخصات القوانين.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (رياضيات وفيزياء)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
 }
 
 function getLessonProgress(lid) {
@@ -573,15 +544,20 @@ function row(l, k) {
 function lessonsSec() {
   const k = S.subj, ls = L[k], has = active(S.user, k), locked = ls.filter(l => !l.free).length, units = [...new Set(ls.map(l => l.u))];
   let progHtml = '';
-  if (S.user) {
+  if (S.user && ls.length) {
     const doneCnt = ls.filter(l => { const p = getLessonProgress(l.id); return p && p.done; }).length;
     const pct = ls.length ? Math.round((doneCnt / ls.length) * 100) : 0;
     progHtml = `<div class="prog-bar"><div><b>تقدّمك في ${SUBJ[k]}</b><span class="muted" style="margin-inline-start:8px;font-size:14px">أنجزت ${doneCnt} من ${ls.length} دروس (${pct}%)</span></div><div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div></div>`;
   }
+  const statusNote = has
+    ? `<div class="note ok">${I.check}<span>${S.user.role === 'admin' ? 'حساب المدرّس — جميع الدروس مفتوحة للمعاينة.' : `اشتراكك في ${SUBJ[k]} فعّال حتى ${fmtD(S.user.subs[k])}. كل الدروس مفتوحة على جهازك.`}</span></div>`
+    : locked > 0
+      ? `<div class="note">${I.lock}<span>${pl(locked, 'درس', 'درسان', 'دروس', 'درسًا')} في ${SUBJ[k]} ${locked > 2 ? 'مقفلة' : 'مقفل'} للمشتركين.</span><button type="button" class="btn sm" data-act="sub" data-plan="m1" data-subj="${k}">اشترك لفتحها</button></div>`
+      : '';
   return `<section class="band" id="lessons"><div class="wrap"><div class="sechead"><h2>الدروس</h2><div class="tabs" role="tablist" aria-label="المادة">${Object.keys(SUBJ).map(s => `<button type="button" role="tab" aria-selected="${s === k}" data-act="subj" data-subj="${s}">${SUBJ[s]} <span class="cnt">${L[s].length}</span></button>`).join('')}</div></div>
-  ${has ? `<div class="note ok">${I.check}<span>${S.user.role === 'admin' ? 'حساب المدرّس — جميع الدروس مفتوحة للمعاينة.' : `اشتراكك في ${SUBJ[k]} فعّال حتى ${fmtD(S.user.subs[k])}. كل الدروس مفتوحة على جهازك.`}</span></div>` : `<div class="note">${I.lock}<span>${pl(locked, 'درس', 'درسان', 'دروس', 'درسًا')} في ${SUBJ[k]} ${locked > 2 ? 'مقفلة' : 'مقفل'} للمشتركين.</span><button type="button" class="btn sm" data-act="sub" data-plan="m1" data-subj="${k}">اشترك لفتحها</button></div>`}
+  ${statusNote}
   ${progHtml}
-  <div class="units">${units.map((u, ui) => `<div class="unit"><h3><span>الوحدة ${ui + 1}</span>${esc(u)}</h3>${ls.filter(l => l.u === u).map(l => row(l, k)).join('')}</div>`).join('')}</div></div></section>`;
+  ${units.length ? `<div class="units">${units.map((u, ui) => `<div class="unit"><h3><span>الوحدة ${ui + 1}</span>${esc(u)}</h3>${ls.filter(l => l.u === u).map(l => row(l, k)).join('')}</div>`).join('')}</div>` : `<div class="empty">لا توجد دروس منشورة في مادة ${SUBJ[k]} حالياً.</div>`}</div></section>`;
 }
 
 function plansSec() {
@@ -593,7 +569,7 @@ function howSec() {
 }
 
 function footer() {
-  return `<footer class="foot board"><div class="wrap footin"><div><b>الأستاذ شادي عبيد</b><p>للاستفسار والاشتراك عبر واتساب: <span dir="ltr">${esc(S.wa)}</span></p></div><p class="small">تصميم وتنفيذ MAHVAR | محور · نظام حماية البث المفعّل</p></div></footer>`;
+  return `<footer class="foot board"><div class="wrap footin"><div><b>الأستاذ شادي عبيد</b>${S.wa ? `<p>للاستفسار والاشتراك عبر واتساب: <span dir="ltr">${esc(S.wa)}</span></p>` : '<p>منصة الرياضيات والفيزياء لطلاب البكالوريا العلمي</p>'}</div><p class="small">تصميم وتنفيذ MAHVAR | محور · نظام حماية البث المفعّل</p></div></footer>`;
 }
 
 function rStudent() {
@@ -621,7 +597,7 @@ const A = {
     ${alerts.length ? `<div class="note bad">${I.shield}<span><b>تنبيه أمان ومنع مشاركة الحساب:</b> تم رصد محاولات دخول من أجهزة إضافية غير مصرح بها لـ (${alerts.map(s => esc(s.name)).join('، ')}).</span><button type="button" class="btn sm ghost" data-act="atab" data-tab="stu">مراجعة الأجهزة</button></div>` : ''}
     <div class="grid2">
       <div class="panel"><h3>طلبات بانتظار التأكيد <button type="button" class="btn link sm" data-act="atab" data-tab="req">عرض الكل</button></h3>${pend.length ? pend.map(r => `<div class="mini"><span><b>${esc(stu(r.sid).name)}</b> · ${plan(r.plan).n} · ${subjName(r.subj)} <small class="muted">(#${esc(r.txRef || r.id)})</small></span><button type="button" class="btn sm" data-act="atab" data-tab="req">مراجعة</button></div>`).join('') : '<p class="muted">لا توجد طلبات جديدة.</p>'}</div>
-      <div class="panel"><h3>الدروس الأكثر مشاهدة</h3><div class="bars">${top.map(l => `<div class="bar"><span>${esc(l.t)}</span><i style="width:${Math.round(l.v / mx * 100)}%"></i><em>${l.v}</em></div>`).join('')}</div></div>
+      <div class="panel"><h3>الدروس الأكثر مشاهدة</h3>${top.length ? `<div class="bars">${top.map(l => `<div class="bar"><span>${esc(l.t)}</span><i style="width:${Math.round(l.v / mx * 100)}%"></i><em>${l.v}</em></div>`).join('')}</div>` : '<p class="muted">لا توجد دروس مضافة بعد.</p>'}</div>
     </div>`;
   },
 
@@ -659,7 +635,7 @@ const A = {
     const k = S.as;
     return `<div class="panel">
       <div class="tool"><div class="tabs sm" role="tablist">${Object.keys(SUBJ).map(s => `<button type="button" role="tab" aria-selected="${s === k}" data-act="as" data-subj="${s}">${SUBJ[s]}</button>`).join('')}</div><span class="muted">${L[k].filter(l => l.free).length} مجانية من ${L[k].length}</span></div>
-      <div class="scroll"><table class="stack"><thead><tr><th>الدرس</th><th>الوحدة</th><th>المدة</th><th>مصدر الفيديو</th><th>المشاهدات</th><th>الوصول</th><th></th></tr></thead><tbody>${L[k].map(l => {
+      ${L[k].length ? `<div class="scroll"><table class="stack"><thead><tr><th>الدرس</th><th>الوحدة</th><th>المدة</th><th>مصدر الفيديو</th><th>المشاهدات</th><th>الوصول</th><th></th></tr></thead><tbody>${L[k].map(l => {
         const pv = parseVideoUrl(l.videoSource);
         const srcBadge = pv.provider === 'youtube' ? '<span class="st ok">YouTube معزول</span>' : pv.provider === 'drive' ? '<span class="st ok">Google Drive معزول</span>' : pv.provider === 'direct' ? '<span class="st ok">فيديو مباشر</span>' : '<span class="muted">سبورة تفاعلية</span>';
         return `<tr>
@@ -671,7 +647,7 @@ const A = {
           <td data-l="الوصول"><label class="sw"><input type="checkbox" class="frt" data-subj="${k}" data-id="${l.id}" ${l.free ? 'checked' : ''}><span>${l.free ? 'مجاني' : 'مقفل'}</span></label></td>
           <td data-l=""><button type="button" class="btn link sm" data-act="editL" data-subj="${k}" data-id="${l.id}">تعديل الرابط</button></td>
         </tr>`;
-      }).join('')}</tbody></table></div>
+      }).join('')}</tbody></table></div>` : `<div class="empty">لا توجد دروس مضافة في مادة ${SUBJ[k]} بعد. أضف الدرس الأول من النموذج أدناه.</div>`}
     </div>
     <div class="panel" style="margin-top:16px">
       <h3>إضافة درس جديد (YouTube غير مدرج أو Google Drive)</h3>
@@ -690,7 +666,7 @@ const A = {
   },
 
   codes() {
-    return `<div class="panel"><h3>توليد أكواد تفعيل مشفّرة</h3><p class="muted">ترسل الكود للطالب عبر واتساب بعد الدفع، فيُدخله في الموقع ويُفتح اشتراكه لمرة واحدة فقط.</p><form id="genC" class="fgrid"><label>المادة<select id="cS"><option value="both">المادتان</option><option value="math">الرياضيات</option><option value="phys">الفيزياء</option></select></label><label>المدة<select id="cM"><option value="1">شهر</option><option value="4">فصل دراسي</option></select></label><label>عدد الأكواد<input id="cN" type="number" min="1" max="20" value="3"></label><button class="btn">توليد الأكواد</button></form></div><div class="panel" style="margin-top:16px"><div class="scroll"><table class="stack"><thead><tr><th>الكود</th><th>المادة</th><th>المدة</th><th>الحالة</th><th></th></tr></thead><tbody>${S.codes.map(c => `<tr><td data-l="الكود"><span class="code" dir="ltr">${esc(c.c)}</span></td><td data-l="المادة">${subjName(c.subj)}</td><td data-l="المدة">${c.mo === 1 ? 'شهر' : 'فصل دراسي'}</td><td data-l="الحالة">${c.used ? `<span class="st no">مستخدم · ${esc(c.by)}</span>` : '<span class="st ok">متاح</span>'}</td><td data-l="">${c.used ? '' : `<button type="button" class="btn link sm" data-act="copy" data-v="${esc(c.c)}">نسخ الكود</button>`}</td></tr>`).join('')}</tbody></table></div></div>`;
+    return `<div class="panel"><h3>توليد أكواد تفعيل مشفّرة</h3><p class="muted">ترسل الكود للطالب عبر واتساب بعد الدفع، فيُدخله في الموقع ويُفتح اشتراكه لمرة واحدة فقط.</p><form id="genC" class="fgrid"><label>المادة<select id="cS"><option value="both">المادتان</option><option value="math">الرياضيات</option><option value="phys">الفيزياء</option></select></label><label>المدة<select id="cM"><option value="1">شهر</option><option value="4">فصل دراسي</option></select></label><label>عدد الأكواد<input id="cN" type="number" min="1" max="20" value="3"></label><button class="btn">توليد الأكواد</button></form></div><div class="panel" style="margin-top:16px">${S.codes.length ? `<div class="scroll"><table class="stack"><thead><tr><th>الكود</th><th>المادة</th><th>المدة</th><th>الحالة</th><th></th></tr></thead><tbody>${S.codes.map(c => `<tr><td data-l="الكود"><span class="code" dir="ltr">${esc(c.c)}</span></td><td data-l="المادة">${subjName(c.subj)}</td><td data-l="المدة">${c.mo === 1 ? 'شهر' : 'فصل دراسي'}</td><td data-l="الحالة">${c.used ? `<span class="st no">مستخدم · ${esc(c.by)}</span>` : '<span class="st ok">متاح</span>'}</td><td data-l="">${c.used ? '' : `<button type="button" class="btn link sm" data-act="copy" data-v="${esc(c.c)}">نسخ الكود</button>`}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">لم يتم توليد أكواد تفعيل بعد.</div>'}</div>`;
   },
 
   set() {
@@ -701,7 +677,7 @@ const A = {
       </div>
       <div class="panel" style="margin-top:16px">
         <h3>أرقام الدفع والتواصل</h3>
-        <div class="fgrid">${S.wallets.map((w, i) => `<label>${w.n}<input id="w_${i}" dir="ltr" value="${esc(w.v)}"></label>`).join('')}<label>رقم واتساب الأستاذ<input id="waN" dir="ltr" value="${esc(S.wa)}"></label></div>
+        <div class="fgrid">${S.wallets.map((w, i) => `<label>${w.n}<input id="w_${i}" dir="ltr" placeholder="أدخل رقم ${w.n}" value="${esc(w.v)}"></label>`).join('')}<label>رقم واتساب الأستاذ<input id="waN" dir="ltr" placeholder="09xx xxx xxx" value="${esc(S.wa)}"></label></div>
       </div>
       <div class="panel" style="margin-top:16px">
         <h3>إعدادات الأمان وبيانات دخول الأستاذ وقاعدة البيانات</h3>
@@ -709,12 +685,11 @@ const A = {
           <label>عدد الأجهزة المسموحة لكل طالب<select id="maxDev"><option value="1" ${S.maxDevices === 1 ? 'selected' : ''}>جهاز واحد فقط (حماية قصوى)</option><option value="2" ${S.maxDevices === 2 ? 'selected' : ''}>جهازان (موبايل + لابتوب)</option></select></label>
           <label>اسم المستخدم السري للأستاذ<input id="admUser" type="text" dir="ltr" value="${esc(S.adminUser || 'shadi_admin')}"></label>
           <label>كلمة المرور السرية للأستاذ<input id="admPass" type="text" dir="ltr" value="${esc(S.adminPass)}"></label>
-          <label style="grid-column:1/-1">رابط خادم Google Apps Script Web App (اتركه فارغاً للتشغيل المحلي الفوري أو الصق رابط النشر)<input id="gasUrl" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(API_URL)}"></label>
+          <label style="grid-column:1/-1">رابط خادم Google Apps Script Web App (اختياري)<input id="gasUrl" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(API_URL)}"></label>
         </div>
       </div>
       <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
         <button class="btn">حفظ الإعدادات</button>
-        <button type="button" class="btn ghost" data-act="resetDemo">إعادة ضبط البيانات التجريبية</button>
       </div>
     </form>`;
   }
@@ -843,14 +818,15 @@ function authM(mode) {
 function payBody(p, amt) {
   if (sub.tab === 'wa') {
     const msg = `مرحبًا أستاذ شادي، أريد الاشتراك: ${p.n} · ${p.both ? 'المادتان' : SUBJ[sub.subj]} (${amt} $). الاسم: ${S.user.name} · ${S.user.phone}`;
+    if (!digits(S.wa)) return `<p class="muted">يرجى التواصل مع الأستاذ شادي عبيد مباشرة للحصول على كود التفعيل ثم إدخاله في تبويب «كود تفعيل».</p>`;
     return `<p>تواصل مع الأستاذ مباشرة، وبعد الدفع يرسل لك كود تفعيل تُدخله في تبويب «كود تفعيل».</p><a class="btn wa full" href="https://wa.me/963${digits(S.wa).replace(/^0/, '')}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${I.wa} فتح محادثة واتساب</a><p class="small" style="margin:0">الرقم: <span dir="ltr">${esc(S.wa)}</span></p>`;
   }
   if (sub.tab === 'code') {
     return `<label class="inl" style="margin:0">كود التفعيل<input id="codeIn" dir="ltr" placeholder="SH-XXXX-XX" autocomplete="off"></label><p class="err" id="codeErr"></p><button type="button" class="btn full" data-act="redeem">تفعيل الاشتراك</button><p class="small" style="margin:0">أدخل الكود الذي حصلت عليه من الأستاذ لتفعيل اشتراكك فورًا.</p>`;
   }
-  return `<p>حوّل <b>${amt} $</b> إلى أحد الأرقام التالية، ثم أدخل رقم عملية التحويل وارفع صورة الإشعار:</p>
-  <div class="wallets">${S.wallets.map((w, i) => `<label class="wl"><input type="radio" name="wal" value="${i}" ${i === sub.w ? 'checked' : ''}><span><b>${esc(w.n)}</b><span dir="ltr">${esc(w.v)}</span></span><button type="button" class="btn link sm" data-act="copy" data-v="${esc(w.v)}">نسخ</button></label>`).join('')}</div>
-  <label class="inl">رقم عملية التحويل (من رسالة أو إشعار الدفع) *<input id="txRefIn" dir="ltr" placeholder="مثال: 48219904" value="${esc(sub.txRef)}"></label>
+  return `<p>حوّل <b>${amt} $</b> عبر إحدى طرق الدفع التالية، ثم أدخل رقم عملية التحويل وارفع صورة الإشعار:</p>
+  <div class="wallets">${S.wallets.map((w, i) => `<label class="wl"><input type="radio" name="wal" value="${i}" ${i === sub.w ? 'checked' : ''}><span><b>${esc(w.n)}</b><span dir="ltr">${w.v ? esc(w.v) : '<small class="muted">يُحدّد من الإدارة</small>'}</span></span>${w.v ? `<button type="button" class="btn link sm" data-act="copy" data-v="${esc(w.v)}">نسخ</button>` : ''}</label>`).join('')}</div>
+  <label class="inl">رقم عملية التحويل (من رسالة أو إشعار الدفع) *<input id="txRefIn" dir="ltr" placeholder="أدخل رقم العملية" value="${esc(sub.txRef)}"></label>
   <label class="drop" for="rcpt">${sub.file ? `<img src="${sub.file}" alt="صورة الإشعار المرفوعة"><span>اضغط لتغيير الصورة</span>` : `${I.up}<span>اضغط لرفع صورة إشعار التحويل</span>`}</label>
   <input type="file" id="rcpt" accept="image/*" hidden>
   <p class="err" id="payErr"></p>
@@ -1609,8 +1585,8 @@ document.addEventListener('submit', e => {
       const v = Number($('#pr_' + p.id).value);
       if (v >= 0) S.prices[p.id] = v;
     });
-    S.wallets.forEach((w, i) => { w.v = $('#w_' + i).value.trim() || w.v; });
-    S.wa = $('#waN').value.trim() || S.wa;
+    S.wallets.forEach((w, i) => { w.v = $('#w_' + i).value.trim(); });
+    S.wa = $('#waN').value.trim();
     S.maxDevices = Number($('#maxDev').value) || 1;
     if ($('#admUser') && $('#admUser').value.trim().length >= 3) S.adminUser = $('#admUser').value.trim();
     if ($('#admPass').value.trim().length >= 4) S.adminPass = $('#admPass').value.trim();
