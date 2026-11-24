@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1d3b33">
+<title>منصة الأستاذ شادي عبيد — الرياضيات والفيزياء</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#fbfaf6,#0e1412);--ink:light-dark(#14201c,#e8eee9);--muted:light-dark(#5b6964,#9eb0a8);--card:light-dark(#ffffff,#161f1c);--line:light-dark(#e4e1d7,#2a3632);--soft:light-dark(#f2f0e8,#1b2522);--brand:light-dark(#1d3b33,#f5b83d);--board:#1d3b33;--chalk:#f3f0e6;--acc:#f5b83d;--acc-ink:#2a1d00;--ok:light-dark(#1f7a4d,#5fd39a);--warn:light-dark(#8a4f00,#f5b83d);--bad:light-dark(#b42318,#ff8a80)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;overflow-x:clip;-webkit-user-select:none;user-select:none}
+input,textarea,select{-webkit-user-select:text;user-select:text}
+body.noscroll{overflow:hidden}
+h1,h2,h3,h4{font-family:'Readex Pro','IBM Plex Sans Arabic',sans-serif;line-height:1.25;margin:0;text-wrap:balance}
+h1{font-size:clamp(30px,4.2vw,48px);font-weight:700}
+h2{font-size:clamp(26px,3vw,36px)}
+h3{font-size:19px}
+p{margin:0}
+img{max-width:100%}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1240px;margin-inline:auto}
+.band{padding-block:clamp(32px,5vw,72px);padding-inline:max(5vw,16px)}
+.demo{background:#0c1714;color:#e9e5d8;padding:8px max(5vw,16px);font-size:14px}
+.demoin{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.seg{display:flex;background:#1d2b27;border-radius:999px;padding:3px}
+.seg button{border:0;background:none;color:#cfd8d3;border-radius:999px;padding:8px 14px;min-height:38px;cursor:pointer;font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px}
+.seg button[aria-pressed=true]{background:var(--acc);color:var(--acc-ink)}
+.badge{background:#e5484d;color:#fff;border-radius:999px;font-size:12px;padding:0 7px;line-height:20px;min-width:20px;text-align:center}
+.badge:empty{display:none}
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-inline:max(5vw,16px)}
+.topin{display:flex;align-items:center;gap:16px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand b{display:block;font-family:'Readex Pro',sans-serif;font-size:17px;line-height:1.2}
+.brand small{color:var(--muted);font-size:13px}
+.mark{width:42px;height:42px;border-radius:12px;background:var(--board);color:var(--acc);display:grid;place-items:center;font:700 22px 'Readex Pro',sans-serif;flex:none}
+.nav{display:flex;gap:4px;margin-inline-start:auto}
+.nav a{text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--muted);font-weight:500}
+.nav a:hover{color:var(--ink);background:var(--soft)}
+.acct{display:flex;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;background:var(--acc);color:var(--acc-ink);font-weight:700;padding:12px 20px;min-height:46px;cursor:pointer;text-decoration:none;transition:transform .15s,filter .15s;white-space:nowrap}
+.btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn:disabled{opacity:.55;pointer-events:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,label:focus-within{outline:3px solid color-mix(in srgb,var(--acc) 70%,transparent);outline-offset:2px}
+.btn.sm{padding:8px 14px;min-height:40px;font-size:14px;border-radius:10px}
+.btn.xs{padding:4px 10px;min-height:32px;font-size:13px;border-radius:8px}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.chalk{background:transparent;color:var(--chalk);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--chalk) 45%,transparent)}
+.btn.link{background:none;color:var(--muted);padding:6px 8px;min-height:auto;box-shadow:none}
+.btn.danger{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
+.btn.full{width:100%}
+.btn.wa{background:#25d366;color:#04230f}
+.btn.okb{background:var(--ok);color:light-dark(#fff,#04230f)}
+.btn svg,.ib svg{width:18px;height:18px;flex:none}
+.board{background:var(--board);color:var(--chalk);background-image:radial-gradient(ellipse at 20% 0%,rgba(255,255,255,.07),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(0,0,0,.25),transparent 60%)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);align-items:center}
+.htxt p{font-size:18px;margin-top:16px;color:color-mix(in srgb,var(--chalk) 82%,transparent);max-width:34em}
+.ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.facts{list-style:none;margin:28px 0 0;display:flex;gap:28px;flex-wrap:wrap;border-top:1px dashed color-mix(in srgb,var(--chalk) 30%,transparent);padding:18px 0 0}
+.facts b{display:block;font:700 30px/1 'Readex Pro',sans-serif;color:var(--acc)}
+.facts li{font-size:15px}
+.hpic svg{width:100%;height:auto;display:block}
+.sechead{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.tabs{display:flex;gap:6px;background:var(--soft);padding:4px;border-radius:14px;flex-wrap:wrap}
+.tabs button{white-space:nowrap;border:0;background:none;padding:9px 16px;border-radius:10px;cursor:pointer;font-weight:600;color:var(--muted);min-height:42px;display:flex;align-items:center;justify-content:center;gap:6px}
+.tabs button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tabs button .cnt{font-size:12px;background:var(--line);border-radius:999px;padding:0 7px}
+.note{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-radius:12px;background:color-mix(in srgb,var(--acc) 16%,var(--card));margin-bottom:22px;font-weight:500}
+.note.ok{background:color-mix(in srgb,var(--ok) 14%,var(--card))}
+.note.bad{background:color-mix(in srgb,var(--bad) 14%,var(--card));color:var(--bad)}
+.note>svg{width:20px;height:20px;flex:none}
+.note .btn{margin-inline-start:auto}
+.prog-bar{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.prog-track{flex:1;min-width:180px;height:10px;background:var(--soft);border-radius:999px;overflow:hidden}
+.prog-fill{height:100%;background:var(--ok);border-radius:999px;transition:width .3s}
+.units{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.unit{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.unit h3{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;font-size:18px}
+.unit h3 span{font-size:13px;color:var(--muted);font-weight:500}
+.lrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;text-align:start;background:none;border:0;border-top:1px solid var(--line);padding:12px 4px;cursor:pointer;border-radius:0}
+.lrow:hover .num{transform:scale(1.07)}
+.num{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--board);color:var(--acc);transition:transform .15s;position:relative}
+.num svg{width:16px;height:16px}
+.num.done-c{background:var(--ok);color:#fff}
+.lrow.locked .num{background:var(--soft);color:var(--muted)}
+.lt b{display:flex;align-items:center;gap:6px;font-weight:600;flex-wrap:wrap}
+.lt small{color:var(--muted);font-size:13px;display:flex;align-items:center;gap:8px}
+.lrow.locked .lt b{color:var(--muted)}
+.tag{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.tag.free{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
+.tag.open{background:color-mix(in srgb,var(--acc) 24%,transparent);color:var(--warn)}
+.tag.lk{background:var(--soft);color:var(--muted)}
+.tag.pdf{background:color-mix(in srgb,var(--brand) 14%,transparent);color:var(--brand);font-size:11px;padding:1px 7px}
+.soft{background:var(--soft)}
+.lead{color:var(--muted);margin:8px 0 24px;font-size:17px}
+.plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.plan{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:6px}
+.plan.best{background:var(--board);color:var(--chalk);border-color:var(--board)}
+.ribbon{position:absolute;top:16px;inset-inline-end:16px;background:var(--acc);color:var(--acc-ink);font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px}
+.psub{color:var(--muted)}
+.plan.best .psub{color:color-mix(in srgb,var(--chalk) 70%,transparent)}
+.price{margin:8px 0}
+.price b{font:700 44px/1 'Readex Pro',sans-serif}
+.plan ul{padding-inline-start:18px;margin:4px 0 18px;font-size:15px;flex:1}
+.plan li{margin-bottom:4px}
+.small{font-size:13px;color:var(--muted);margin-top:14px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:24px}
+.stp{border-top:3px solid var(--brand);padding-top:16px}
+.si{width:48px;height:48px;border-radius:14px;background:var(--soft);display:grid;place-items:center;color:var(--brand);margin-bottom:12px}
+.si svg{width:24px;height:24px}
+.stp h3{margin-bottom:6px}
+.stp p{color:var(--muted)}
+.foot{padding:28px max(5vw,16px)}
+.footin{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:end}
+.foot .small{color:color-mix(in srgb,var(--chalk) 65%,transparent);margin:0}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(5,12,10,.68);display:grid;place-items:center;padding:16px;overflow:auto}
+.modal[hidden]{display:none}
+.dlg{position:relative;background:var(--card);color:var(--ink);border-radius:20px;width:min(540px,100%);max-height:calc(100dvh - 32px);overflow:auto;padding:26px;box-shadow:0 20px 50px rgba(0,0,0,.35);animation:pop .2s ease-out}
+.dlg.wide{width:min(920px,100%)}
+@keyframes pop{from{transform:translateY(10px);opacity:0}}
+.x{position:absolute;top:10px;inset-inline-end:10px;width:40px;height:40px;border-radius:50%;border:0;background:var(--soft);font-size:22px;cursor:pointer;line-height:1;z-index:2}
+.dlg h3{font-size:22px;margin-bottom:14px;padding-inline-end:40px}
+.form{display:grid;gap:14px}
+.form label,.inl{display:grid;gap:6px;font-weight:600;font-size:15px}
+input,select{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;font-size:16px;min-height:46px;width:100%}
+.err{color:var(--bad);font-size:14px;min-height:1em}
+.switch{text-align:center;color:var(--muted);font-size:15px}
+.row2{display:flex;gap:10px;flex-wrap:wrap}
+.row2>*{flex:1}
+.mhead{text-align:center;margin-bottom:18px}
+.mhead p{color:var(--muted)}
+.mhead h3{padding:0;margin:12px 0 6px}
+.cic{width:64px;height:64px;border-radius:50%;background:var(--soft);display:grid;place-items:center;margin:0 auto;color:var(--muted)}
+.cic svg{width:28px;height:28px}
+.cic.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.step{font-weight:700;margin:16px 0 8px}
+.pick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pk{border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 12px;text-align:start;cursor:pointer;display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:52px}
+.pk b{font-size:14px;font-weight:600}
+.pk span{font-weight:700;white-space:nowrap}
+.pk[aria-pressed=true]{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,var(--bg))}
+.inl{margin-top:10px}
+.tabs.sm button{font-size:14px;padding:8px 10px;flex:1}
+.pbody{margin-top:14px;display:grid;gap:12px}
+.wallets{display:grid;gap:8px}
+.wl{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;cursor:pointer}
+.wl input{width:18px;height:18px;min-height:0;accent-color:var(--board);flex:none}
+.wl>span{flex:1;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.drop{border:2px dashed var(--line);border-radius:14px;min-height:110px;display:grid;place-items:center;gap:6px;cursor:pointer;color:var(--muted);text-align:center;padding:12px}
+.drop img{max-height:200px;border-radius:8px}
+.drop svg{width:28px;height:28px}
+.done{text-align:center}
+.done p{color:var(--muted);margin-bottom:16px}
+.tip{background:color-mix(in srgb,var(--acc) 16%,var(--card));border-radius:12px;padding:12px;font-size:14px;margin-bottom:14px;text-align:start}
+.subs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.sb{border:1px solid var(--line);border-radius:12px;padding:12px;display:grid}
+.sb span{font-size:14px;color:var(--muted)}
+.sb.on{border-color:var(--ok)}
+.sb.on span{color:var(--ok)}
+.rq{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:15px;align-items:center}
+.st{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.st.pending{background:color-mix(in srgb,var(--acc) 24%,transparent);color:var(--warn)}
+.st.ok{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
+.st.no{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+h4{margin:16px 0 6px}
+.muted{color:var(--muted)}
+
+/* مشغل الفيديو المحمي بطبقة العزل والعلامة المائية */
+.player{display:grid;gap:12px}
+.scr{position:relative;aspect-ratio:16/9;background:var(--board);background-image:radial-gradient(ellipse at 30% 10%,rgba(255,255,255,.08),transparent 60%);border-radius:14px;overflow:hidden;color:var(--chalk);display:grid;place-content:center;text-align:center;gap:8px;padding:20px;border:8px solid #7a4f27;cursor:pointer;user-select:none}
+.scr:fullscreen,.scr:-webkit-full-screen{border-width:4px;border-radius:0;width:100vw;height:100vh}
+.scr iframe,.scr video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;z-index:1}
+/* تكبير طفيف لإخفاء حواف وشعارات يوتيوب تماماً */
+.scr iframe.yt-frame{width:100%;height:118%;top:-9%;left:0;pointer-events:none}
+/* طبقة عزل شفافة تمنع النقر على أزرار يوتيوب أو المشاركة أو الزر الأيمن */
+.v-shield{position:absolute;inset:0;z-index:3;background:transparent;cursor:pointer}
+/* طبقة عزل زر فتح نافذة خارجية في Google Drive */
+.drive-shield{position:absolute;top:0;left:0;right:0;height:64px;z-index:4;background:transparent}
+/* العلامة المائية الديناميكية المحمية ضد الحذف */
+.wm{position:absolute;z-index:6;font-size:13px;font-weight:700;color:rgba(255,255,255,.46);background:rgba(0,0,0,.22);padding:2px 9px;border-radius:6px;transform:rotate(-8deg);white-space:nowrap;transition:top 1.4s ease,left 1.4s ease;pointer-events:none;top:18%;left:12%;text-shadow:0 1px 2px rgba(0,0,0,.8);letter-spacing:.02em}
+.wm-ghost{position:absolute;z-index:6;font-size:11px;font-weight:700;color:rgba(245,184,61,.32);pointer-events:none;bottom:14%;right:16%;font-family:ui-monospace,Consolas,monospace}
+/* ضبابية الأمان عند فقدان التركيز أو محاولة تصوير الشاشة */
+.scr.blurred>*:not(.sec-overlay){filter:blur(18px)!important}
+.sec-overlay{position:absolute;inset:0;z-index:8;background:rgba(12,23,20,.92);color:#fff;display:none;place-content:center;text-align:center;padding:24px;gap:10px}
+.scr.blurred .sec-overlay,.scr.tampered .sec-overlay{display:grid}
+.sc-u{font-size:14px;opacity:.7;position:relative;z-index:2}
+.sc-t{font:700 clamp(22px,4vw,36px) 'Readex Pro',sans-serif;position:relative;z-index:2}
+.sc-f{font:700 clamp(26px,5vw,48px) 'Caveat',cursive;color:#fff3c9;clip-path:inset(0 100% 0 0);animation:write 2.4s .4s ease forwards;position:relative;z-index:2}
+@keyframes write{to{clip-path:inset(0 0 0 0)}}
+.bigp{position:absolute;z-index:5;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:opacity .2s;pointer-events:none}
+.bigp svg{width:30px;height:30px}
+.scr.on .bigp{opacity:0}
+.ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ib{height:42px;min-width:42px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--soft);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+.ib:hover{background:var(--line)}
+#prog{direction:ltr;flex:1;min-width:120px;accent-color:var(--acc);min-height:0;padding:0;border:0;background:none}
+.tm{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted);white-space:nowrap}
+.pinfo{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap}
+.pinfo h3{margin-bottom:4px}
+.pinfo p{color:var(--muted);font-size:14px}
+.sec-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok);padding:4px 10px;border-radius:999px;font-weight:600}
+.big{width:100%;border-radius:12px;display:block}
+
+/* لوحة تحكم الأستاذ */
+.adm{padding:clamp(24px,4vw,48px) max(5vw,16px);min-height:70vh}
+.ahead{margin-bottom:18px;display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.ahead h1{font-size:clamp(26px,3vw,36px)}
+.adm-t{margin-bottom:20px;flex-wrap:nowrap;overflow-x:auto}
+.adm-t button{white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.stat span{color:var(--muted);font-size:14px}
+.stat b{display:block;font:700 34px/1.1 'Readex Pro',sans-serif;margin-top:6px;white-space:nowrap}
+.stat.hl{background:var(--board);color:var(--chalk);border-color:var(--board)}
+.stat.hl span{color:color-mix(in srgb,var(--chalk) 70%,transparent)}
+.stat.hl b{color:var(--acc)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.panel h3{margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.bars{display:grid;gap:12px}
+.bar{display:grid;grid-template-columns:minmax(0,10em) minmax(0,1fr) auto;gap:10px;align-items:center;font-size:14px}
+.bar i{display:block;height:12px;border-radius:6px;background:var(--brand)}
+.bar em{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.rlist{display:grid;gap:12px}
+.rcard{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+.thumb{width:72px;height:96px;border:1px solid var(--line);border-radius:10px;overflow:hidden;padding:0;cursor:zoom-in;background:var(--soft)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.rinfo{display:grid;font-size:14px;gap:2px}
+.rinfo b{font-size:16px}
+.ramt{display:grid;gap:8px;justify-items:end}
+.ramt>b{font:700 22px 'Readex Pro',sans-serif;white-space:nowrap}
+.mini{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line);align-items:center;font-size:15px}
+.empty{text-align:center;color:var(--muted);padding:30px;border:1.5px dashed var(--line);border-radius:16px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:start;font-size:13px;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tool{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center;justify-content:space-between}
+.tool input{max-width:320px}
+.sw{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;white-space:nowrap}
+.sw input{appearance:none;-webkit-appearance:none;width:44px;height:26px;min-height:0;padding:0;border-radius:999px;background:var(--line);border:0;position:relative;cursor:pointer;transition:background .2s;flex:none}
+.sw input::after{content:'';position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.sw input:checked{background:var(--ok)}
+.sw input:checked::after{transform:translateX(-18px)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;align-items:end;margin-top:12px}
+.fgrid label{display:grid;gap:6px;font-weight:600;font-size:14px}
+.fgrid label.chk{display:flex;align-items:center;gap:8px;min-height:46px}
+.chk input{width:20px;height:20px;min-height:0;accent-color:var(--ok)}
+.code{font-family:ui-monospace,Consolas,monospace;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.dev-tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;background:var(--soft);padding:2px 8px;border-radius:6px;color:var(--ink)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0c1714;color:#f3f0e6;padding:12px 20px;border-radius:12px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.3);font-weight:600;max-width:calc(100% - 32px);text-align:center}
+.toast[hidden]{display:none}
+@media(max-width:1000px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){.nav{display:none}.acct{margin-inline-start:auto}.brand small{display:none}.units{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.plans{grid-template-columns:minmax(0,1fr)}.rcard{grid-template-columns:auto minmax(0,1fr)}.ramt{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}.pick{grid-template-columns:minmax(0,1fr)}.subs{grid-template-columns:minmax(0,1fr)}.dlg{padding:20px 16px}.bar{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}}
+@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-bottom:1px solid var(--line)}.stack td{display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;padding:4px 0}.stack td::before{content:attr(data-l);color:var(--muted);font-size:13px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.sc-f{clip-path:none}}
+</style>
+</head>
+<body>
+<div class="demo" id="demoBar">
+  <div class="wrap demoin">
+    <span>منصة الأستاذ شادي عبيد · نظام الحماية وقفل الجهاز مفعّل 🛡️</span>
+    <div class="seg" role="group" aria-label="تبديل الواجهة">
+      <button type="button" data-act="view" data-view="student" aria-pressed="true">واجهة الطالب</button>
+      <button type="button" data-act="view" data-view="admin" aria-pressed="false">لوحة تحكم المدرّس <span class="badge" id="pc"></span></button>
+    </div>
+  </div>
+</div>
+<main id="app"></main>
+<div id="modal" class="modal" hidden></div>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script>
+{
+/* ============================================================================
+ * 1. إعدادات الاتصال بخادم Google Apps Script والبصمة الأمنية للجهاز
+ * ============================================================================ */
+const STORAGE_KEY = 'SHADI_PLATFORM_STATE_V2';
+const DEVICE_KEY  = 'SHADI_DEVICE_FP_V2';
+
+// ضع رابط نشر Google Apps Script Web App هنا (أو من داخل لوحة تحكم الأستاذ -> الأسعار والدفع)
+let API_URL = localStorage.getItem('SHADI_GAS_API_URL') || 'https://script.google.com/macros/s/AKfycbyHaiA7xhs3cquq9LFj7jxofpuPJeaB86jZiW-sccj_zlL-8VmHD4eSgAd9lnj99ofMUQ/exec';
+
+const now = Date.now(), DAY = 864e5, HR = 36e5;
+const SUBJ = { math: 'الرياضيات', phys: 'الفيزياء' };
+const PLANS = [
+  { id: 'm1', n: 'شهر', sub: 'مادة واحدة', mo: 1, both: false },
+  { id: 'm2', n: 'شهر', sub: 'المادتان معًا', mo: 1, both: true },
+  { id: 't1', n: 'فصل دراسي', sub: 'مادة واحدة', mo: 4, both: false },
+  { id: 't2', n: 'فصل دراسي', sub: 'المادتان معًا', mo: 4, both: true }
+];
+const ST = { pending: 'بانتظار التأكيد', ok: 'مقبول', no: 'مرفوض' };
+
+/**
+ * توليد بصمة رقمية فريدة وثابتة لجهاز ومتصفح الطالب (Device Fingerprint)
+ */
+function getDeviceFingerprint() {
+  let fp = localStorage.getItem(DEVICE_KEY);
+  if (fp) return fp;
+  const nav = window.navigator || {};
+  const scr = window.screen || {};
+  const raw = [
+    nav.userAgent || '',
+    nav.language || '',
+    nav.hardwareConcurrency || '',
+    scr.width + 'x' + scr.height,
+    scr.colorDepth || '',
+    Intl.DateTimeFormat().resolvedOptions().timeZone || ''
+  ].join('|');
+  let hash = 2166136261;
+  for (let i = 0; i < raw.length; i++) {
+    hash ^= raw.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  const rand = Math.random().toString(36).substring(2, 8).toUpperCase();
+  fp = 'DEV-' + (hash >>> 0).toString(16).toUpperCase() + '-' + rand;
+  localStorage.setItem(DEVICE_KEY, fp);
+  return fp;
+}
+
+function getDeviceLabel() {
+  const ua = navigator.userAgent || '';
+  const os = /Android/i.test(ua) ? 'Android' : /iPhone|iPad/i.test(ua) ? 'iOS' : /Windows/i.test(ua) ? 'Windows' : /Mac/i.test(ua) ? 'Mac' : 'Web';
+  const br = /Edg/i.test(ua) ? 'Edge' : /Chrome/i.test(ua) ? 'Chrome' : /Firefox/i.test(ua) ? 'Firefox' : /Safari/i.test(ua) ? 'Safari' : 'Browser';
+  return os + ' · ' + br;
+}
+
+const MY_DEVICE_FP = getDeviceFingerprint();
+const MY_DEVICE_LABEL = getDeviceLabel();
+
+/* ============================================================================
+ * 2. البيانات الافتراضية والحفظ الدائم (LocalStorage + Google Sheets Sync)
+ * ============================================================================ */
+const DEFAULT_LESSONS = {
+  math: [
+    { id: 'm1', u: 'التوابع والنهايات', t: 'النهايات والاستمرار', d: '12:40', free: true, f: 'lim f(x) = L', v: 412, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'm2', u: 'التوابع والنهايات', t: 'المقاربات', d: '09:15', free: true, f: 'y = ax + b', v: 356, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'm3', u: 'الاشتقاق', t: 'قواعد الاشتقاق', d: '14:05', free: false, f: "(xⁿ)' = n·xⁿ⁻¹", v: 298, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'm4', u: 'الاشتقاق', t: 'دراسة تغيّرات تابع', d: '16:30', free: false, f: "f'(x) > 0 ⇒ f ↗", v: 251, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'm5', u: 'التكامل', t: 'التابع الأصلي', d: '11:20', free: false, f: '∫ f(x) dx = F(x) + C', v: 214, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'm6', u: 'التكامل', t: 'حساب المساحات', d: '13:45', free: false, f: 'A = ∫ |f(x)| dx', v: 187, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'm7', u: 'الأعداد العقدية', t: 'الشكل الجبري والمثلثي', d: '15:10', free: false, f: 'z = r(cosθ + i·sinθ)', v: 176, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'm8', u: 'الأعداد العقدية', t: 'حل المعادلات في C', d: '12:00', free: false, f: 'z² + 1 = 0 ⇒ z = ±i', v: 149, provider: 'chalkboard', videoSource: '', pdfUrl: '' }
+  ],
+  phys: [
+    { id: 'p1', u: 'الاهتزازات', t: 'النوّاس المرن', d: '13:25', free: true, f: 'T₀ = 2π√(m/k)', v: 389, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'p2', u: 'الاهتزازات', t: 'النوّاس الثقلي', d: '11:50', free: true, f: 'T₀ = 2π√(l/g)', v: 301, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'p3', u: 'الأمواج', t: 'الأمواج الميكانيكية', d: '12:35', free: false, f: 'v = λ · f', v: 233, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'p4', u: 'الأمواج', t: 'تداخل الأمواج', d: '10:40', free: false, f: 'Δd = k·λ', v: 198, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'p5', u: 'التيار المتناوب', t: 'الممانعة والتجاوب', d: '15:55', free: false, f: 'Z = √(R² + (Lω − 1/Cω)²)', v: 205, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'p6', u: 'التيار المتناوب', t: 'الدارة المهتزة', d: '14:20', free: false, f: 'T₀ = 2π√(LC)', v: 166, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'p7', u: 'الكهرطيسية', t: 'التحريض الكهرطيسي', d: '13:00', free: false, f: 'ε = −dΦ/dt', v: 158, provider: 'chalkboard', videoSource: '', pdfUrl: '' },
+    { id: 'p8', u: 'الكهرطيسية', t: 'قوة لابلاس', d: '11:30', free: false, f: 'F = I·L·B·sinα', v: 131, provider: 'chalkboard', videoSource: '', pdfUrl: '' }
+  ]
+};
+
+let L = JSON.parse(JSON.stringify(DEFAULT_LESSONS));
+let S = {
+  view: 'student',
+  subj: 'math',
+  user: null,
+  token: '',
+  tab: 'home',
+  rf: 'pending',
+  as: 'math',
+  q: '',
+  demoBar: true,
+  maxDevices: 1,
+  adminPhone: '0988 765 432',
+  adminPass: 'shadi2026',
+  prices: { m1: 10, m2: 18, t1: 25, t2: 45 },
+  wallets: [
+    { n: 'شام كاش', v: '0991 234 567' },
+    { n: 'سيريتل كاش', v: '0933 456 789' },
+    { n: 'MTN كاش', v: '0944 567 890' }
+  ],
+  wa: '0988 765 432',
+  progress: {},
+  students: [
+    { id: 1, name: 'رهف سليمان', phone: '0932 118 420', pass: '1234', subs: { math: now + 24 * DAY, phys: now + 24 * DAY }, deviceFp: 'DEV-89A1-K2', deviceLabel: 'Android · Chrome', deviceAlerts: 0, status: 'active', joined: now - 40 * DAY },
+    { id: 2, name: 'محمد الخطيب', phone: '0945 302 771', pass: '1234', subs: { math: now + 9 * DAY }, deviceFp: 'DEV-44B9-M1', deviceLabel: 'Windows · Chrome', deviceAlerts: 2, status: 'active', joined: now - 21 * DAY },
+    { id: 3, name: 'لين حداد', phone: '0988 640 215', pass: '1234', subs: { phys: now + 17 * DAY }, deviceFp: 'DEV-71C2-P9', deviceLabel: 'iOS · Safari', deviceAlerts: 0, status: 'active', joined: now - 18 * DAY },
+    { id: 4, name: 'عمر الحلبي', phone: '0936 527 904', pass: '1234', subs: {}, deviceFp: '', deviceLabel: '', deviceAlerts: 0, status: 'active', joined: now - 6 * DAY },
+    { id: 5, name: 'سارة النجار', phone: '0991 473 386', pass: '1234', subs: { math: now - 3 * DAY }, deviceFp: 'DEV-12F5-X0', deviceLabel: 'Android · Chrome', deviceAlerts: 0, status: 'active', joined: now - 60 * DAY },
+    { id: 6, name: 'يوسف العلي', phone: '0957 210 648', pass: '1234', subs: {}, deviceFp: '', deviceLabel: '', deviceAlerts: 0, status: 'active', joined: now - 2 * DAY }
+  ],
+  requests: [
+    { id: 11, sid: 6, plan: 'm1', subj: 'phys', method: 'سيريتل كاش', txRef: '48211507', amount: 10, at: now - 0.6 * HR, st: 'pending' },
+    { id: 10, sid: 4, plan: 'm2', subj: 'both', method: 'شام كاش', txRef: '48211370', amount: 18, at: now - 3.2 * HR, st: 'pending' },
+    { id: 9, sid: 1, plan: 'm2', subj: 'both', method: 'شام كاش', txRef: '48211233', amount: 18, at: now - 6 * DAY, st: 'ok' },
+    { id: 8, sid: 3, plan: 'm1', subj: 'phys', method: 'MTN كاش', txRef: '48211096', amount: 10, at: now - 13 * DAY, st: 'ok' },
+    { id: 7, sid: 2, plan: 'm1', subj: 'math', method: 'شام كاش', txRef: '48210959', amount: 10, at: now - 21 * DAY, st: 'ok' }
+  ],
+  codes: [
+    { c: 'SH-4KQ7-M2', subj: 'both', mo: 1, used: false },
+    { c: 'SH-9TX3-P8', subj: 'math', mo: 1, used: true, by: 'سارة النجار' }
+  ]
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (parsed.L) L = parsed.L;
+    if (parsed.S) {
+      S = Object.assign(S, parsed.S);
+      if (S.user && S.user.role !== 'admin') {
+        const fresh = S.students.find(x => x.id === S.user.id);
+        if (fresh) S.user = fresh;
+      }
+    }
+  } catch (e) {}
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S }));
+  } catch (e) {}
+}
+
+loadState();
+
+/**
+ * استدعاء خادم Google Apps Script في حال تم ربط API_URL
+ */
+async function callGasApi(action, payload = {}) {
+  if (!API_URL) return null;
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({
+      action,
+      payload,
+      auth: { token: S.token, deviceFp: MY_DEVICE_FP }
+    })
+  });
+  const json = await res.json();
+  if (!json.ok) throw new Error(json.error || 'حدث خطأ في الاتصال بالخادم');
+  return json.data;
+}
+
+let uid = 200, after = null, P = null, tick = null, wmT = null, wmObserver = null, ytPlayer = null;
+const sub = { plan: 'm1', subj: 'math', w: 0, tab: 'pay', file: null, txRef: '' };
+const $ = s => document.querySelector(s);
+const app = $('#app'), modal = $('#modal');
+
+const I = {
+  play: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>',
+  pause: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4.5" height="16" rx="1.2"/><rect x="13.5" y="4" width="4.5" height="16" rx="1.2"/></svg>',
+  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+  up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>',
+  wa: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 13.9c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7a11.6 11.6 0 0 1-4.6-4.1c-.4-.5-1-1.6-1-2.8s.6-1.9.9-2.1c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.8-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.6-.1 1.2z"/></svg>',
+  person: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M3 21c1.2-3.6 3.8-5.5 7-5.5M17 14v6M14 17h6"/></svg>',
+  card: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 15h4"/></svg>',
+  open: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 7.6-1.7"/></svg>',
+  fs: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>'
+};
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmtD = t => new Date(t).toLocaleDateString('ar-SY-u-nu-latn', { day: 'numeric', month: 'long', year: 'numeric' });
+const fmtS = t => new Date(t).toLocaleDateString('ar-SY-u-nu-latn', { day: 'numeric', month: 'short' });
+const pl = (n, one, two, few, many) => n <= 1 ? one : n === 2 ? two : n <= 10 ? `${n} ${few}` : `${n} ${many}`;
+const ago = t => {
+  const m = Math.max(1, Math.round((Date.now() - t) / 6e4));
+  if (m < 60) return 'قبل ' + pl(m, 'دقيقة', 'دقيقتين', 'دقائق', 'دقيقة');
+  const h = Math.round(m / 60);
+  if (h < 24) return 'قبل ' + pl(h, 'ساعة', 'ساعتين', 'ساعات', 'ساعة');
+  return 'قبل ' + pl(Math.round(h / 24), 'يوم', 'يومين', 'أيام', 'يومًا');
+};
+const stu = id => S.students.find(s => s.id === id) || { name: 'طالب', phone: '' };
+const plan = id => PLANS.find(p => p.id === id) || PLANS[0];
+const active = (s, k) => !!(s && (s.role === 'admin' || (s.subs && s.subs[k] && s.subs[k] > Date.now())));
+const canWatch = (l, k) => l.free || active(S.user, k);
+const subjName = k => k === 'both' ? 'المادتان' : SUBJ[k];
+const addM = (t, m) => { const d = new Date(t); d.setMonth(d.getMonth() + m); return d.getTime(); };
+const digits = s => String(s || '').replace(/\D/g, '');
+
+function grant(s, subj, mo) {
+  if (!s.subs) s.subs = {};
+  (subj === 'both' ? ['math', 'phys'] : [subj]).forEach(k => {
+    s.subs[k] = addM(Math.max(Date.now(), s.subs[k] || 0), mo);
+  });
+  saveState();
+}
+
+function toast(t) {
+  const el = $('#toast');
+  el.textContent = t;
+  el.hidden = false;
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => { el.hidden = true; }, 3200);
+}
+
+function rimg(r) {
+  if (r.receipt) return r.receipt;
+  const s = stu(r.sid);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 320" font-family="Tahoma,sans-serif"><rect width="240" height="320" rx="14" fill="#f7f7f2"/><path d="M0 14a14 14 0 0 1 14-14h212a14 14 0 0 1 14 14v50H0z" fill="#1b5e4a"/><text x="120" y="40" fill="#fff" font-size="17" text-anchor="middle">${esc(r.method)}</text><circle cx="120" cy="100" r="22" fill="#2fa36b"/><path d="M109 100l8 8 15-16" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><text x="120" y="148" font-size="14" text-anchor="middle" fill="#333">تمت عملية التحويل</text><text x="120" y="186" font-size="28" font-weight="700" text-anchor="middle" fill="#111">${r.amount} $</text><line x1="20" y1="206" x2="220" y2="206" stroke="#ddd" stroke-dasharray="4 4"/><text x="220" y="232" font-size="12" text-anchor="end" fill="#666">من: ${esc(s ? s.name : '')}</text><text x="220" y="254" font-size="12" text-anchor="end" fill="#666">إلى: شادي عبيد</text><text x="220" y="276" font-size="12" text-anchor="end" fill="#666">رقم العملية: ${esc(r.txRef || (48210000 + r.id * 137))}</text><text x="220" y="298" font-size="12" text-anchor="end" fill="#666">${fmtS(r.at)}</text></svg>`;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
+/**
+ * تحليل رابط الفيديو (YouTube Unlisted أو Google Drive أو مباشر)
+ */
+function parseVideoUrl(rawUrl) {
+  const url = String(rawUrl || '').trim();
+  if (!url) return { provider: 'chalkboard', id: '' };
+  const yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/);
+  if (yt || /^[a-zA-Z0-9_-]{11}$/.test(url)) {
+    return { provider: 'youtube', id: yt ? yt[1] : url };
+  }
+  const dr = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (dr || url.includes('drive.google.com')) {
+    return { provider: 'drive', id: dr ? dr[1] : url };
+  }
+  return { provider: 'direct', id: url };
+}
+
+const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" role="img" aria-label="شاشة درس على سبورة مع زر تشغيل"><defs><linearGradient id="bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c5a4c"/><stop offset="1" stop-color="#16302a"/></linearGradient><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a6a37"/><stop offset="1" stop-color="#6e4520"/></linearGradient></defs><rect x="14" y="22" width="540" height="334" rx="20" fill="#0b1915" opacity=".55"/><rect x="4" y="4" width="540" height="334" rx="18" fill="url(#wd)"/><rect x="18" y="18" width="512" height="262" rx="8" fill="url(#bd)"/><g fill="none" stroke="#f3f0e6" stroke-width="2.4" stroke-linecap="round" opacity=".88"><path d="M52 210H262M70 232V70"/><path d="M70 150c18-60 36-60 54 0s36 60 54 0 36-60 54 0" stroke="#f5b83d"/><path d="M372 64H492"/><path d="M432 64L462 178" stroke-dasharray="0"/><path d="M432 64L402 178" stroke-dasharray="4 7" opacity=".6"/><path d="M398 192q32 22 68 0" stroke-dasharray="3 6" opacity=".7"/></g><circle cx="465" cy="190" r="15" fill="#f3f0e6" opacity=".9"/><circle cx="460" cy="185" r="5" fill="#fff"/><g font-family="Caveat,cursive" font-weight="700" fill="#f3f0e6"><text x="88" y="64" font-size="28">f(x) = sin x</text><text x="356" y="250" font-size="30" fill="#fff3c9">T₀ = 2π√(l/g)</text><text x="60" y="262" font-size="24" opacity=".85">∫ sin x dx = −cos x + C</text></g><g><circle cx="274" cy="146" r="38" fill="#f5b83d"/><circle cx="274" cy="146" r="38" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="6"/><path d="M262 128v36l30-18z" fill="#2a1d00"/></g><text x="300" y="112" font-size="13" fill="#f3f0e6" opacity=".35" transform="rotate(-10 300 112)" font-family="Tahoma,sans-serif">أحمد · 0933 000 000</text><rect x="18" y="290" width="512" height="36" rx="8" fill="#0c1915"/><rect x="34" y="306" width="300" height="4" rx="2" fill="#2c4a42"/><rect x="34" y="306" width="118" height="4" rx="2" fill="#f5b83d"/><circle cx="152" cy="308" r="7" fill="#f5b83d"/><text x="514" y="313" font-size="13" fill="#cfd8d3" text-anchor="end" font-family="Tahoma,sans-serif">04:58 / 11:50</text><text x="420" y="313" font-size="13" fill="#9fb0a9" text-anchor="end" font-family="Tahoma,sans-serif">النوّاس الثقلي</text></svg>`;
+
+/* ============================================================================
+ * 3. بناء واجهة الطالب (Student View)
+ * ============================================================================ */
+function header() {
+  const u = S.user;
+  const isAdmin = u && u.role === 'admin';
+  return `<header class="top"><div class="wrap topin"><a class="brand" href="#top"><span class="mark">ش</span><span><b>الأستاذ شادي عبيد</b><small>رياضيات وفيزياء · بكالوريا علمي</small></span></a><nav class="nav" aria-label="أقسام الموقع"><a href="#lessons">الدروس</a><a href="#plans">الاشتراكات</a><a href="#how">طريقة الاشتراك</a></nav><div class="acct">${
+    u ? `${isAdmin ? `<button type="button" class="btn sm" data-act="view" data-view="admin">لوحة التحكم</button>` : `<button type="button" class="btn ghost sm" data-act="mine">${I.user} ${esc(u.name.split(' ')[0])}</button>`}<button type="button" class="btn link sm" data-act="logout">خروج</button>`
+      : `<button type="button" class="btn ghost sm" data-act="auth" data-mode="login">دخول</button><button type="button" class="btn sm" data-act="auth" data-mode="signup">إنشاء حساب</button>`
+  }</div></div></header>`;
+}
+
+function hero() {
+  const all = [...L.math, ...L.phys], fr = all.filter(l => l.free).length;
+  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1>دروس الرياضيات والفيزياء بالفيديو مع الأستاذ شادي عبيد</h1><p>شروحات قصيرة ومركّزة لطلاب البكالوريا العلمي. شاهد الدروس المجانية الآن، واشترك لتفتح بقية الدروس مع ملخصات القوانين.</p><div class="ctas"><button type="button" class="btn" data-act="play" data-subj="phys" data-id="p2">${I.play} شاهد درسًا مجانيًا</button><a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts"><li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li><li><b>2</b>مادتان</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
+}
+
+function getLessonProgress(lid) {
+  if (!S.user) return null;
+  const key = S.user.id + '_' + lid;
+  return S.progress[key] || null;
+}
+
+function row(l, k) {
+  const ok = canWatch(l, k), n = L[k].indexOf(l) + 1;
+  const pr = getLessonProgress(l.id);
+  const isDone = pr && pr.done;
+  const hasResume = pr && pr.pos > 5 && !isDone;
+  return `<button type="button" class="lrow ${ok ? '' : 'locked'}" data-act="${ok ? 'play' : 'locked'}" data-subj="${k}" data-id="${l.id}">
+    <span class="num ${isDone ? 'done-c' : ''}">${isDone ? I.check : (ok ? I.play : I.lock)}</span>
+    <span class="lt">
+      <b>${n}. ${esc(l.t)} ${l.pdfUrl ? `<span class="tag pdf">PDF ملخص</span>` : ''}</b>
+      <small>${l.d} دقيقة ${hasResume ? `· <span style="color:var(--ok);font-weight:600">متابعة من ${fmtT(pr.pos)}</span>` : isDone ? '· <span style="color:var(--ok)">تمت المشاهدة ✓</span>' : ''}</small>
+    </span>
+    <span class="tag ${l.free ? 'free' : ok ? 'open' : 'lk'}">${l.free ? 'مجاني' : ok ? 'مفتوح' : 'للمشتركين'}</span>
+  </button>`;
+}
+
+function lessonsSec() {
+  const k = S.subj, ls = L[k], has = active(S.user, k), locked = ls.filter(l => !l.free).length, units = [...new Set(ls.map(l => l.u))];
+  let progHtml = '';
+  if (S.user) {
+    const doneCnt = ls.filter(l => { const p = getLessonProgress(l.id); return p && p.done; }).length;
+    const pct = ls.length ? Math.round((doneCnt / ls.length) * 100) : 0;
+    progHtml = `<div class="prog-bar"><div><b>تقدّمك في ${SUBJ[k]}</b><span class="muted" style="margin-inline-start:8px;font-size:14px">أنجزت ${doneCnt} من ${ls.length} دروس (${pct}%)</span></div><div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div></div>`;
+  }
+  return `<section class="band" id="lessons"><div class="wrap"><div class="sechead"><h2>الدروس</h2><div class="tabs" role="tablist" aria-label="المادة">${Object.keys(SUBJ).map(s => `<button type="button" role="tab" aria-selected="${s === k}" data-act="subj" data-subj="${s}">${SUBJ[s]} <span class="cnt">${L[s].length}</span></button>`).join('')}</div></div>
+  ${has ? `<div class="note ok">${I.check}<span>${S.user.role === 'admin' ? 'حساب المدرّس — جميع الدروس مفتوحة للمعاينة.' : `اشتراكك في ${SUBJ[k]} فعّال حتى ${fmtD(S.user.subs[k])}. كل الدروس مفتوحة على جهازك.`}</span></div>` : `<div class="note">${I.lock}<span>${pl(locked, 'درس', 'درسان', 'دروس', 'درسًا')} في ${SUBJ[k]} ${locked > 2 ? 'مقفلة' : 'مقفل'} للمشتركين.</span><button type="button" class="btn sm" data-act="sub" data-plan="m1" data-subj="${k}">اشترك لفتحها</button></div>`}
+  ${progHtml}
+  <div class="units">${units.map((u, ui) => `<div class="unit"><h3><span>الوحدة ${ui + 1}</span>${esc(u)}</h3>${ls.filter(l => l.u === u).map(l => row(l, k)).join('')}</div>`).join('')}</div></div></section>`;
+}
+
+function plansSec() {
+  return `<section class="band soft" id="plans"><div class="wrap"><h2>الاشتراكات</h2><p class="lead">ادفع مرة واحدة، وتبقى الدروس مفتوحة طوال مدة الاشتراك.</p><div class="plans">${PLANS.map(p => `<div class="plan ${p.id === 't2' ? 'best' : ''}">${p.id === 't2' ? '<span class="ribbon">الأوفر</span>' : ''}<h3>${p.n}</h3><p class="psub">${p.sub}</p><p class="price"><b>${S.prices[p.id]}</b> $</p><ul><li>${p.both ? 'كل دروس الرياضيات والفيزياء' : 'كل دروس المادة التي تختارها'}</li><li>${p.mo === 1 ? 'مدة 30 يومًا' : 'مدة 4 أشهر'}</li><li>ملخصات القوانين ومتابعة التقدم</li></ul><button type="button" class="btn ${p.id === 't2' ? '' : 'ghost'} full" data-act="sub" data-plan="${p.id}">اشترك</button></div>`).join('')}</div></div></section>`;
+}
+
+function howSec() {
+  return `<section class="band" id="how"><div class="wrap"><h2>طريقة الاشتراك</h2><div class="steps"><div class="stp"><div class="si">${I.person}</div><h3>أنشئ حسابك</h3><p>بالاسم ورقم الجوال وكلمة مرور، ويُربط الحساب بجهازك لحماية اشتراكك.</p></div><div class="stp"><div class="si">${I.card}</div><h3>ادفع بالطريقة الأسهل لك</h3><p>حوّل عبر شام كاش أو سيريتل كاش أو MTN كاش وأدخل رقم العملية مع صورة الإشعار، أو تواصل عبر واتساب.</p></div><div class="stp"><div class="si">${I.open}</div><h3>تُفتح الدروس فورًا</h3><p>بمجرد تأكيد الدفع أو إدخال كود التفعيل تُفتح كل دروس اشتراكك في حسابك.</p></div></div></div></section>`;
+}
+
+function footer() {
+  return `<footer class="foot board"><div class="wrap footin"><div><b>الأستاذ شادي عبيد</b><p>للاستفسار والاشتراك عبر واتساب: <span dir="ltr">${esc(S.wa)}</span></p></div><p class="small">تصميم وتنفيذ MAHVAR | محور · نظام حماية البث المفعّل</p></div></footer>`;
+}
+
+function rStudent() {
+  return header() + hero() + lessonsSec() + plansSec() + howSec() + footer();
+}
+
+/* ============================================================================
+ * 4. لوحة تحكم الأستاذ شادي عبيد (Admin Dashboard)
+ * ============================================================================ */
+const A = {
+  home() {
+    const pend = S.requests.filter(r => r.st === 'pending');
+    const act = S.students.filter(s => active(s, 'math') || active(s, 'phys')).length;
+    const rev = S.requests.filter(r => r.st === 'ok' && r.at > Date.now() - 30 * DAY).reduce((a, r) => a + r.amount, 0);
+    const alerts = S.students.filter(s => (s.deviceAlerts || 0) > 0);
+    const top = [...L.math.map(l => ({ ...l, k: 'math' })), ...L.phys.map(l => ({ ...l, k: 'phys' }))].sort((a, b) => b.v - a.v).slice(0, 5);
+    const mx = top[0] ? Math.max(1, top[0].v) : 1;
+
+    return `<div class="stats">
+      <div class="stat"><span>الطلاب المسجّلون</span><b>${S.students.length}</b></div>
+      <div class="stat"><span>مشتركون حاليًا</span><b>${act}</b></div>
+      <div class="stat"><span>طلبات بانتظارك</span><b>${pend.length}</b></div>
+      <div class="stat hl"><span>إيرادات آخر 30 يومًا</span><b>${rev} $</b></div>
+    </div>
+    ${alerts.length ? `<div class="note bad">${I.shield}<span><b>تنبيه أمان ومنع مشاركة الحساب:</b> تم رصد محاولات دخول من أجهزة إضافية غير مصرح بها لـ (${alerts.map(s => esc(s.name)).join('، ')}).</span><button type="button" class="btn sm ghost" data-act="atab" data-tab="stu">مراجعة الأجهزة</button></div>` : ''}
+    <div class="grid2">
+      <div class="panel"><h3>طلبات بانتظار التأكيد <button type="button" class="btn link sm" data-act="atab" data-tab="req">عرض الكل</button></h3>${pend.length ? pend.map(r => `<div class="mini"><span><b>${esc(stu(r.sid).name)}</b> · ${plan(r.plan).n} · ${subjName(r.subj)} <small class="muted">(#${esc(r.txRef || r.id)})</small></span><button type="button" class="btn sm" data-act="atab" data-tab="req">مراجعة</button></div>`).join('') : '<p class="muted">لا توجد طلبات جديدة.</p>'}</div>
+      <div class="panel"><h3>الدروس الأكثر مشاهدة</h3><div class="bars">${top.map(l => `<div class="bar"><span>${esc(l.t)}</span><i style="width:${Math.round(l.v / mx * 100)}%"></i><em>${l.v}</em></div>`).join('')}</div></div>
+    </div>`;
+  },
+
+  req() {
+    const list = S.requests.filter(r => S.rf === 'all' || r.st === S.rf);
+    return `<div class="tool"><div class="tabs sm" role="tablist">${[['pending', 'بانتظار التأكيد'], ['all', 'كل الطلبات']].map(([k, n]) => `<button type="button" role="tab" aria-selected="${S.rf === k}" data-act="rf" data-f="${k}">${n}</button>`).join('')}</div></div>${
+      list.length ? `<div class="rlist">${list.map(r => {
+        const s = stu(r.sid), p = plan(r.plan);
+        return `<div class="rcard">
+          <button type="button" class="thumb" data-act="rimg" data-id="${r.id}" aria-label="تكبير إشعار الدفع"><img src="${rimg(r)}" alt="إشعار الدفع"></button>
+          <div class="rinfo">
+            <b>${esc(s.name)}</b>
+            <span class="muted" dir="ltr" style="text-align:right">${esc(s.phone)}</span>
+            <span>${p.n} · ${p.sub} · ${subjName(r.subj)}</span>
+            <span>رقم العملية: <b class="code" dir="ltr">${esc(r.txRef || 'غير محدد')}</b></span>
+            <span class="muted">${esc(r.method)} · ${ago(r.at)}</span>
+          </div>
+          <div class="ramt">
+            <b>${r.amount} $</b>
+            ${r.st === 'pending' ? `<div class="row2"><button type="button" class="btn sm okb" data-act="appr" data-id="${r.id}">قبول</button><button type="button" class="btn sm ghost" data-act="rej" data-id="${r.id}">رفض</button></div>` : `<span class="st ${r.st}">${ST[r.st]}</span>`}
+          </div>
+        </div>`;
+      }).join('')}</div>` : '<div class="empty">لا توجد طلبات بانتظار التأكيد. كل شيء محدّث.</div>'
+    }`;
+  },
+
+  stu() {
+    return `<div class="panel">
+      <div class="tool"><input id="q" type="search" placeholder="ابحث بالاسم أو الرقم" value="${esc(S.q)}" aria-label="بحث عن طالب"><span class="muted">${S.students.length} طالبًا · الحد المسموح: ${S.maxDevices} جهاز لكل طالب</span></div>
+      <div class="scroll"><table class="stack" id="stuT"><thead><tr><th>الاسم</th><th>الجوال</th><th>الجهاز المرتبط (الحماية)</th><th>الرياضيات</th><th>الفيزياء</th><th>إجراءات</th></tr></thead><tbody>${stuRows()}</tbody></table></div>
+    </div>`;
+  },
+
+  les() {
+    const k = S.as;
+    return `<div class="panel">
+      <div class="tool"><div class="tabs sm" role="tablist">${Object.keys(SUBJ).map(s => `<button type="button" role="tab" aria-selected="${s === k}" data-act="as" data-subj="${s}">${SUBJ[s]}</button>`).join('')}</div><span class="muted">${L[k].filter(l => l.free).length} مجانية من ${L[k].length}</span></div>
+      <div class="scroll"><table class="stack"><thead><tr><th>الدرس</th><th>الوحدة</th><th>المدة</th><th>مصدر الفيديو</th><th>المشاهدات</th><th>الوصول</th><th></th></tr></thead><tbody>${L[k].map(l => {
+        const pv = parseVideoUrl(l.videoSource);
+        const srcBadge = pv.provider === 'youtube' ? '<span class="st ok">YouTube معزول</span>' : pv.provider === 'drive' ? '<span class="st ok">Google Drive معزول</span>' : pv.provider === 'direct' ? '<span class="st ok">فيديو مباشر</span>' : '<span class="muted">سبورة تفاعلية</span>';
+        return `<tr>
+          <td data-l="الدرس"><b>${esc(l.t)}</b> ${l.pdfUrl ? '<span class="tag pdf">PDF</span>' : ''}</td>
+          <td data-l="الوحدة">${esc(l.u)}</td>
+          <td data-l="المدة" dir="ltr" style="text-align:right">${esc(l.d)}</td>
+          <td data-l="مصدر الفيديو">${srcBadge}</td>
+          <td data-l="المشاهدات">${l.v}</td>
+          <td data-l="الوصول"><label class="sw"><input type="checkbox" class="frt" data-subj="${k}" data-id="${l.id}" ${l.free ? 'checked' : ''}><span>${l.free ? 'مجاني' : 'مقفل'}</span></label></td>
+          <td data-l=""><button type="button" class="btn link sm" data-act="editL" data-subj="${k}" data-id="${l.id}">تعديل الرابط</button></td>
+        </tr>`;
+      }).join('')}</tbody></table></div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <h3>إضافة درس جديد (YouTube غير مدرج أو Google Drive)</h3>
+      <form id="addL" class="fgrid">
+        <label>عنوان الدرس *<input id="nT" required placeholder="مثال: المتتاليات الحسابية"></label>
+        <label>المادة<select id="nS">${Object.keys(SUBJ).map(s => `<option value="${s}" ${s === k ? 'selected' : ''}>${SUBJ[s]}</option>`).join('')}</select></label>
+        <label>الوحدة *<input id="nU" required placeholder="مثال: المتتاليات"></label>
+        <label>المدة *<input id="nD" required dir="ltr" placeholder="12:30" pattern="\\d{1,2}:\\d{2}"></label>
+        <label style="grid-column:1/-1">رابط الفيديو (YouTube Unlisted أو Google Drive)<input id="nV" dir="ltr" placeholder="https://youtu.be/... أو https://drive.google.com/file/d/..."></label>
+        <label>معادلة السبورة (اختياري)<input id="nF" dir="ltr" placeholder="Un = U0 + n·r"></label>
+        <label>رابط ملخص PDF (اختياري)<input id="nPdf" dir="ltr" placeholder="https://drive.google.com/..."></label>
+        <label class="chk"><input id="nFree" type="checkbox"> درس مجاني للزوار</label>
+        <button class="btn">حفظ وإضافة الدرس</button>
+      </form>
+    </div>`;
+  },
+
+  codes() {
+    return `<div class="panel"><h3>توليد أكواد تفعيل مشفّرة</h3><p class="muted">ترسل الكود للطالب عبر واتساب بعد الدفع، فيُدخله في الموقع ويُفتح اشتراكه لمرة واحدة فقط.</p><form id="genC" class="fgrid"><label>المادة<select id="cS"><option value="both">المادتان</option><option value="math">الرياضيات</option><option value="phys">الفيزياء</option></select></label><label>المدة<select id="cM"><option value="1">شهر</option><option value="4">فصل دراسي</option></select></label><label>عدد الأكواد<input id="cN" type="number" min="1" max="20" value="3"></label><button class="btn">توليد الأكواد</button></form></div><div class="panel" style="margin-top:16px"><div class="scroll"><table class="stack"><thead><tr><th>الكود</th><th>المادة</th><th>المدة</th><th>الحالة</th><th></th></tr></thead><tbody>${S.codes.map(c => `<tr><td data-l="الكود"><span class="code" dir="ltr">${esc(c.c)}</span></td><td data-l="المادة">${subjName(c.subj)}</td><td data-l="المدة">${c.mo === 1 ? 'شهر' : 'فصل دراسي'}</td><td data-l="الحالة">${c.used ? `<span class="st no">مستخدم · ${esc(c.by)}</span>` : '<span class="st ok">متاح</span>'}</td><td data-l="">${c.used ? '' : `<button type="button" class="btn link sm" data-act="copy" data-v="${esc(c.c)}">نسخ الكود</button>`}</td></tr>`).join('')}</tbody></table></div></div>`;
+  },
+
+  set() {
+    return `<form id="setF">
+      <div class="panel">
+        <h3>أسعار الاشتراك ($)</h3>
+        <div class="fgrid">${PLANS.map(p => `<label>${p.n} · ${p.sub}<input type="number" min="0" id="pr_${p.id}" value="${S.prices[p.id]}"></label>`).join('')}</div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h3>أرقام الدفع والتواصل</h3>
+        <div class="fgrid">${S.wallets.map((w, i) => `<label>${w.n}<input id="w_${i}" dir="ltr" value="${esc(w.v)}"></label>`).join('')}<label>رقم واتساب الأستاذ<input id="waN" dir="ltr" value="${esc(S.wa)}"></label></div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h3>إعدادات الأمان وقاعدة البيانات السحابية (Google Apps Script)</h3>
+        <div class="fgrid">
+          <label>عدد الأجهزة المسموحة لكل طالب<select id="maxDev"><option value="1" ${S.maxDevices === 1 ? 'selected' : ''}>جهاز واحد فقط (حماية قصوى)</option><option value="2" ${S.maxDevices === 2 ? 'selected' : ''}>جهازان (موبايل + لابتوب)</option></select></label>
+          <label>كلمة مرور الأستاذ للدخول للوحة<input id="admPass" type="text" dir="ltr" value="${esc(S.adminPass)}"></label>
+          <label style="grid-column:1/-1">رابط خادم Google Apps Script Web App (اتركه فارغاً للتشغيل المحلي الفوري أو الصق رابط النشر)<input id="gasUrl" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(API_URL)}"></label>
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn">حفظ الإعدادات</button>
+        <button type="button" class="btn ghost" data-act="resetDemo">إعادة ضبط البيانات التجريبية</button>
+      </div>
+    </form>`;
+  }
+};
+
+function stuRows() {
+  const q = S.q.trim(), qd = digits(q);
+  const list = S.students.filter(s => !q || s.name.includes(q) || (qd && digits(s.phone).includes(qd)));
+  if (!list.length) return '<tr><td colspan="6" class="muted">لا يوجد طالب بهذا الاسم أو الرقم.</td></tr>';
+  const cell = (s, k) => active(s, k) ? `<span class="st ok">حتى ${fmtS(s.subs[k])}</span>` : (s.subs && s.subs[k]) ? '<span class="st no">منتهٍ</span>' : '<span class="muted">—</span>';
+
+  return list.map(s => {
+    const devHtml = s.deviceFp
+      ? `<span class="dev-tag" title="البصمة: ${esc(s.deviceFp)}">🔒 ${esc(s.deviceLabel || 'جهاز مرتبط')}</span>${s.deviceAlerts ? ` <span class="st no" title="حاول الدخول من جهاز آخر">⚠️ ${s.deviceAlerts} محاولة</span>` : ''}`
+      : '<span class="muted">غير مرتبط بعد</span>';
+    return `<tr style="${s.status === 'blocked' ? 'opacity:.55' : ''}">
+      <td data-l="الاسم"><b>${esc(s.name)}</b> ${s.status === 'blocked' ? '<span class="st no">محظور</span>' : ''}</td>
+      <td data-l="الجوال" dir="ltr" style="text-align:right">${esc(s.phone)}</td>
+      <td data-l="الجهاز المرتبط">${devHtml}</td>
+      <td data-l="الرياضيات">${cell(s, 'math')}</td>
+      <td data-l="الفيزياء">${cell(s, 'phys')}</td>
+      <td data-l="إجراءات">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+          ${s.deviceFp ? `<button type="button" class="btn ghost xs" data-act="resetDev" data-id="${s.id}" title="السماح للطالب بالدخول من هاتف جديد">فك الجهاز</button>` : ''}
+          ${active(s, 'math') || active(s, 'phys') ? `<button type="button" class="btn link xs" data-act="stop" data-id="${s.id}">إيقاف الاشتراك</button>` : `<button type="button" class="btn link xs" data-act="give" data-id="${s.id}">تفعيل شهر</button>`}
+          <button type="button" class="btn danger xs" data-act="blockStu" data-id="${s.id}">${s.status === 'blocked' ? 'فك الحظر' : 'حظر'}</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function rAdmin() {
+  const pend = S.requests.filter(r => r.st === 'pending').length;
+  const tabs = [
+    ['home', 'الرئيسية'],
+    ['req', 'طلبات الاشتراك'],
+    ['stu', 'الطلاب والأجهزة'],
+    ['les', 'الدروس والروابط'],
+    ['codes', 'أكواد التفعيل'],
+    ['set', 'الأسعار والأمان']
+  ];
+  return `<div class="adm"><div class="wrap"><div class="ahead"><div><h1>لوحة تحكم الأستاذ شادي عبيد</h1><p class="muted">إدارة الطلاب، فك قفل الأجهزة، الدروس المعزولة، ومراجعة إشعارات الدفع.</p></div><button type="button" class="btn ghost sm" data-act="view" data-view="student">معاينة واجهة الطالب</button></div><div class="tabs adm-t" role="tablist" aria-label="أقسام لوحة التحكم">${tabs.map(([k, n]) => `<button type="button" role="tab" aria-selected="${S.tab === k}" data-act="atab" data-tab="${k}">${n}${k === 'req' && pend ? ` <span class="badge">${pend}</span>` : ''}</button>`).join('')}</div>${A[S.tab]()}</div></div>`;
+}
+
+function render() {
+  document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === S.view)));
+  app.innerHTML = S.view === 'student' ? rStudent() : rAdmin();
+  $('#pc').textContent = S.requests.filter(r => r.st === 'pending').length || '';
+}
+
+/* ============================================================================
+ * 5. النوافذ المنبثقة ومشغل الفيديو المعزول (YouTube Unlisted / Drive / Shield)
+ * ============================================================================ */
+function openM(html, wide) {
+  stopPlayerCleanup();
+  modal.innerHTML = `<div class="dlg ${wide ? 'wide' : ''}" role="dialog" aria-modal="true"><button type="button" class="x" data-act="close" aria-label="إغلاق">×</button>${html}</div>`;
+  modal.hidden = false;
+  document.body.classList.add('noscroll');
+  const f = modal.querySelector('input:not([type=radio]):not([type=file])');
+  if (f && !wide) setTimeout(() => f.focus(), 60);
+}
+
+function stopPlayerCleanup() {
+  clearInterval(tick);
+  clearInterval(wmT);
+  if (wmObserver) { wmObserver.disconnect(); wmObserver = null; }
+  if (P && S.user && P.lessonId && P.pos > 3) {
+    saveLessonProgress(P.lessonId, P.pos, P.pos >= P.dur * 0.85);
+  }
+  if (ytPlayer && typeof ytPlayer.destroy === 'function') {
+    try { ytPlayer.destroy(); } catch (e) {}
+  }
+  ytPlayer = null;
+  P = null;
+}
+
+function closeM() {
+  stopPlayerCleanup();
+  modal.hidden = true;
+  modal.innerHTML = '';
+  document.body.classList.remove('noscroll');
+  render();
+}
+
+function saveLessonProgress(lessonId, posSec, isDone) {
+  if (!S.user) return;
+  const key = S.user.id + '_' + lessonId;
+  const prev = S.progress[key] || { pos: 0, done: false };
+  S.progress[key] = {
+    pos: Math.floor(posSec),
+    done: Boolean(prev.done || isDone)
+  };
+  saveState();
+  if (API_URL) {
+    callGasApi('lesson.progress', { lessonId, posSec: Math.floor(posSec), completed: Boolean(prev.done || isDone) }).catch(() => {});
+  }
+}
+
+function lockedM(k, id) {
+  const l = L[k].find(x => x.id === id);
+  openM(`<div class="mhead"><div class="cic">${I.lock}</div><h3>«${esc(l.t)}» للمشتركين</h3><p>هذا الدرس من دروس ${SUBJ[k]} المقفلة. اشترك لتفتحه مع بقية الدروس وملخصات القوانين.</p></div>${S.user ? `<button type="button" class="btn full" data-act="sub" data-plan="m1" data-subj="${k}">اشترك الآن</button>` : `<div class="row2"><button type="button" class="btn" data-act="auth" data-mode="signup" data-next="sub" data-subj="${k}">إنشاء حساب</button><button type="button" class="btn ghost" data-act="auth" data-mode="login" data-next="sub" data-subj="${k}">لدي حساب</button></div>`}`);
+}
+
+function authM(mode) {
+  const su = mode === 'signup';
+  openM(`<h3>${su ? 'إنشاء حساب طالب' : 'تسجيل الدخول'}</h3>
+  <form id="authF" class="form" data-mode="${mode}" novalidate>
+    ${su ? '<label>الاسم الكامل<input id="fName" autocomplete="name" placeholder="مثال: أحمد الحسن"></label>' : ''}
+    <label>رقم الجوال<input id="fPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="09xx xxx xxx"></label>
+    <label>كلمة المرور<input id="fPass" type="password" autocomplete="${su ? 'new-password' : 'current-password'}"></label>
+    <p class="err" id="authErr"></p>
+    <button class="btn full">${su ? 'إنشاء الحساب وربط الجهاز' : 'دخول'}</button>
+    <p class="switch">${su ? 'لديك حساب؟ <button type="button" class="btn link" data-act="auth" data-mode="login">سجّل الدخول</button>' : 'جديد هنا؟ <button type="button" class="btn link" data-act="auth" data-mode="signup">أنشئ حسابًا</button>'}</p>
+    <div class="tip" style="margin:0;font-size:13px">
+      🛡️ <b>حماية الحساب:</b> يُربط الحساب بجهازك الحالي (<span dir="ltr">${esc(MY_DEVICE_LABEL)}</span>) لمنع تسريب ومشاركة الحساب.
+      ${su ? '' : '<br>للتجربة كطالب: <b dir="ltr">0936 527 904</b> (كلمة المرور: 1234)<br>لدخول الأستاذ: <b dir="ltr">0988 765 432</b> (كلمة المرور: shadi2026)'}
+    </div>
+  </form>`);
+}
+
+function payBody(p, amt) {
+  if (sub.tab === 'wa') {
+    const msg = `مرحبًا أستاذ شادي، أريد الاشتراك: ${p.n} · ${p.both ? 'المادتان' : SUBJ[sub.subj]} (${amt} $). الاسم: ${S.user.name} · ${S.user.phone}`;
+    return `<p>تواصل مع الأستاذ مباشرة، وبعد الدفع يرسل لك كود تفعيل تُدخله في تبويب «كود تفعيل».</p><a class="btn wa full" href="https://wa.me/963${digits(S.wa).replace(/^0/, '')}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${I.wa} فتح محادثة واتساب</a><p class="small" style="margin:0">الرقم: <span dir="ltr">${esc(S.wa)}</span></p>`;
+  }
+  if (sub.tab === 'code') {
+    return `<label class="inl" style="margin:0">كود التفعيل<input id="codeIn" dir="ltr" placeholder="SH-XXXX-XX" autocomplete="off"></label><p class="err" id="codeErr"></p><button type="button" class="btn full" data-act="redeem">تفعيل الاشتراك</button><p class="small" style="margin:0">للتجربة: الكود <b dir="ltr">SH-4KQ7-M2</b> يفتح المادتين لمدة شهر.</p>`;
+  }
+  return `<p>حوّل <b>${amt} $</b> إلى أحد الأرقام التالية، ثم أدخل رقم عملية التحويل وارفع صورة الإشعار:</p>
+  <div class="wallets">${S.wallets.map((w, i) => `<label class="wl"><input type="radio" name="wal" value="${i}" ${i === sub.w ? 'checked' : ''}><span><b>${esc(w.n)}</b><span dir="ltr">${esc(w.v)}</span></span><button type="button" class="btn link sm" data-act="copy" data-v="${esc(w.v)}">نسخ</button></label>`).join('')}</div>
+  <label class="inl">رقم عملية التحويل (من رسالة أو إشعار الدفع) *<input id="txRefIn" dir="ltr" placeholder="مثال: 48219904" value="${esc(sub.txRef)}"></label>
+  <label class="drop" for="rcpt">${sub.file ? `<img src="${sub.file}" alt="صورة الإشعار المرفوعة"><span>اضغط لتغيير الصورة</span>` : `${I.up}<span>اضغط لرفع صورة إشعار التحويل</span>`}</label>
+  <input type="file" id="rcpt" accept="image/*" hidden>
+  <p class="err" id="payErr"></p>
+  <button type="button" class="btn full" data-act="send">إرسال طلب الاشتراك</button>`;
+}
+
+function subM() {
+  const p = plan(sub.plan), amt = S.prices[p.id];
+  openM(`<h3>الاشتراك</h3><p class="step">1. اختر الباقة</p><div class="pick">${PLANS.map(x => `<button type="button" class="pk" aria-pressed="${x.id === sub.plan}" data-act="pk" data-plan="${x.id}"><b>${x.n} · ${x.sub}</b><span>${S.prices[x.id]} $</span></button>`).join('')}</div>${p.both ? '' : `<label class="inl">المادة<select id="sSubj">${Object.keys(SUBJ).map(k => `<option value="${k}" ${k === sub.subj ? 'selected' : ''}>${SUBJ[k]}</option>`).join('')}</select></label>`}<p class="step">2. طريقة الدفع</p><div class="tabs sm" role="tablist">${[['pay', 'تحويل وإشعار'], ['wa', 'واتساب'], ['code', 'كود تفعيل']].map(([k, n]) => `<button type="button" role="tab" aria-selected="${sub.tab === k}" data-act="ptab" data-tab="${k}">${n}</button>`).join('')}</div><div class="pbody">${payBody(p, amt)}</div>`);
+}
+
+function doneM(title, text, tip) {
+  openM(`<div class="done"><div class="cic ok">${I.check}</div><h3 style="padding:0;margin:12px 0 6px">${title}</h3><p>${text}</p>${tip ? `<div class="tip">${tip}</div>` : ''}<div class="row2">${tip ? '<button type="button" class="btn" data-act="view" data-view="admin">افتح لوحة التحكم</button>' : ''}<button type="button" class="btn ${tip ? 'ghost' : ''}" data-act="close">${tip ? 'لاحقًا' : 'ابدأ المشاهدة'}</button></div></div>`);
+}
+
+function mineM() {
+  const u = S.user, rq = S.requests.filter(r => r.sid === u.id);
+  openM(`<h3>اشتراكي وحماية جهازي</h3>
+  <p class="muted">${esc(u.name)} · <span dir="ltr">${esc(u.phone)}</span></p>
+  <div class="tip" style="margin-top:10px;margin-bottom:10px">
+    🔒 <b>الجهاز المرتبط بحسابك:</b> <span dir="ltr">${esc(u.deviceLabel || MY_DEVICE_LABEL)}</span><br>
+    <small class="muted">البصمة الرقمية: <span class="code" dir="ltr">${esc(u.deviceFp || MY_DEVICE_FP)}</span></small>
+  </div>
+  <div class="subs">${Object.keys(SUBJ).map(k => `<div class="sb ${active(u, k) ? 'on' : ''}"><b>${SUBJ[k]}</b><span>${active(u, k) ? 'فعّال حتى ' + fmtD(u.subs[k]) : 'غير مشترك'}</span></div>`).join('')}</div>
+  ${rq.length ? `<h4>طلباتي</h4>${rq.map(r => `<div class="rq"><span>${plan(r.plan).n} · ${subjName(r.subj)} · ${r.amount} $ <small class="muted">(#${esc(r.txRef || r.id)})</small></span><span class="st ${r.st}">${ST[r.st]}</span></div>`).join('')}` : ''}
+  <button type="button" class="btn full" style="margin-top:16px" data-act="sub" data-plan="m1">اشتراك جديد أو تجديد</button>`);
+}
+
+function editLessonM(k, id) {
+  const l = L[k].find(x => x.id === id);
+  if (!l) return;
+  openM(`<h3>تعديل الدرس وربط الفيديو</h3>
+  <form id="editLF" class="form" data-subj="${k}" data-id="${l.id}">
+    <label>عنوان الدرس<input id="eT" required value="${esc(l.t)}"></label>
+    <div class="row2">
+      <label>الوحدة<input id="eU" required value="${esc(l.u)}"></label>
+      <label>المدة<input id="eD" required dir="ltr" value="${esc(l.d)}"></label>
+    </div>
+    <label>رابط الفيديو (YouTube غير مدرج أو Google Drive)
+      <input id="eV" dir="ltr" placeholder="https://youtu.be/... أو https://drive.google.com/file/d/..." value="${esc(l.videoSource || '')}">
+      <small class="muted">سيتم تشغيل الفيديو داخل طبقة العزل المحمية مع العلامة المائية ومنع النسخ أو المشاركة.</small>
+    </label>
+    <label>معادلة السبورة التوضيحية<input id="eF" dir="ltr" value="${esc(l.f || '')}"></label>
+    <label>رابط ملخص الدرس PDF (اختياري)<input id="ePdf" dir="ltr" placeholder="https://drive.google.com/file/d/..." value="${esc(l.pdfUrl || '')}"></label>
+    <div class="row2">
+      <button class="btn">حفظ التعديلات</button>
+      <button type="button" class="btn danger" data-act="delL" data-subj="${k}" data-id="${l.id}">حذف الدرس</button>
+    </div>
+  </form>`);
+}
+
+const fmtT = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+
+/**
+ * تشغيل الدرس داخل المشغل المعزول والمحمي (YouTube Unlisted / Google Drive / Direct / Chalkboard)
+ */
+function playM(k, id) {
+  const l = L[k].find(x => x.id === id);
+  if (!l) return;
+  if (!canWatch(l, k)) return lockedM(k, id);
+
+  l.v++;
+  saveState();
+
+  const [mm, ss] = l.d.split(':').map(Number);
+  const totalSec = (mm || 10) * 60 + (ss || 0);
+  const pr = getLessonProgress(l.id);
+  const startPos = (pr && pr.pos > 5 && pr.pos < totalSec - 10) ? pr.pos : 0;
+
+  const who = S.user
+    ? `${S.user.name} · ${S.user.phone} · #${S.user.id}`
+    : `زائر · درس مجاني · ${MY_DEVICE_FP.slice(0, 10)}`;
+
+  const parsed = parseVideoUrl(l.videoSource);
+  let mediaEmbedHtml = '';
+
+  if (parsed.provider === 'youtube' && parsed.id) {
+    mediaEmbedHtml = `<div id="ytMount" class="yt-frame"></div><div class="v-shield" data-act="pp" title="اضغط للتشغيل أو الإيقاف المؤقت"></div>`;
+  } else if (parsed.provider === 'drive' && parsed.id) {
+    const drivePreviewUrl = `https://drive.google.com/file/d/${encodeURIComponent(parsed.id)}/preview`;
+    mediaEmbedHtml = `<iframe src="${drivePreviewUrl}" allow="autoplay; encrypted-media" sandbox="allow-scripts allow-same-origin allow-forms"></iframe><div class="drive-shield" title="طبقة حماية المنصة"></div>`;
+  } else if (parsed.provider === 'direct' && parsed.id) {
+    mediaEmbedHtml = `<video id=" html5Vid" src="${esc(parsed.id)}" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video><div class="v-shield" data-act="pp"></div>`;
+  } else {
+    // شاشة السبورة التفاعلية الافتراضية عند عدم وضع رابط خارجي بعد
+    mediaEmbedHtml = `<div class="sc-u">${SUBJ[k]} · ${esc(l.u)}</div><div class="sc-t">${esc(l.t)}</div><div class="sc-f" dir="ltr">${esc(l.f)}</div><div class="v-shield" data-act="pp"></div>`;
+  }
+
+  openM(`<div class="player" oncontextmenu="return false">
+    <div class="scr on" id="scr" role="region" aria-label="مشغل الفيديو المحمي">
+      ${mediaEmbedHtml}
+      <div class="wm" id="wm">${esc(who)}</div>
+      <div class="wm-ghost" id="wmGhost">${esc(MY_DEVICE_FP)}</div>
+      <div class="bigp">${I.play}</div>
+      <div class="sec-overlay" id="secOverlay">
+        <div>
+          <h3 style="color:var(--acc);margin-bottom:6px">🛡️ وضع حماية المحتوى</h3>
+          <p id="secMsg">تم إيقاف الفيديو مؤقتاً لأن النافذة فقدت التركيز أو تم فتح أداة خارجية. اضغط للعودة للمشاهدة.</p>
+          <button type="button" class="btn sm" style="margin-top:12px" data-act="resumeSec">متابعة المشاهدة</button>
+        </div>
+      </div>
+    </div>
+    <div class="ctl">
+      <button type="button" class="ib" data-act="pp" id="ppb" aria-label="إيقاف مؤقت">${I.pause}</button>
+      <button type="button" class="ib" data-act="seek" data-d="-10" aria-label="رجوع 10 ثوانٍ" dir="ltr">−10s</button>
+      <button type="button" class="ib" data-act="seek" data-d="10" aria-label="تقديم 10 ثوانٍ" dir="ltr">+10s</button>
+      <input type="range" id="prog" min="0" max="${totalSec}" value="${startPos}" step="1" aria-label="موضع التشغيل">
+      <span class="tm" id="tm" dir="ltr">${fmtT(startPos)} / ${l.d}</span>
+      <button type="button" class="ib" data-act="speed" id="spdBtn" title="سرعة التشغيل" dir="ltr">1x</button>
+      <button type="button" class="ib" data-act="fs" title="ملء الشاشة مع الحماية">${I.fs}</button>
+    </div>
+    <div class="pinfo">
+      <div>
+        <h3>${esc(l.t)}</h3>
+        <p>${l.free ? 'درس مجاني متاح للجميع.' : 'درس محمي ضمن اشتراكك.'} العلامة المائية المتحركة مرتبطة ببياناتك وجهازك لمنع التسريب.</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        ${l.pdfUrl ? `<a class="btn ghost sm" href="${esc(l.pdfUrl)}" target="_blank" rel="noopener">${I.pdf} ملخص الدرس PDF</a>` : ''}
+        <span class="sec-badge">${I.shield} بث معزول ومحمي</span>
+      </div>
+    </div>
+  </div>`, true);
+
+  P = {
+    lessonId: l.id,
+    subj: k,
+    provider: parsed.provider,
+    videoId: parsed.id,
+    pos: startPos,
+    dur: totalSec,
+    on: true,
+    speed: 1,
+    l: l.d,
+    wmText: who
+  };
+
+  if (startPos > 5) {
+    toast(`تم استئناف الدرس من الدقيقة ${fmtT(startPos)}`);
+  }
+
+  initMediaController();
+  upd();
+
+  // مؤقت تحديث شريط التقدم وحفظ موقع التوقف
+  tick = setInterval(() => {
+    if (!P || !P.on) return;
+    if (P.provider === 'youtube' && ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
+      const cur = ytPlayer.getCurrentTime();
+      const dur = ytPlayer.getDuration();
+      if (cur > 0) P.pos = cur;
+      if (dur > 0) {
+        P.dur = Math.floor(dur);
+        const prEl = $('#prog');
+        if (prEl) prEl.max = P.dur;
+      }
+    } else if (P.provider === 'direct') {
+      const vid = document.getElementById('html5Vid');
+      if (vid && !vid.paused) {
+        P.pos = vid.currentTime;
+        if (vid.duration) P.dur = Math.floor(vid.duration);
+      }
+    } else {
+      P.pos = Math.min(P.dur, P.pos + 0.25 * P.speed);
+    }
+
+    if (P.pos >= P.dur) {
+      P.on = false;
+      saveLessonProgress(P.lessonId, P.dur, true);
+    } else if (Math.floor(P.pos) % 5 === 0) {
+      saveLessonProgress(P.lessonId, P.pos, P.pos >= P.dur * 0.85);
+    }
+    upd();
+  }, 250);
+
+  // تحريك العلامة المائية عشوائياً + فحص عدم التلاعب بها
+  wmT = setInterval(() => {
+    const w = $('#wm'), g = $('#wmGhost'), sc = $('#scr');
+    if (!sc || !P) return;
+    if (!w || !sc.contains(w) || w.textContent !== P.wmText || getComputedStyle(w).display === 'none' || parseFloat(getComputedStyle(w).opacity) < 0.15) {
+      triggerTamperLock('تم اكتشاف محاولة إخفاء أو تعديل العلامة المائية الأمنية.');
+      return;
+    }
+    w.style.top = (10 + Math.random() * 68) + '%';
+    w.style.left = (6 + Math.random() * 54) + '%';
+    if (g) {
+      g.style.bottom = (8 + Math.random() * 70) + '%';
+      g.style.right = (8 + Math.random() * 60) + '%';
+    }
+  }, 3200);
+
+  setupWatermarkMutationGuard();
+}
+
+function initMediaController() {
+  if (!P) return;
+  if (P.provider === 'direct') {
+    const vid = document.getElementById('html5Vid');
+    if (vid) {
+      vid.currentTime = P.pos;
+      vid.play().catch(() => {});
+    }
+  } else if (P.provider === 'youtube' && P.videoId) {
+    if (!window.YT || !window.YT.Player) {
+      if (!document.getElementById('ytApiScript')) {
+        const tag = document.createElement('script');
+        tag.id = 'ytApiScript';
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+      }
+      window.onYouTubeIframeAPIReady = () => createYtInstance();
+    } else {
+      createYtInstance();
+    }
+  }
+}
+
+function createYtInstance() {
+  if (!P || P.provider !== 'youtube' || !document.getElementById('ytMount')) return;
+  ytPlayer = new window.YT.Player('ytMount', {
+    videoId: P.videoId,
+    playerVars: {
+      autoplay: 1,
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
+      iv_load_policy: 3,
+      modestbranding: 1,
+      rel: 0,
+      showinfo: 0,
+      start: Math.floor(P.pos),
+      origin: window.location.origin !== 'null' ? window.location.origin : 'https://shadi-platform.local'
+    },
+    events: {
+      onReady: (e) => {
+        if (P && P.pos > 0) e.target.seekTo(P.pos, true);
+        e.target.playVideo();
+      },
+      onStateChange: (e) => {
+        if (!P) return;
+        if (e.data === 1) { P.on = true; upd(); }
+        else if (e.data === 2 || e.data === 0) { P.on = false; upd(); }
+      }
+    }
+  });
+}
+
+/**
+ * مراقب الحماية الحيّ (MutationObserver) لمنع حذف العلامة المائية من Inspect Element
+ */
+function setupWatermarkMutationGuard() {
+  const sc = $('#scr');
+  if (!sc || typeof MutationObserver === 'undefined') return;
+  wmObserver = new MutationObserver(() => {
+    const w = $('#wm');
+    if (!P) return;
+    if (!w || !sc.contains(w) || w.textContent !== P.wmText) {
+      triggerTamperLock('تم إيقاف المشغل بسبب محاولة حذف العلامة المائية من المتصفح.');
+    }
+  });
+  wmObserver.observe(sc, { childList: true, subtree: true, attributes: true, characterData: true });
+}
+
+function triggerTamperLock(reason) {
+  if (!P) return;
+  P.on = false;
+  if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') { try { ytPlayer.pauseVideo(); } catch (e) {} }
+  const vid = document.getElementById('html5Vid');
+  if (vid) vid.pause();
+  const sc = $('#scr'), msg = $('#secMsg');
+  if (sc) sc.classList.add('tampered');
+  if (msg) msg.textContent = reason;
+  upd();
+}
+
+function upd() {
+  if (!P) return;
+  const pr = $('#prog'), tm = $('#tm'), sc = $('#scr'), b = $('#ppb'), spd = $('#spdBtn');
+  if (!pr) return;
+  pr.value = P.pos;
+  tm.textContent = `${fmtT(P.pos)} / ${fmtT(P.dur)}`;
+  sc.classList.toggle('on', P.on);
+  b.innerHTML = P.on ? I.pause : I.play;
+  b.setAttribute('aria-label', P.on ? 'إيقاف مؤقت' : 'تشغيل');
+  if (spd) spd.textContent = P.speed + 'x';
+}
+
+function togglePlayPause() {
+  if (!P) return;
+  if (P.pos >= P.dur) P.pos = 0;
+  P.on = !P.on;
+  if (P.provider === 'youtube' && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+    if (P.on) ytPlayer.playVideo(); else ytPlayer.pauseVideo();
+  } else if (P.provider === 'direct') {
+    const vid = document.getElementById('html5Vid');
+    if (vid) { if (P.on) vid.play(); else vid.pause(); }
+  }
+  upd();
+}
+
+function seekPlayer(targetSec) {
+  if (!P) return;
+  P.pos = Math.max(0, Math.min(P.dur, targetSec));
+  if (P.provider === 'youtube' && ytPlayer && typeof ytPlayer.seekTo === 'function') {
+    ytPlayer.seekTo(P.pos, true);
+  } else if (P.provider === 'direct') {
+    const vid = document.getElementById('html5Vid');
+    if (vid) vid.currentTime = P.pos;
+  }
+  upd();
+}
+
+function cycleSpeed() {
+  if (!P) return;
+  const speeds = [1, 1.25, 1.5, 2];
+  const next = speeds[(speeds.indexOf(P.speed) + 1) % speeds.length];
+  P.speed = next;
+  if (P.provider === 'youtube' && ytPlayer && typeof ytPlayer.setPlaybackRate === 'function') {
+    ytPlayer.setPlaybackRate(next);
+  } else if (P.provider === 'direct') {
+    const vid = document.getElementById('html5Vid');
+    if (vid) vid.playbackRate = next;
+  }
+  toast(`سرعة التشغيل: ${next}x`);
+  upd();
+}
+
+function toggleFullscreen() {
+  const sc = $('#scr');
+  if (!sc) return;
+  if (!document.fullscreenElement) {
+    (sc.requestFullscreen || sc.webkitRequestFullscreen || function(){}).call(sc);
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen || function(){}).call(document);
+  }
+}
+
+function startSub(d) {
+  if (d.plan) sub.plan = d.plan;
+  if (d.subj && d.subj !== 'both') sub.subj = d.subj;
+  if (!S.user) { after = 'sub'; authM('signup'); return; }
+  sub.tab = 'pay';
+  subM();
+}
+
+/* ============================================================================
+ * 6. حماية المتصفح ضد اختصارات النسخ والتصوير وفقدان التركيز
+ * ============================================================================ */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !modal.hidden) { closeM(); return; }
+  // منع F12 و Ctrl+Shift+I/J/C و Ctrl+U/S
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+    (e.ctrlKey && ['U', 'u', 'S', 's'].includes(e.key))
+  ) {
+    e.preventDefault();
+    toast('🛡️ أدوات فحص الكود وحفظ الصفحة معطّلة لحماية المحتوى التعليمي');
+    return false;
+  }
+  if (e.key === 'PrintScreen') {
+    if (P) triggerTamperLock('تم إيقاف الفيديو مؤقتاً لمنع التقاط الشاشة.');
+    toast('🛡️ تصوير الشاشة غير مسموح به');
+  }
+});
+
+window.addEventListener('blur', () => {
+  if (P && P.on && P.provider !== 'drive') {
+    P.on = false;
+    if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') { try { ytPlayer.pauseVideo(); } catch (e) {} }
+    const sc = $('#scr');
+    if (sc) sc.classList.add('blurred');
+    upd();
+  }
+});
+
+/* ============================================================================
+ * 7. معالجة النقرات والأحداث والنماذج
+ * ============================================================================ */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]');
+  if (!b) return;
+  const d = b.dataset;
+
+  switch (d.act) {
+    case 'view':
+      S.view = d.view;
+      closeM();
+      render();
+      window.scrollTo(0, 0);
+      break;
+    case 'subj':
+      S.subj = d.subj;
+      render();
+      break;
+    case 'play':
+      playM(d.subj, d.id);
+      break;
+    case 'locked':
+      lockedM(d.subj, d.id);
+      break;
+    case 'auth':
+      if (d.next) after = d.next;
+      if (d.subj) sub.subj = d.subj;
+      authM(d.mode);
+      break;
+    case 'logout':
+      S.user = null;
+      S.token = '';
+      S.view = 'student';
+      saveState();
+      render();
+      toast('تم تسجيل الخروج بنجاح');
+      break;
+    case 'mine':
+      mineM();
+      break;
+    case 'sub':
+      startSub(d);
+      break;
+    case 'pk':
+      sub.plan = d.plan;
+      subM();
+      break;
+    case 'ptab':
+      sub.tab = d.tab;
+      subM();
+      break;
+    case 'copy':
+      e.preventDefault();
+      try {
+        navigator.clipboard.writeText(d.v).then(() => toast('تم النسخ: ' + d.v), () => toast('الرقم: ' + d.v));
+      } catch (_) {
+        toast('الرقم: ' + d.v);
+      }
+      break;
+    case 'send': {
+      const txEl = $('#txRefIn'), er = $('#payErr');
+      const txRef = (txEl ? txEl.value : '').trim();
+      sub.txRef = txRef;
+      if (txRef.length < 4) {
+        if (er) er.textContent = 'يرجى إدخال رقم عملية التحويل الموجود في الإشعار (4 خانات على الأقل).';
+        break;
+      }
+      // فحص عدم تكرار رقم عملية التحويل لمنع الغش
+      const normRef = txRef.toUpperCase().replace(/\s+/g, '');
+      const dup = S.requests.find(r => r.st !== 'no' && String(r.txRef || '').toUpperCase().replace(/\s+/g, '') === normRef);
+      if (dup) {
+        if (er) er.textContent = '⚠️ رقم عملية التحويل هذا مستخدم مسبقاً! لا يمكن إرسال نفس الإشعار مرتين.';
+        break;
+      }
+      const p = plan(sub.plan);
+      const r = {
+        id: ++uid,
+        sid: S.user.id,
+        plan: p.id,
+        subj: p.both ? 'both' : sub.subj,
+        method: S.wallets[sub.w].n,
+        txRef: txRef,
+        amount: S.prices[p.id],
+        at: Date.now(),
+        st: 'pending',
+        receipt: sub.file
+      };
+      S.requests.unshift(r);
+      sub.file = null;
+      sub.txRef = '';
+      saveState();
+      if (API_URL) callGasApi('sub.request', r).catch(() => {});
+      render();
+      doneM(
+        'تم إرسال طلبك بنجاح',
+        'سيراجع الأستاذ إشعار الدفع ورقم العملية، وتُفتح الدروس في حسابك فور الموافقة.',
+        'للتجربة الآن: افتح «لوحة تحكم المدرّس» واقبل الطلب، ثم ارجع لواجهة الطالب لترى الدروس مفتوحة.'
+      );
+      break;
+    }
+    case 'redeem': {
+      const v = ($('#codeIn').value || '').trim().toUpperCase(), c = S.codes.find(x => x.c === v), er = $('#codeErr');
+      if (!c) { er.textContent = 'الكود غير صحيح، تأكد منه وأعد المحاولة.'; break; }
+      if (c.used) { er.textContent = 'هذا الكود مستخدم من قبل ولا يمكن تفعيله مرتين.'; break; }
+      c.used = true;
+      c.by = S.user.name;
+      grant(S.user, c.subj, c.mo);
+      if (API_URL) callGasApi('sub.redeem', { code: v }).catch(() => {});
+      render();
+      doneM('تم تفعيل اشتراكك بنجاح', `فُتحت دروس ${subjName(c.subj)} حتى ${fmtD(S.user.subs[c.subj === 'both' ? 'math' : c.subj])}.`);
+      break;
+    }
+    case 'close':
+      closeM();
+      break;
+    case 'pp':
+      togglePlayPause();
+      break;
+    case 'seek':
+      if (P) seekPlayer(P.pos + Number(d.d));
+      break;
+    case 'speed':
+      cycleSpeed();
+      break;
+    case 'fs':
+      toggleFullscreen();
+      break;
+    case 'resumeSec': {
+      const sc = $('#scr');
+      if (sc) {
+        sc.classList.remove('blurred', 'tampered');
+        if (!$('#wm') && P) {
+          const w = document.createElement('div');
+          w.className = 'wm';
+          w.id = 'wm';
+          w.textContent = P.wmText;
+          sc.appendChild(w);
+        }
+      }
+      if (P) { P.on = true; if (ytPlayer && ytPlayer.playVideo) ytPlayer.playVideo(); upd(); }
+      break;
+    }
+    case 'atab':
+      S.tab = d.tab;
+      render();
+      break;
+    case 'rf':
+      S.rf = d.f;
+      render();
+      break;
+    case 'as':
+      S.as = d.subj;
+      render();
+      break;
+    case 'rimg': {
+      const r = S.requests.find(x => x.id === Number(d.id));
+      openM(`<h3>إشعار الدفع · ${esc(stu(r.sid).name)} <small class="muted">(#${esc(r.txRef || r.id)})</small></h3><img class="big" src="${rimg(r)}" alt="إشعار الدفع">`);
+      break;
+    }
+    case 'appr':
+    case 'rej': {
+      const r = S.requests.find(x => x.id === Number(d.id)), s = stu(r.sid);
+      if (d.act === 'appr') {
+        r.st = 'ok';
+        grant(s, r.subj, plan(r.plan).mo);
+        toast(`تم قبول اشتراك ${s.name} وفُتحت دروسه`);
+      } else {
+        r.st = 'no';
+        saveState();
+        toast(`تم رفض طلب ${s.name}`);
+      }
+      if (API_URL) callGasApi('admin.request.decide', { id: r.id, approve: d.act === 'appr' }).catch(() => {});
+      render();
+      break;
+    }
+    case 'stop': {
+      const s = stu(Number(d.id));
+      s.subs = {};
+      saveState();
+      render();
+      toast(`تم إيقاف اشتراك ${s.name}`);
+      break;
+    }
+    case 'give': {
+      const s = stu(Number(d.id));
+      grant(s, 'both', 1);
+      render();
+      toast(`تم تفعيل شهر للمادتين لـ ${s.name}`);
+      break;
+    }
+    case 'resetDev': {
+      const s = stu(Number(d.id));
+      s.deviceFp = '';
+      s.deviceLabel = '';
+      s.deviceAlerts = 0;
+      saveState();
+      if (API_URL) callGasApi('admin.student.resetDevice', { id: s.id }).catch(() => {});
+      render();
+      toast(`🔓 تم فك قفل الجهاز للطالب ${s.name}؛ يمكنه الآن الدخول من جهازه الجديد`);
+      break;
+    }
+    case 'blockStu': {
+      const s = stu(Number(d.id));
+      s.status = s.status === 'blocked' ? 'active' : 'blocked';
+      if (S.user && S.user.id === s.id && s.status === 'blocked') S.user = null;
+      saveState();
+      render();
+      toast(s.status === 'blocked' ? `🚫 تم حظر حساب ${s.name}` : `✅ تم إعادة تفعيل حساب ${s.name}`);
+      break;
+    }
+    case 'editL':
+      editLessonM(d.subj, d.id);
+      break;
+    case 'delL': {
+      const k = d.subj, id = d.id;
+      L[k] = L[k].filter(x => x.id !== id);
+      saveState();
+      closeM();
+      toast('تم حذف الدرس');
+      break;
+    }
+    case 'resetDemo':
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+      break;
+  }
+});
+
+document.addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target;
+
+  if (f.id === 'authF') {
+    const su = f.dataset.mode === 'signup';
+    const name = su ? $('#fName').value.trim() : '';
+    const ph = $('#fPhone').value.trim();
+    const normPh = digits(ph);
+    const pw = $('#fPass').value;
+    const er = $('#authErr');
+
+    if (su && name.length < 3) { er.textContent = 'اكتب اسمك الكامل (3 أحرف على الأقل).'; return; }
+    if (normPh.length < 9) { er.textContent = 'اكتب رقم جوال صحيح.'; return; }
+    if (pw.length < 4) { er.textContent = 'كلمة المرور 4 أحرف أو أرقام على الأقل.'; return; }
+
+    // فحص دخول الأستاذ (المدير)
+    if (!su && normPh === digits(S.adminPhone) && pw === S.adminPass) {
+      S.user = { id: 0, name: 'الأستاذ شادي عبيد', phone: S.adminPhone, role: 'admin', subs: { math: now + 3650 * DAY, phys: now + 3650 * DAY } };
+      saveState();
+      closeM();
+      toast('أهلاً بك أستاذ شادي — تم تفعيل صلاحيات الإدارة');
+      return;
+    }
+
+    if (su) {
+      if (S.students.some(s => digits(s.phone) === normPh) || normPh === digits(S.adminPhone)) {
+        er.textContent = 'هذا الرقم مسجّل مسبقاً، سجّل الدخول بدلاً من ذلك.';
+        return;
+      }
+      const s = {
+        id: ++uid,
+        name,
+        phone: ph,
+        pass: pw,
+        role: 'student',
+        subs: {},
+        deviceFp: MY_DEVICE_FP,
+        deviceLabel: MY_DEVICE_LABEL,
+        deviceAlerts: 0,
+        status: 'active',
+        joined: Date.now()
+      };
+      S.students.unshift(s);
+      S.user = s;
+      saveState();
+      toast('أهلاً ' + name.split(' ')[0] + '، تم إنشاء حسابك وربطه بجهازك');
+    } else {
+      const s = S.students.find(x => digits(x.phone) === normPh);
+      if (!s) { er.textContent = 'لا يوجد حساب مسجّل بهذا الرقم.'; return; }
+      if (s.status === 'blocked') { er.textContent = 'تم إيقاف هذا الحساب من قِبل الإدارة.'; return; }
+      if (s.pass && s.pass !== pw) { er.textContent = 'كلمة المرور غير صحيحة.'; return; }
+
+      // التحقق من بصمة الجهاز (منع فتح الحساب على أجهزة أخرى)
+      const savedFps = String(s.deviceFp || '').split('|').filter(Boolean);
+      if (savedFps.length > 0 && !savedFps.includes(MY_DEVICE_FP)) {
+        if (savedFps.length >= (S.maxDevices || 1)) {
+          s.deviceAlerts = (s.deviceAlerts || 0) + 1;
+          saveState();
+          er.textContent = `🔒 هذا الحساب مرتبط بجهاز آخر (${s.deviceLabel || 'هاتف آخر'}). لمنع مشاركة الحسابات لا يُسمح بالدخول من جهاز جديد إلا بعد فك الارتباط من الأستاذ.`;
+          return;
+        } else {
+          savedFps.push(MY_DEVICE_FP);
+          s.deviceFp = savedFps.join('|');
+          s.deviceLabel = (s.deviceLabel ? s.deviceLabel + ' + ' : '') + MY_DEVICE_LABEL;
+        }
+      } else if (savedFps.length === 0) {
+        s.deviceFp = MY_DEVICE_FP;
+        s.deviceLabel = MY_DEVICE_LABEL;
+      }
+
+      S.user = s;
+      saveState();
+      toast('أهلاً بعودتك ' + s.name.split(' ')[0]);
+    }
+
+    render();
+    if (after === 'sub') { after = null; sub.tab = 'pay'; subM(); }
+    else closeM();
+    return;
+  }
+
+  if (f.id === 'addL') {
+    const k = $('#nS').value, d = $('#nD').value.trim(), vUrl = $('#nV').value.trim();
+    if (!/^\d{1,2}:\d{2}$/.test(d)) { toast('اكتب المدة بالشكل 12:30'); return; }
+    const pv = parseVideoUrl(vUrl);
+    L[k].push({
+      id: 'n' + (++uid),
+      u: $('#nU').value.trim(),
+      t: $('#nT').value.trim(),
+      d: d.padStart(5, '0'),
+      free: $('#nFree').checked,
+      f: $('#nF').value.trim() || '…',
+      provider: pv.provider,
+      videoSource: vUrl,
+      pdfUrl: $('#nPdf').value.trim(),
+      v: 0
+    });
+    S.as = k;
+    saveState();
+    render();
+    toast('تمت إضافة الدرس بنجاح وظهر للطلاب');
+    return;
+  }
+
+  if (f.id === 'editLF') {
+    const k = f.dataset.subj, id = f.dataset.id;
+    const l = L[k].find(x => x.id === id);
+    if (l) {
+      l.t = $('#eT').value.trim();
+      l.u = $('#eU').value.trim();
+      l.d = $('#eD').value.trim();
+      l.videoSource = $('#eV').value.trim();
+      l.provider = parseVideoUrl(l.videoSource).provider;
+      l.f = $('#eF').value.trim() || '…';
+      l.pdfUrl = $('#ePdf').value.trim();
+      saveState();
+      closeM();
+      toast('تم تحديث بيانات ورابط الدرس بنجاح');
+    }
+    return;
+  }
+
+  if (f.id === 'genC') {
+    const n = Math.min(20, Math.max(1, Number($('#cN').value) || 1));
+    const ch = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+    const r = m => Array.from({ length: m }, () => ch[Math.floor(Math.random() * ch.length)]).join('');
+    for (let i = 0; i < n; i++) {
+      S.codes.unshift({ c: `SH-${r(4)}-${r(2)}`, subj: $('#cS').value, mo: Number($('#cM').value), used: false });
+    }
+    saveState();
+    render();
+    toast(`تم توليد ${pl(n, 'كود واحد', 'كودين', 'أكواد', 'كودًا')}`);
+    return;
+  }
+
+  if (f.id === 'setF') {
+    PLANS.forEach(p => {
+      const v = Number($('#pr_' + p.id).value);
+      if (v >= 0) S.prices[p.id] = v;
+    });
+    S.wallets.forEach((w, i) => { w.v = $('#w_' + i).value.trim() || w.v; });
+    S.wa = $('#waN').value.trim() || S.wa;
+    S.maxDevices = Number($('#maxDev').value) || 1;
+    if ($('#admPass').value.trim().length >= 4) S.adminPass = $('#admPass').value.trim();
+    const gasInput = $('#gasUrl').value.trim();
+    API_URL = gasInput;
+    localStorage.setItem('SHADI_GAS_API_URL', API_URL);
+    saveState();
+    render();
+    toast('تم حفظ الإعدادات وتحديث قواعد الحماية');
+  }
+});
+
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id === 'sSubj') sub.subj = t.value;
+  else if (t.name === 'wal') sub.w = Number(t.value);
+  else if (t.id === 'rcpt' && t.files[0]) {
+    if ($('#txRefIn')) sub.txRef = $('#txRefIn').value.trim();
+    const rd = new FileReader();
+    rd.onload = () => { sub.file = rd.result; subM(); };
+    rd.readAsDataURL(t.files[0]);
+  } else if (t.classList.contains('frt')) {
+    const l = L[t.dataset.subj].find(x => x.id === t.dataset.id);
+    l.free = t.checked;
+    t.nextElementSibling.textContent = l.free ? 'مجاني' : 'مقفل';
+    saveState();
+    toast(`«${l.t}» أصبح ${l.free ? 'مجانيًا للجميع' : 'للمشتركين فقط'}`);
+  }
+});
+
+document.addEventListener('input', e => {
+  if (e.target.id === 'q') {
+    S.q = e.target.value;
+    const tb = $('#stuT tbody');
+    if (tb) tb.innerHTML = stuRows();
+  } else if (e.target.id === 'prog' && P) {
+    seekPlayer(Number(e.target.value));
+  } else if (e.target.id === 'txRefIn') {
+    sub.txRef = e.target.value;
+  }
+});
+
+modal.addEventListener('click', e => { if (e.target === modal) closeM(); });
+render();
+}
+</script>
+</body>
+</html>
