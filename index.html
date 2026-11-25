@@ -35,8 +35,14 @@
 :root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;overflow-x:clip;-webkit-user-select:none;user-select:none}
-input,textarea,select{-webkit-user-select:text;user-select:text}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;overflow-x:clip;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+@media print{html,body{display:none!important;visibility:hidden!important;background:#000!important}}
+.cap-curtain{position:fixed;inset:0;z-index:99999;background:#040B14;color:#F8FAFC;display:grid;place-items:center;text-align:center;padding:24px}
+.cap-curtain[hidden]{display:none!important}
+.cap-box{max-width:460px;background:#0D1F33;border:1.5px solid rgba(252,108,86,.5);border-radius:20px;padding:28px 24px;box-shadow:0 24px 60px rgba(0,0,0,.75);display:grid;gap:12px;justify-items:center}
+.otp-in{font:700 26px/1.2 ui-monospace,Consolas,monospace!important;letter-spacing:10px;text-align:center;color:var(--acc)}
+.wm-diag{position:absolute;z-index:6;inset:0;display:grid;place-items:center;pointer-events:none;font:700 clamp(14px,2.2vw,22px) 'Readex Pro',sans-serif;color:rgba(255,255,255,.08);transform:rotate(-18deg);user-select:none;white-space:nowrap}
 body.noscroll{overflow:hidden}
 h1,h2,h3,h4{font-family:'Readex Pro','IBM Plex Sans Arabic',sans-serif;line-height:1.25;margin:0;text-wrap:balance}
 h1{font-size:clamp(30px,4.2vw,48px);font-weight:700}
@@ -438,6 +444,14 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 <main id="app"></main>
 <div id="modal" class="modal" hidden></div>
 <div id="toast" class="toast" role="status" hidden></div>
+<div id="captureCurtain" class="cap-curtain" hidden>
+  <div class="cap-box">
+    <div style="font-size:42px;line-height:1">🛡️</div>
+    <h3 style="color:#fc6c56;margin:0">حماية المحتوى التعليمي مفعّلة</h3>
+    <p id="capReason" style="color:#BAE6FD;font-size:15px">يُمنع أخذ لقطة شاشة أو تسجيل الشاشة داخل المنصة لحماية حقوق النشر والمحتوى التعليمي.</p>
+    <button type="button" class="btn sm" data-act="dismissCap">العودة لمتابعة التصفح</button>
+  </div>
+</div>
 
 <script>
 {
@@ -454,7 +468,10 @@ try {
 
 // الرابط السحابي الحيّ المربوط بـ Google Apps Script للمزامنة الفورية بين جميع الأجهزة
 const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbyHaiA7xhs3cquq9LFj7jxofpuPJeaB86jZiW-sccj_zlL-8VmHD4eSgAd9lnj99ofMUQ/exec';
+const DEFAULT_MAILER_URL = 'https://script.google.com/macros/s/AKfycbxgiNQNB0AeYeMIYbMsqpqVzdmeQ7W6WJDJNKbN7jtvzN9a9SJOp4FdKuw-A-jJyxMDdA/exec';
+const MAILER_AUTH_LINK = 'https://script.google.com/d/1sjR0oOMYYOlWDvotqryoSQrFfTC8Pfc1CCUAEOiNK48PJ_qOQyV6tvM6/edit';
 let API_URL = localStorage.getItem('SHADI_GAS_API_URL') || DEFAULT_API_URL;
+let MAILER_URL = localStorage.getItem('SHADI_MAILER_URL') || DEFAULT_MAILER_URL;
 
 const now = Date.now(), DAY = 864e5, HR = 36e5;
 const SUBJ = { math: 'التاريخ', phys: 'الجغرافيا' };
@@ -725,7 +742,8 @@ async function syncFromCloud(quiet = true) {
   syncInFlight = true;
   const seqAtStart = mutationSeq;
   try {
-    const res = await fetch(API_URL + '?action=get&t=' + Date.now(), { method: 'GET' });
+    const akParam = (S.user && S.user.role === 'admin' && S.adminPass) ? '&ak=' + encodeURIComponent(S.adminPass) : '';
+    const res = await fetch(API_URL + '?action=get&t=' + Date.now() + akParam, { method: 'GET' });
     const json = await res.json();
     // إذا قام المستخدم بحفظ تعديل محلي أثناء انتظار الشبكة، نتجاهل الرد القديم منعاً لمسح التعديل الجديد
     if (seqAtStart !== mutationSeq || pushInFlight || pendingPush) return;
@@ -972,6 +990,7 @@ const A = {
     const act = S.students.filter(s => active(s, 'math') || active(s, 'phys')).length;
     const rev = S.requests.filter(r => r.st === 'ok' && r.at > Date.now() - 30 * DAY).reduce((a, r) => a + r.amount, 0);
     const alerts = S.students.filter(s => (s.deviceAlerts || 0) > 0);
+    const resetReqs = S.students.filter(s => s.resetCode && Number(s.resetExp || 0) > Date.now());
     const top = [...L.math.map(l => ({ ...l, k: 'math' })), ...L.phys.map(l => ({ ...l, k: 'phys' }))].sort((a, b) => b.v - a.v).slice(0, 5);
     const mx = top[0] ? Math.max(1, top[0].v) : 1;
 
@@ -981,6 +1000,11 @@ const A = {
       <div class="stat"><span>طلبات بانتظارك</span><b>${pend.length}</b></div>
       <div class="stat hl"><span>إيرادات آخر 30 يومًا</span><b>${rev} $</b></div>
     </div>
+    ${resetReqs.length ? `<div class="note ok"><span>🔑 <b>طلبات استعادة كلمة المرور النشطة:</b> ${resetReqs.map(s => {
+      const waPh = formatWaPhone(s.phone);
+      const msg = `مرحباً ${s.name}، كود التحقق لتجديد كلمة المرور في منصة Shadi Obaid | شادي عبيد هو: ${s.resetCode}`;
+      return `<span style="display:inline-flex;align-items:center;gap:6px;margin-inline-end:12px"><b>${esc(s.name)}</b> (<span class="code" dir="ltr" style="color:var(--acc);font-size:16px">${esc(s.resetCode)}</span>) <button type="button" class="btn ghost xs" data-act="copy" data-v="${esc(s.resetCode)}">نسخ الكود</button>${waPh ? `<a class="btn wa xs" href="https://wa.me/${waPh}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">إرسال واتساب</a>` : ''}</span>`;
+    }).join(' · ')}</span></div>` : ''}
     ${alerts.length ? `<div class="note bad">${I.shield}<span><b>تنبيه أمان ومنع مشاركة الحساب:</b> تم رصد محاولات دخول من أجهزة إضافية غير مصرح بها لـ (${alerts.map(s => esc(s.name)).join('، ')}).</span><button type="button" class="btn sm ghost" data-act="atab" data-tab="stu">مراجعة الأجهزة</button></div>` : ''}
     <div class="grid2">
       <div class="panel"><h3>طلبات بانتظار التأكيد <button type="button" class="btn link sm" data-act="atab" data-tab="req">عرض الكل</button></h3>${pend.length ? pend.map(r => `<div class="mini"><span><b>${esc(stu(r.sid).name)}</b> · ${plan(r.plan).n} · ${subjName(r.subj)} <small class="muted">(#${esc(r.txRef || r.id)})</small></span><button type="button" class="btn sm" data-act="atab" data-tab="req">مراجعة</button></div>`).join('') : '<p class="muted">لا توجد طلبات جديدة.</p>'}</div>
@@ -1075,9 +1099,13 @@ const A = {
           <label>كلمة المرور السرية للأستاذ<input id="admPass" type="text" dir="ltr" value="${esc(S.adminPass)}"></label>
         </div>
         <details style="margin-top:14px;font-size:14px;color:var(--muted)">
-          <summary style="cursor:pointer;font-weight:600">إعدادات الربط السحابي المتقدمة (متصل تلقائياً ✓)</summary>
-          <div style="margin-top:10px">
-            <label style="display:grid;gap:6px">رابط خادم Google Apps Script Web App<input id="gasUrl" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(API_URL || DEFAULT_API_URL)}"></label>
+          <summary style="cursor:pointer;font-weight:600">إعدادات الربط السحابي وخدمة البريد الإلكتروني لأكواد التحقق (متصل ✓)</summary>
+          <div style="margin-top:10px;display:grid;gap:12px">
+            <label style="display:grid;gap:6px">رابط خادم البيانات السحابي (Google Apps Script)<input id="gasUrl" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(API_URL || DEFAULT_API_URL)}"></label>
+            <label style="display:grid;gap:6px">رابط خدمة إرسال أكواد التحقق للبريد الإلكتروني<input id="mailerUrl" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(MAILER_URL || DEFAULT_MAILER_URL)}"></label>
+            <div class="tip" style="margin:0">
+              ✉️ <b>ملاحظة تفعيل إرسال الإيميل التلقائي (لمرة واحدة فقط):</b> في حال لم تكن صلاحية Gmail مفعّلة بعد، افتح <a href="${MAILER_AUTH_LINK}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">صفحة خدمة الإيميل هنا</a> واضغط زر <b>Run (تشغيل)</b> ثم <b>Allow</b> ليبدأ إرسال الأكواد تلقائياً لبريد كل طالب، علماً أن كود التحقق يظهر أيضاً فوراً هنا في لوحة تحكمك.
+            </div>
           </div>
         </details>
       </div>
@@ -1089,8 +1117,8 @@ const A = {
 };
 
 function stuRows() {
-  const q = S.q.trim(), qd = digits(q);
-  const list = S.students.filter(s => !q || s.name.includes(q) || (qd && digits(s.phone).includes(qd)));
+  const q = S.q.trim().toLowerCase(), qd = digits(q);
+  const list = S.students.filter(s => !q || String(s.name || '').toLowerCase().includes(q) || String(s.email || '').toLowerCase().includes(q) || (qd && digits(s.phone).includes(qd)));
   if (!list.length) return '<tr><td colspan="6" class="muted">لا يوجد طالب مسجّل بعد. سيظهر الطلاب هنا فور تسجيلهم في المنصة.</td></tr>';
   const cell = (s, k) => {
     if (active(s, k)) return `<span class="st ok">فعّال حتى ${fmtS(s.subs[k])}</span>`;
@@ -1101,12 +1129,15 @@ function stuRows() {
 
   return list.map(s => {
     const pendReq = S.requests.find(r => r.sid === s.id && r.st === 'pending');
+    const hasOtp = s.resetCode && Number(s.resetExp || 0) > Date.now();
+    const waPh = formatWaPhone(s.phone);
+    const otpMsg = hasOtp ? `مرحباً ${s.name}، كود التحقق لتجديد كلمة المرور في منصة Shadi Obaid | شادي عبيد هو: ${s.resetCode}` : '';
     const devHtml = s.deviceFp
       ? `<span class="dev-tag" title="البصمة: ${esc(s.deviceFp)}">🔒 ${esc(s.deviceLabel || 'جهاز مرتبط')}</span>${s.deviceAlerts ? ` <span class="st no" title="حاول الدخول من جهاز آخر">⚠️ ${s.deviceAlerts} محاولة</span>` : ''}`
       : '<span class="muted">غير مرتبط بعد</span>';
     return `<tr style="${s.status === 'blocked' ? 'opacity:.55' : ''}">
-      <td data-l="الاسم"><b>${esc(s.name)}</b> ${s.status === 'blocked' ? '<span class="st no">محظور</span>' : ''}</td>
-      <td data-l="الجوال" dir="ltr" style="text-align:right">${esc(s.phone)}</td>
+      <td data-l="الاسم"><div><b>${esc(s.name)}</b> ${s.status === 'blocked' ? '<span class="st no">محظور</span>' : ''}${hasOtp ? `<div style="margin-top:4px"><span class="st pending">🔑 كود استعادة: <b class="code" dir="ltr">${esc(s.resetCode)}</b></span> <button type="button" class="btn link xs" data-act="copy" data-v="${esc(s.resetCode)}">نسخ</button>${waPh ? ` <a class="btn wa xs" href="https://wa.me/${waPh}?text=${encodeURIComponent(otpMsg)}" target="_blank" rel="noopener">واتساب</a>` : ''}</div>` : ''}</div></td>
+      <td data-l="الجوال والإيميل"><div dir="ltr" style="text-align:right">${esc(s.phone)}${s.email ? `<small class="muted" style="display:block">${esc(s.email)}</small>` : ''}</div></td>
       <td data-l="الجهاز المرتبط">${devHtml}</td>
       <td data-l="التاريخ">${cell(s, 'math')}</td>
       <td data-l="الجغرافيا">${cell(s, 'phys')}</td>
@@ -1197,18 +1228,56 @@ function lockedM(k, id) {
   openM(`<div class="mhead"><div class="cic">${I.lock}</div><h3>«${esc(l.t)}» للمشتركين</h3><p>هذا الدرس من دروس ${SUBJ[k]} المقفلة. اشترك لتفتحه مع بقية الدروس وملخصات القوانين.</p></div>${S.user ? `<button type="button" class="btn full" data-act="sub" data-plan="m1" data-subj="${k}">اشترك الآن</button>` : `<div class="row2"><button type="button" class="btn" data-act="auth" data-mode="signup" data-next="sub" data-subj="${k}">إنشاء حساب</button><button type="button" class="btn ghost" data-act="auth" data-mode="login" data-next="sub" data-subj="${k}">لدي حساب</button></div>`}`);
 }
 
-function authM(mode) {
+const rstState = { ident: '', maskedEmail: '', emailSent: false, hasEmail: false, phone: '', name: '' };
+
+function authM(mode, preIdent = '') {
   const su = mode === 'signup';
   openM(`<h3>${su ? 'إنشاء حساب طالب' : 'تسجيل الدخول'}</h3>
   <form id="authF" class="form" data-mode="${mode}" novalidate>
     ${su ? '<label>الاسم الكامل<input id="fName" autocomplete="name" placeholder="مثال: أحمد الحسن"></label>' : ''}
-    <label>${su ? 'رقم الجوال' : 'رقم الجوال أو اسم المستخدم'}<input id="fPhone" type="text" autocomplete="username" dir="ltr" placeholder="09xx xxx xxx"></label>
+    <label>${su ? 'رقم الجوال' : 'رقم الجوال أو البريد الإلكتروني'}<input id="fPhone" type="text" autocomplete="username" dir="ltr" placeholder="${su ? '09xx xxx xxx' : '09xx xxx xxx أو name@gmail.com'}" value="${esc(preIdent)}"></label>
+    ${su ? '<label>البريد الإلكتروني (لإرسال كود استعادة كلمة المرور) *<input id="fEmail" type="email" autocomplete="email" dir="ltr" placeholder="example@gmail.com"></label>' : ''}
     <label>كلمة المرور<input id="fPass" type="password" autocomplete="${su ? 'new-password' : 'current-password'}"></label>
+    ${!su ? '<div style="text-align:left;margin-top:-6px"><button type="button" class="btn link" style="font-size:13.5px;color:var(--blue);padding:2px 0" data-act="forgot">نسيت كلمة المرور؟ تجديدها بكود تحقق</button></div>' : ''}
     <p class="err" id="authErr"></p>
-    <button class="btn full">${su ? 'إنشاء الحساب وربط الجهاز' : 'دخول'}</button>
+    <button class="btn full" id="authBtn">${su ? 'إنشاء الحساب وربط الجهاز' : 'دخول'}</button>
     <p class="switch">${su ? 'لديك حساب؟ <button type="button" class="btn link" data-act="auth" data-mode="login">سجّل الدخول</button>' : 'جديد هنا؟ <button type="button" class="btn link" data-act="auth" data-mode="signup">أنشئ حسابًا</button>'}</p>
     <div class="tip" style="margin:0;font-size:13px">
       🛡️ <b>حماية الحساب:</b> يُربط الحساب بجهازك الحالي (<span dir="ltr">${esc(MY_DEVICE_LABEL)}</span>) لمنع تسريب ومشاركة الحساب.
+    </div>
+  </form>`);
+}
+
+function forgotM(step = 1) {
+  if (step === 1) {
+    openM(`<h3>استعادة كلمة المرور بكود تحقق</h3>
+    <p class="muted" style="margin-bottom:14px;font-size:14.5px">أدخل رقم جوالك أو بريدك الإلكتروني المسجّل في المنصة لإرسال كود تحقق من 6 أرقام لتجديد كلمة المرور.</p>
+    <form id="rstStep1F" class="form" novalidate>
+      <label>رقم الجوال أو البريد الإلكتروني<input id="rstIdent" type="text" dir="ltr" placeholder="09xx xxx xxx أو example@gmail.com" value="${esc(rstState.ident)}"></label>
+      <p class="err" id="rstErr"></p>
+      <button class="btn full" id="rstSendBtn">إرسال كود التحقق (6 أرقام)</button>
+      <p class="switch"><button type="button" class="btn link" data-act="auth" data-mode="login">← العودة لتسجيل الدخول</button></p>
+    </form>`);
+    return;
+  }
+
+  const waNum = formatWaPhone(S.wa);
+  const waReqMsg = `مرحباً أستاذ شادي، طلبت استعادة كلمة المرور لحسابي (${rstState.name || rstState.ident} - ${rstState.phone || rstState.ident})، يرجى تزويدي بكود التحقق المكون من 6 أرقام.`;
+  const infoBanner = rstState.emailSent
+    ? `<div class="tip" style="border-color:var(--ok)">✉️ <b>تم إرسال كود التحقق (6 أرقام) تلقائياً</b> إلى بريدك الإلكتروني (<b dir="ltr">${esc(rstState.maskedEmail)}</b>). تفقد صندوق الوارد أو الرسائل غير المرغوبة (Spam)، أو اطلبه من الإدارة عند الحاجة.</div>`
+    : `<div class="tip">🔑 <b>تم توليد كود التحقق (6 أرقام) لحسابك بنجاح!</b>${rstState.hasEmail ? ` أُرسل الطلب لبريدك (<span dir="ltr">${esc(rstState.maskedEmail)}</span>) كما ظهر الكود فوراً في لوحة تحكم الأستاذ.` : ' الكود جاهز الآن في لوحة تحكم الأستاذ.'}${waNum ? `<div style="margin-top:8px"><a class="btn wa sm full" href="https://wa.me/${waNum}?text=${encodeURIComponent(waReqMsg)}" target="_blank" rel="noopener">${I.wa} طلب كود التحقق عبر واتساب الأستاذ</a></div>` : ''}</div>`;
+
+  openM(`<h3>إدخال كود التحقق وتجديد كلمة المرور</h3>
+  ${infoBanner}
+  <form id="rstStep2F" class="form" autocomplete="off" novalidate>
+    <label>كود التحقق المؤلف من 6 أرقام<input id="rstCode" class="otp-in" type="text" inputmode="numeric" maxlength="6" dir="ltr" placeholder="000000" autocomplete="one-time-code"></label>
+    <label>كلمة المرور الجديدة<input id="rstPass1" type="password" autocomplete="new-password" placeholder="4 أحرف أو أرقام على الأقل"></label>
+    <label>تأكيد كلمة المرور الجديدة<input id="rstPass2" type="password" autocomplete="new-password" placeholder="أعد كتابة كلمة المرور الجديدة"></label>
+    <p class="err" id="rstErr2"></p>
+    <button class="btn full" id="rstConfirmBtn">تأكيد الكود وحفظ كلمة المرور الجديدة</button>
+    <div class="row2" style="margin-top:4px">
+      <button type="button" class="btn ghost sm" data-act="forgot">إعادة طلب كود جديد</button>
+      <button type="button" class="btn link sm" data-act="auth" data-mode="login">العودة للدخول</button>
     </div>
   </form>`);
 }
@@ -1245,7 +1314,11 @@ function mineM() {
   const u = S.user, rq = S.requests.filter(r => r.sid === u.id);
   openM(`<h3>اشتراكي وحماية جهازي</h3>
   <p class="muted">${esc(u.name)} · <span dir="ltr">${esc(u.phone)}</span></p>
-  <div class="tip" style="margin-top:10px;margin-bottom:10px">
+  <form id="updEmailF" style="margin-top:12px;display:flex;gap:8px;align-items:end;flex-wrap:wrap">
+    <label style="flex:1;min-width:200px;display:grid;gap:4px;font-size:13.5px;font-weight:600">البريد الإلكتروني لاستعادة كلمة المرور<input id="myEmailIn" type="email" dir="ltr" placeholder="example@gmail.com" value="${esc(u.email || '')}"></label>
+    <button class="btn ghost sm" style="min-height:46px">حفظ البريد</button>
+  </form>
+  <div class="tip" style="margin-top:12px;margin-bottom:10px">
     🔒 <b>الجهاز المرتبط بحسابك:</b> <span dir="ltr">${esc(u.deviceLabel || MY_DEVICE_LABEL)}</span><br>
     <small class="muted">البصمة الرقمية: <span class="code" dir="ltr">${esc(u.deviceFp || MY_DEVICE_FP)}</span></small>
   </div>
@@ -1308,7 +1381,7 @@ function playM(k, id) {
     const drivePreviewUrl = `https://drive.google.com/file/d/${encodeURIComponent(parsed.id)}/preview`;
     mediaEmbedHtml = `<iframe src="${drivePreviewUrl}" allow="autoplay; encrypted-media" sandbox="allow-scripts allow-same-origin allow-forms"></iframe><div class="drive-shield" title="طبقة حماية المنصة"></div>`;
   } else if (parsed.provider === 'direct' && parsed.id) {
-    mediaEmbedHtml = `<video id="html5Vid" src="${esc(parsed.id)}" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video><div class="v-shield" data-act="pp"></div>`;
+    mediaEmbedHtml = `<video id="html5Vid" src="${esc(parsed.id)}" playsinline controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback></video><div class="v-shield" data-act="pp"></div>`;
   } else {
     // شاشة السبورة التفاعلية الافتراضية عند عدم وضع رابط خارجي بعد
     mediaEmbedHtml = `<div class="sc-u">${SUBJ[k]} · ${esc(l.u)}</div><div class="sc-t">${esc(l.t)}</div><div class="sc-f" dir="ltr">${esc(l.f)}</div><div class="v-shield" data-act="pp"></div>`;
@@ -1319,6 +1392,7 @@ function playM(k, id) {
       ${mediaEmbedHtml}
       <div class="wm" id="wm">${esc(who)}</div>
       <div class="wm-ghost" id="wmGhost">${esc(MY_DEVICE_FP)}</div>
+      <div class="wm-diag" id="wmDiag">Shadi Obaid | شادي عبيد · ${esc(who)}</div>
       <div class="bigp">${I.play}</div>
       <div class="sec-overlay" id="secOverlay">
         <div>
@@ -1577,34 +1651,144 @@ function startSub(d) {
 }
 
 /* ============================================================================
- * 6. حماية المتصفح ضد اختصارات النسخ والتصوير وفقدان التركيز
+ * 6. نظام الحماية المتعدد الطبقات لمنع لقطة الشاشة وتسجيل الشاشة والنسخ
  * ============================================================================ */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && !modal.hidden) { closeM(); return; }
-  // منع F12 و Ctrl+Shift+I/J/C و Ctrl+U/S
-  if (
-    e.key === 'F12' ||
-    (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
-    (e.ctrlKey && ['U', 'u', 'S', 's'].includes(e.key))
-  ) {
+function pauseActiveVideoImmediate() {
+  if (!P) return;
+  P.on = false;
+  if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+    try { ytPlayer.pauseVideo(); } catch (e) {}
+  }
+  const vid = document.getElementById('html5Vid');
+  if (vid) { try { vid.pause(); } catch (e) {} }
+  const sc = $('#scr');
+  if (sc) sc.classList.add('blurred');
+  upd();
+}
+
+function activateCaptureShield(reason) {
+  pauseActiveVideoImmediate();
+  // مسح الحافظة فوراً لإبطال أي صورة التُقطت عبر PrintScreen أو أداة القص
+  if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+    navigator.clipboard.writeText('محتوى محمي — Shadi Obaid | شادي عبيد').catch(() => {});
+  }
+  const cur = document.getElementById('captureCurtain');
+  const rsn = document.getElementById('capReason');
+  if (rsn && reason) rsn.textContent = reason;
+  if (cur) cur.hidden = false;
+}
+
+function dismissCaptureShield() {
+  const cur = document.getElementById('captureCurtain');
+  if (cur) cur.hidden = true;
+}
+
+// 1) حظر واجهات تسجيل الشاشة والتقاط البث في المتصفح وإضافاته (getDisplayMedia + captureStream + PiP)
+(function lockCaptureApis() {
+  try {
+    if (navigator.mediaDevices) {
+      navigator.mediaDevices.getDisplayMedia = function() {
+        activateCaptureShield('🛡️ تم حظر محاولة تسجيل الشاشة عبر المتصفح.');
+        return Promise.reject(new DOMException('Screen recording is disabled on this platform.', 'NotAllowedError'));
+      };
+    }
+  } catch (e) {}
+  try {
+    if (typeof HTMLMediaElement !== 'undefined') {
+      const blockStream = function() {
+        activateCaptureShield('🛡️ تم حظر محاولة اعتراض أو تسجيل بث الفيديو.');
+        throw new DOMException('Stream capture disabled', 'SecurityError');
+      };
+      HTMLMediaElement.prototype.captureStream = blockStream;
+      HTMLMediaElement.prototype.mozCaptureStream = blockStream;
+    }
+  } catch (e) {}
+  document.addEventListener('enterpictureinpicture', e => {
     e.preventDefault();
-    toast('🛡️ أدوات فحص الكود وحفظ الصفحة معطّلة لحماية المحتوى التعليمي');
+    if (document.exitPictureInPicture) document.exitPictureInPicture().catch(() => {});
+    activateCaptureShield('🛡️ وضع صورة داخل صورة معطّل لحماية الدروس.');
+  }, true);
+})();
+
+// 2) منع النقر الأيمن وسحب العناصر والطباعة في الصفحة
+document.addEventListener('contextmenu', e => {
+  const tag = e.target && e.target.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+  e.preventDefault();
+});
+document.addEventListener('dragstart', e => {
+  e.preventDefault();
+});
+window.addEventListener('beforeprint', () => {
+  activateCaptureShield('🛡️ طباعة الصفحة أو حفظها كملف PDF غير مسموح به.');
+});
+
+// 3) اعتراض جميع اختصارات لقطة الشاشة وتسجيل الشاشة على ويندوز وماك والهواتف (keydown + keyup)
+function isCaptureShortcut(e) {
+  const k = e.key || '';
+  const kl = k.toLowerCase();
+  if (k === 'PrintScreen' || e.keyCode === 44) return '🛡️ تم رصد محاولة أخذ لقطة شاشة (PrintScreen) وتم حجب المحتوى.';
+  // Windows Snipping Tool / Screen Recorder (Win+Shift+S / Win+Shift+R / Win+Alt+R / Win+G) & macOS (Cmd+Shift+3/4/5)
+  if (e.metaKey && e.shiftKey && ['s', 'r', '3', '4', '5'].includes(kl)) {
+    return '🛡️ تم رصد اختصار أداة لقطة أو تسجيل الشاشة وتم إعتام المحتوى فوراً.';
+  }
+  if (e.metaKey && e.altKey && kl === 'r') {
+    return '🛡️ تم رصد اختصار تسجيل الشاشة (Screen Recorder) وتم إيقاف العرض.';
+  }
+  return '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const cur = document.getElementById('captureCurtain');
+    if (cur && !cur.hidden) { dismissCaptureShield(); return; }
+    if (!modal.hidden) { closeM(); return; }
+  }
+  const capMsg = isCaptureShortcut(e);
+  if (capMsg) {
+    e.preventDefault();
+    e.stopPropagation();
+    activateCaptureShield(capMsg);
     return false;
   }
-  if (e.key === 'PrintScreen') {
-    if (P) triggerTamperLock('تم إيقاف الفيديو مؤقتاً لمنع التقاط الشاشة.');
-    toast('🛡️ تصوير الشاشة غير مسموح به');
+  // منع F12 و Ctrl+Shift+I/J/C و Ctrl+U/S/P
+  const kl = (e.key || '').toLowerCase();
+  if (
+    e.key === 'F12' ||
+    ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'j', 'c'].includes(kl)) ||
+    ((e.ctrlKey || e.metaKey) && ['u', 's', 'p'].includes(kl))
+  ) {
+    e.preventDefault();
+    if (kl === 'p') activateCaptureShield('🛡️ حفظ أو طباعة الصفحة معطّل لحماية المحتوى التعليمي.');
+    else toast('🛡️ أدوات فحص الكود وحفظ الصفحة معطّلة لحماية المحتوى التعليمي');
+    return false;
+  }
+}, true);
+
+document.addEventListener('keyup', e => {
+  const capMsg = isCaptureShortcut(e);
+  if (capMsg || e.key === 'PrintScreen' || e.keyCode === 44) {
+    activateCaptureShield(capMsg || '🛡️ تم رصد محاولة أخذ لقطة شاشة وتم مسح الحافظة.');
+  }
+}, true);
+
+// 4) إعتام وإيقاف فوري عند فتح مركز التحكم في الهاتف لتسجيل الشاشة أو تشغيل أداة قص خارجية أثناء المشاهدة
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && P) {
+    pauseActiveVideoImmediate();
   }
 });
 
 window.addEventListener('blur', () => {
-  if (P && P.on && P.provider !== 'drive') {
-    P.on = false;
-    if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') { try { ytPlayer.pauseVideo(); } catch (e) {} }
-    const sc = $('#scr');
-    if (sc) sc.classList.add('blurred');
-    upd();
-  }
+  if (!P) return;
+  setTimeout(() => {
+    // السماح بالنقر الطبيعي داخل إطار الفيديو المعزول نفسه دون تفعيل خاطئ، وحجب أي أداة خارجية تسحب التركيز
+    const ae = document.activeElement;
+    if (ae && ae.tagName === 'IFRAME' && $('#scr') && $('#scr').contains(ae)) return;
+    if (!document.hasFocus()) {
+      pauseActiveVideoImmediate();
+    }
+  }, 25);
 });
 
 /* ============================================================================
@@ -1636,6 +1820,12 @@ document.addEventListener('click', e => {
       if (d.next) after = d.next;
       if (d.subj) sub.subj = d.subj;
       authM(d.mode);
+      break;
+    case 'forgot':
+      forgotM(1);
+      break;
+    case 'dismissCap':
+      dismissCaptureShield();
       break;
     case 'logout':
       S.user = null;
@@ -1852,8 +2042,10 @@ document.addEventListener('submit', async e => {
     const name = su ? $('#fName').value.trim() : '';
     const ph = toEn($('#fPhone').value).trim();
     const normPh = digits(ph);
+    const em = su ? ($('#fEmail') ? $('#fEmail').value.trim().toLowerCase() : '') : '';
     const pw = toEn($('#fPass').value).trim() || $('#fPass').value;
     const er = $('#authErr');
+    const btn = $('#authBtn');
 
     const admUser = String(S.adminUser || 'shadi_admin').trim().toLowerCase();
     const isAdmMatch = !su && (
@@ -1881,22 +2073,42 @@ document.addEventListener('submit', async e => {
       return;
     }
 
-    if (su && name.length < 3) { er.textContent = 'اكتب اسمك الكامل (3 أحرف على الأقل).'; return; }
-    if (normPh.length < 9) { er.textContent = 'اكتب رقم جوال صحيح.'; return; }
+    if (su) {
+      if (name.length < 3) { er.textContent = 'اكتب اسمك الكامل (3 أحرف على الأقل).'; return; }
+      if (normPh.length < 9) { er.textContent = 'اكتب رقم جوال صحيح.'; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+        er.textContent = 'يرجى إدخال بريد إلكتروني صحيح لاستعادة كلمة المرور عند الحاجة.';
+        return;
+      }
+    } else {
+      const isEmailLogin = ph.includes('@');
+      if (!isEmailLogin && normPh.length < 9) {
+        er.textContent = 'اكتب رقم الجوال أو البريد الإلكتروني المسجّل.';
+        return;
+      }
+    }
 
-    // مزامنة سحابية سريعة قبل تسجيل/دخول الطالب لضمان أحدث قائمة حسابات
+    if (btn) btn.disabled = true;
+    // مزامنة سحابية سريعة قبل تسجيل/دخول الطالب لضمان أحدث قائمة حسابات وكلمات مرور مجدّدة
     await syncFromCloud(true);
+    if (btn) btn.disabled = false;
 
     if (su) {
       if (S.students.some(s => digits(s.phone) === normPh) || normPh === digits(S.adminPhone)) {
         er.textContent = 'هذا الرقم مسجّل مسبقاً، سجّل الدخول بدلاً من ذلك.';
         return;
       }
+      if (em && S.students.some(s => s.email && String(s.email).toLowerCase() === em)) {
+        er.textContent = 'هذا البريد الإلكتروني مرتبط بحساب آخر مسبقاً.';
+        return;
+      }
       const s = {
         id: Date.now() + Math.floor(Math.random() * 1000),
         name,
         phone: ph,
+        email: em,
         pass: $('#fPass').value,
+        passUpdatedAt: Date.now(),
         role: 'student',
         subs: {},
         deviceFp: MY_DEVICE_FP,
@@ -1910,10 +2122,13 @@ document.addEventListener('submit', async e => {
       saveState(false);
       toast('أهلاً ' + name.split(' ')[0] + '، تم إنشاء حسابك وربطه بجهازك');
     } else {
-      const s = S.students.find(x => digits(x.phone) === normPh);
-      if (!s) { er.textContent = 'لا يوجد حساب مسجّل بهذا الرقم.'; return; }
+      const mailIn = ph.toLowerCase();
+      const s = ph.includes('@')
+        ? S.students.find(x => x.email && String(x.email).trim().toLowerCase() === mailIn)
+        : S.students.find(x => digits(x.phone) === normPh);
+      if (!s) { er.textContent = 'لا يوجد حساب مسجّل بهذه البيانات.'; return; }
       if (s.status === 'blocked') { er.textContent = 'تم إيقاف هذا الحساب من قِبل الإدارة.'; return; }
-      if (s.pass && s.pass !== $('#fPass').value && toEn(s.pass) !== pw) { er.textContent = 'كلمة المرور غير صحيحة.'; return; }
+      if (s.pass && s.pass !== $('#fPass').value && toEn(s.pass) !== pw) { er.textContent = 'كلمة المرور غير صحيحة. يمكنك الضغط على «نسيت كلمة المرور؟» لتجديدها.'; return; }
 
       // التحقق من بصمة الجهاز (منع فتح الحساب على أجهزة أخرى)
       const savedFps = String(s.deviceFp || '').split('|').filter(Boolean);
@@ -1941,6 +2156,128 @@ document.addEventListener('submit', async e => {
     render();
     if (after === 'sub') { after = null; sub.tab = 'pay'; subM(); }
     else closeM();
+    return;
+  }
+
+  // الخطوة 1: طلب كود تحقق (6 أرقام) لاستعادة كلمة المرور
+  if (f.id === 'rstStep1F') {
+    const ident = toEn($('#rstIdent').value || '').trim();
+    const er = $('#rstErr');
+    const btn = $('#rstSendBtn');
+    if (!ident || (!ident.includes('@') && digits(ident).length < 9)) {
+      er.textContent = 'يرجى إدخال رقم الجوال الصحيح أو البريد الإلكتروني المسجّل.';
+      return;
+    }
+    er.textContent = '';
+    if (btn) { btn.disabled = true; btn.textContent = 'جارٍ توليد وإرسال كود التحقق...'; }
+    try {
+      const res = await fetch(API_URL || DEFAULT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'requestOtp', payload: { identifier: ident } })
+      });
+      const json = await res.json();
+      if (!json || !json.ok) {
+        er.textContent = (json && json.error) ? json.error : 'تعذّر العثور على الحساب، تأكد من البيانات.';
+        if (btn) { btn.disabled = false; btn.textContent = 'إرسال كود التحقق (6 أرقام)'; }
+        return;
+      }
+      rstState.ident = ident;
+      rstState.hasEmail = Boolean(json.hasEmail);
+      rstState.maskedEmail = json.maskedEmail || '';
+      rstState.phone = json.phone || '';
+      rstState.name = json.name || '';
+      rstState.emailSent = false;
+
+      // محاولة الإرسال التلقائي المباشر للبريد الإلكتروني إن كان مرتبطاً بالحساب
+      if (json.hasEmail && json.mailToken && (MAILER_URL || DEFAULT_MAILER_URL)) {
+        try {
+          const mRes = await fetch(MAILER_URL || DEFAULT_MAILER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ mailToken: json.mailToken, apiUrl: API_URL || DEFAULT_API_URL })
+          });
+          const mJson = await mRes.json();
+          if (mJson && mJson.ok && mJson.sent) rstState.emailSent = true;
+        } catch (_) {}
+      }
+      forgotM(2);
+    } catch (err) {
+      er.textContent = 'تعذّر الاتصال بالخادم السحابي حالياً، تحقق من اتصال الإنترنت.';
+      if (btn) { btn.disabled = false; btn.textContent = 'إرسال كود التحقق (6 أرقام)'; }
+    }
+    return;
+  }
+
+  // الخطوة 2: التحقق من الكود وتعيين كلمة المرور الجديدة
+  if (f.id === 'rstStep2F') {
+    const code = digits($('#rstCode').value || '');
+    const p1 = $('#rstPass1').value || '';
+    const p2 = $('#rstPass2').value || '';
+    const er = $('#rstErr2');
+    const btn = $('#rstConfirmBtn');
+
+    if (code.length !== 6) {
+      er.textContent = 'يرجى إدخال كود التحقق المؤلف من 6 أرقام كاملاً.';
+      $('#rstCode').focus();
+      return;
+    }
+    if (p1.length < 4) {
+      er.textContent = 'كلمة المرور الجديدة يجب أن تكون 4 أحرف أو أرقام على الأقل.';
+      $('#rstPass1').focus();
+      return;
+    }
+    if (p1 !== p2) {
+      er.textContent = 'كلمتا المرور غير متطابقتين، يرجى التأكد منهما.';
+      $('#rstPass2').focus();
+      return;
+    }
+
+    er.textContent = '';
+    if (btn) { btn.disabled = true; btn.textContent = 'جارٍ التحقق وتحديث كلمة المرور...'; }
+    try {
+      const res = await fetch(API_URL || DEFAULT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'confirmReset',
+          payload: { identifier: rstState.ident, code: code, newPass: p1 }
+        })
+      });
+      const json = await res.json();
+      if (!json || !json.ok) {
+        er.textContent = (json && json.error) ? json.error : 'كود التحقق غير صحيح أو منتهي الصلاحية.';
+        if (btn) { btn.disabled = false; btn.textContent = 'تأكيد الكود وحفظ كلمة المرور الجديدة'; }
+        return;
+      }
+      if (json.data) applyCloudData(json.data);
+      const loginIdent = rstState.ident;
+      rstState.ident = '';
+      toast('✓ تم تجديد كلمة المرور بنجاح! سجّل الدخول الآن بكلمة المرور الجديدة');
+      authM('login', loginIdent);
+    } catch (err) {
+      er.textContent = 'تعذّر الاتصال بالخادم، حاول مرة أخرى.';
+      if (btn) { btn.disabled = false; btn.textContent = 'تأكيد الكود وحفظ كلمة المرور الجديدة'; }
+    }
+    return;
+  }
+
+  // حفظ أو تحديث البريد الإلكتروني للطالب الحالي من نافذة «اشتراكي»
+  if (f.id === 'updEmailF') {
+    const em = ($('#myEmailIn').value || '').trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+      toast('يرجى إدخال بريد إلكتروني صحيح');
+      return;
+    }
+    if (S.students.some(x => x.id !== S.user.id && x.email && String(x.email).toLowerCase() === em)) {
+      toast('هذا البريد الإلكتروني مستخدم في حساب آخر');
+      return;
+    }
+    S.user.email = em;
+    const stRec = S.students.find(x => x.id === S.user.id);
+    if (stRec) stRec.email = em;
+    saveState(false);
+    toast('✓ تم حفظ البريد الإلكتروني لاستعادة كلمة المرور');
     return;
   }
 
@@ -2047,6 +2384,10 @@ document.addEventListener('submit', async e => {
     const gasInput = gasEl ? gasEl.value.trim() : '';
     API_URL = gasInput || DEFAULT_API_URL;
     localStorage.setItem('SHADI_GAS_API_URL', API_URL);
+    const mailerEl = $('#mailerUrl');
+    const mailerInput = mailerEl ? mailerEl.value.trim() : '';
+    MAILER_URL = mailerInput || DEFAULT_MAILER_URL;
+    localStorage.setItem('SHADI_MAILER_URL', MAILER_URL);
     saveState(true);
     render();
     toast('✓ تم حفظ الإعدادات ومزامنتها سحابياً بنجاح');
