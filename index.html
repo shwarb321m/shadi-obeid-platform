@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0F2942">
-<title>منصة الأستاذ شادي عبيد — الرياضيات والفيزياء</title>
+<title>منصة الأستاذ شادي عبيد</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -416,13 +416,13 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
         <text x="80" y="96" text-anchor="middle" font-family="'Readex Pro',Tahoma,sans-serif" font-weight="700" font-size="44" fill="#fc6c56">ش</text>
       </svg>
     </div>
-    <div class="ci-tag">SWISS PRECISION &amp; BLUEPRINT LAB · بكالوريا علمي</div>
+    <div class="ci-tag">منصة الأستاذ شادي عبيد التعليمية</div>
     <h1 class="ci-title">منصة الأستاذ <span>شادي عبيد</span></h1>
-    <p class="ci-sub">طريقك نحو التفوق في الرياضيات والفيزياء</p>
-    <div class="ci-formulas" dir="ltr">
-      <span>f(x) = sin x</span>
-      <span>T₀ = 2π√(l/g)</span>
-      <span>∫ f(x) dx = F(x) + C</span>
+    <p class="ci-sub">طريقك نحو التفوق والتميّز في التاريخ والجغرافيا</p>
+    <div class="ci-formulas">
+      <span>التاريخ</span>
+      <span>الجغرافيا</span>
+      <span>خرائط وملخصات شاملة</span>
     </div>
     <div class="ci-bar-wrap"><div class="ci-bar"></div></div>
     <div class="ci-enter">
@@ -449,15 +449,18 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 /* ============================================================================
  * 1. إعدادات الاتصال بخادم Google Apps Script والبصمة الأمنية للجهاز
  * ============================================================================ */
-const STORAGE_KEY = 'SHADI_PLATFORM_PRODUCTION_V1';
+const STORAGE_KEY = 'SHADI_PLATFORM_PRODUCTION_V2';
 const DEVICE_KEY  = 'SHADI_DEVICE_FP_V2';
-try { localStorage.removeItem('SHADI_PLATFORM_STATE_V2'); } catch (e) {}
+try {
+  localStorage.removeItem('SHADI_PLATFORM_STATE_V2');
+  localStorage.removeItem('SHADI_PLATFORM_PRODUCTION_V1');
+} catch (e) {}
 
 // ضع رابط نشر Google Apps Script Web App هنا (أو من داخل لوحة تحكم الأستاذ -> الأسعار والدفع)
 let API_URL = localStorage.getItem('SHADI_GAS_API_URL') || '';
 
 const now = Date.now(), DAY = 864e5, HR = 36e5;
-const SUBJ = { math: 'الرياضيات', phys: 'الفيزياء' };
+const SUBJ = { math: 'التاريخ', phys: 'الجغرافيا' };
 const PLANS = [
   { id: 'm1', n: 'شهر', sub: 'مادة واحدة', mo: 1, both: false },
   { id: 'm2', n: 'شهر', sub: 'المادتان معًا', mo: 1, both: true },
@@ -662,7 +665,7 @@ function parseVideoUrl(rawUrl) {
   return { provider: 'direct', id: url };
 }
 
-const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" role="img" aria-label="شاشة مختبر الرياضيات والفيزياء مع زر تشغيل"><defs><linearGradient id="bd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12314E"/><stop offset="1" stop-color="#091B2E"/></linearGradient><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25384C"/><stop offset="1" stop-color="#111C28"/></linearGradient><pattern id="bpGrid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#38BDF8" stroke-width="0.6" stroke-opacity="0.14"/></pattern></defs><g stroke="#38BDF8" stroke-opacity=".18" fill="none" stroke-width="1"><circle cx="110" cy="175" r="145" stroke-dasharray="6 6"/><circle cx="430" cy="160" r="120" stroke-dasharray="4 8"/><line x1="0" y1="45" x2="560" y2="45"/><line x1="0" y1="315" x2="560" y2="315"/></g><rect x="20" y="24" width="524" height="320" rx="24" fill="#050E18" opacity=".6"/><rect x="12" y="12" width="524" height="320" rx="22" fill="url(#wd)" stroke="#38BDF8" stroke-opacity=".35" stroke-width="1.5"/><rect x="26" y="26" width="496" height="292" rx="14" fill="url(#bd)"/><rect x="26" y="26" width="496" height="292" rx="14" fill="url(#bpGrid)"/><g fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" opacity=".85"><path d="M52 184H310M82 268V74"/><polygon points="82,68 78,78 86,78" fill="#38BDF8" stroke="none"/><polygon points="316,184 306,180 306,188" fill="#38BDF8" stroke="none"/><circle cx="136" cy="184" r="82" stroke="#38BDF8" stroke-opacity=".22" stroke-width="1.2" stroke-dasharray="4 4"/><path d="M82 184c24-82 54-82 78 0s54 82 78 0 42-64 62-20" stroke="#F5B83D" stroke-width="3"/><path d="M376 74H488"/><path d="M384 74l6-8M400 74l6-8M416 74l6-8M432 74l6-8M448 74l6-8M464 74l6-8M480 74l6-8" stroke-width="1.3" opacity=".6"/><path d="M432 74L470 192" stroke="#38BDF8" stroke-width="2.2"/><path d="M432 74L394 192" stroke="#38BDF8" stroke-dasharray="4 7" opacity=".55"/><path d="M432 74V202" stroke="#38BDF8" stroke-dasharray="2 5" opacity=".4"/><path d="M392 204q40 24 80 0" stroke="#38BDF8" stroke-dasharray="3 6" opacity=".75"/></g><circle cx="470" cy="195" r="14" fill="#38BDF8"/><circle cx="394" cy="195" r="12" fill="none" stroke="#38BDF8" stroke-dasharray="3 3" opacity=".65"/><circle cx="465" cy="190" r="4" fill="#E0F2FE"/><g font-family="Tahoma,sans-serif" font-size="11" fill="#7DD3FC" opacity=".8"><text x="67" y="122">1</text><text x="68" y="198">0</text><text x="60" y="248">-1</text><text x="128" y="202">π/2</text><text x="208" y="202">π</text></g><g font-family="Caveat,cursive" font-weight="700" fill="#F8FAFC"><text x="102" y="92" font-size="28" fill="#BAE6FD">f(x) = sin x</text><text x="358" y="272" font-size="30" fill="#E0F2FE">T₀ = 2π√(l/g)</text></g><g><circle cx="268" cy="172" r="42" fill="#fc6c56" opacity=".22"/><circle cx="268" cy="172" r="34" fill="#fc6c56"/><path d="M258 156v32l27-16z" fill="#ffffff"/></g></svg>`;
+const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" role="img" aria-label="شاشة منصة الأستاذ شادي عبيد مع زر تشغيل"><defs><linearGradient id="bd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12314E"/><stop offset="1" stop-color="#091B2E"/></linearGradient><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25384C"/><stop offset="1" stop-color="#111C28"/></linearGradient><pattern id="bpGrid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#38BDF8" stroke-width="0.6" stroke-opacity="0.14"/></pattern></defs><g stroke="#38BDF8" stroke-opacity=".18" fill="none" stroke-width="1"><circle cx="110" cy="175" r="145" stroke-dasharray="6 6"/><circle cx="430" cy="160" r="120" stroke-dasharray="4 8"/><line x1="0" y1="45" x2="560" y2="45"/><line x1="0" y1="315" x2="560" y2="315"/></g><rect x="20" y="24" width="524" height="320" rx="24" fill="#050E18" opacity=".6"/><rect x="12" y="12" width="524" height="320" rx="22" fill="url(#wd)" stroke="#38BDF8" stroke-opacity=".35" stroke-width="1.5"/><rect x="26" y="26" width="496" height="292" rx="14" fill="url(#bd)"/><rect x="26" y="26" width="496" height="292" rx="14" fill="url(#bpGrid)"/><g fill="none" stroke="#38BDF8" stroke-width="1.8" stroke-linecap="round" opacity=".82"><path d="M52 204H306M78 268V74"/><polygon points="78,68 74,78 82,78" fill="#38BDF8" stroke="none"/><polygon points="312,204 302,200 302,208" fill="#38BDF8" stroke="none"/><path d="M78 196c28-72 56-72 84 0s56 72 84 0 38-54 56-18" stroke="#F5B83D" stroke-width="3"/><circle cx="428" cy="154" r="64" stroke="#38BDF8" stroke-width="2"/><ellipse cx="428" cy="154" rx="30" ry="64" stroke="#38BDF8" stroke-dasharray="4 4" opacity=".75"/><line x1="364" y1="154" x2="492" y2="154" stroke="#38BDF8" stroke-dasharray="4 4" opacity=".75"/><path d="M374 124q54 18 108 0M374 184q54-18 108 0" stroke="#38BDF8" stroke-width="1.3" opacity=".65"/><circle cx="428" cy="154" r="5" fill="#fc6c56"/></g><g font-family="'Readex Pro',Tahoma,sans-serif" font-weight="700" fill="#BAE6FD"><text x="175" y="92" font-size="18" text-anchor="middle">خط الزمن التاريخي</text><text x="428" y="248" font-size="18" text-anchor="middle" fill="#E0F2FE">الخرائط والجغرافيا</text></g><g><circle cx="268" cy="172" r="42" fill="#fc6c56" opacity=".22"/><circle cx="268" cy="172" r="34" fill="#fc6c56"/><path d="M258 156v32l27-16z" fill="#ffffff"/></g></svg>`;
 
 /* ============================================================================
  * 3. بناء واجهة الطالب (Student View)
@@ -670,7 +673,7 @@ const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" r
 function header() {
   const u = S.user;
   const isAdmin = u && u.role === 'admin';
-  return `<header class="top"><div class="wrap topin"><a class="brand" href="#top"><span class="mark">ش</span><span><b>منصة الأستاذ شادي عبيد</b><small>رياضيات وفيزياء · بكالوريا علمي</small></span></a><nav class="nav" aria-label="أقسام الموقع"><a href="#lessons">الدروس</a><a href="#plans">الاشتراكات</a><a href="#how">طريقة الاشتراك</a></nav><div class="acct">${
+  return `<header class="top"><div class="wrap topin"><a class="brand" href="#top"><span class="mark">ش</span><span><b>منصة الأستاذ شادي عبيد</b><small>التاريخ والجغرافيا</small></span></a><nav class="nav" aria-label="أقسام الموقع"><a href="#lessons">الدروس</a><a href="#plans">الاشتراكات</a><a href="#how">طريقة الاشتراك</a></nav><div class="acct">${
     u ? `${isAdmin ? `<button type="button" class="btn sm" data-act="view" data-view="admin">لوحة التحكم</button>` : `<button type="button" class="btn ghost sm" data-act="mine">${I.user} ${esc(u.name.split(' ')[0])}</button>`}<button type="button" class="btn link sm" data-act="logout">خروج</button>`
       : `<button type="button" class="btn ghost sm" data-act="auth" data-mode="login">دخول</button><button type="button" class="btn sm" data-act="auth" data-mode="signup">إنشاء حساب</button>`
   }</div></div></header>`;
@@ -682,7 +685,7 @@ function hero() {
   const ctaBtn = firstFree
     ? `<button type="button" class="btn" data-act="play" data-subj="${firstFree.k}" data-id="${firstFree.id}">${I.play} ابدأ التعلم الآن</button>`
     : `<a class="btn" href="#lessons">${I.play} ابدأ التعلم الآن</a>`;
-  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1>منصة الأستاذ شادي عبيد</h1><p style="font-size:20px;color:#BAE6FD;font-weight:600;margin-top:10px">طريقك نحو التفوق في الرياضيات والفيزياء</p><p>شروحات دقيقة ومركّزة لطلاب البكالوريا العلمي بأسلوب هندسي واضح، مع ملخصات القوانين ومتابعة مستمرة لتقدمك.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (رياضيات وفيزياء)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
+  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1>منصة الأستاذ شادي عبيد</h1><p style="font-size:20px;color:#BAE6FD;font-weight:600;margin-top:10px">طريقك نحو التفوق في التاريخ والجغرافيا</p><p>شروحات مصوّرة دقيقة ومركّزة للدروس، مع الملخصات الشاملة والخرائط المفاهيمية ومتابعة مستمرة لتقدمك.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (التاريخ والجغرافيا)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
 }
 
 function getLessonProgress(lid) {
@@ -726,7 +729,7 @@ function lessonsSec() {
 }
 
 function plansSec() {
-  return `<section class="band soft" id="plans"><div class="wrap"><h2>الاشتراكات</h2><p class="lead">ادفع مرة واحدة، وتبقى الدروس مفتوحة طوال مدة الاشتراك.</p><div class="plans">${PLANS.map(p => `<div class="plan ${p.id === 't2' ? 'best' : ''}">${p.id === 't2' ? '<span class="ribbon">الأوفر</span>' : ''}<h3>${p.n}</h3><p class="psub">${p.sub}</p><p class="price"><b>${S.prices[p.id]}</b> $</p><ul><li>${p.both ? 'كل دروس الرياضيات والفيزياء' : 'كل دروس المادة التي تختارها'}</li><li>${p.mo === 1 ? 'مدة 30 يومًا' : 'مدة 4 أشهر'}</li><li>ملخصات القوانين ومتابعة التقدم</li></ul><button type="button" class="btn ${p.id === 't2' ? '' : 'ghost'} full" data-act="sub" data-plan="${p.id}">اشترك</button></div>`).join('')}</div></div></section>`;
+  return `<section class="band soft" id="plans"><div class="wrap"><h2>الاشتراكات</h2><p class="lead">ادفع مرة واحدة، وتبقى الدروس مفتوحة طوال مدة الاشتراك.</p><div class="plans">${PLANS.map(p => `<div class="plan ${p.id === 't2' ? 'best' : ''}">${p.id === 't2' ? '<span class="ribbon">الأوفر</span>' : ''}<h3>${p.n}</h3><p class="psub">${p.sub}</p><p class="price"><b>${S.prices[p.id]}</b> $</p><ul><li>${p.both ? 'كل دروس التاريخ والجغرافيا' : 'كل دروس المادة التي تختارها'}</li><li>${p.mo === 1 ? 'مدة 30 يومًا' : 'مدة 4 أشهر'}</li><li>ملخصات الدروس ومتابعة التقدم</li></ul><button type="button" class="btn ${p.id === 't2' ? '' : 'ghost'} full" data-act="sub" data-plan="${p.id}">اشترك</button></div>`).join('')}</div></div></section>`;
 }
 
 function howSec() {
@@ -734,7 +737,7 @@ function howSec() {
 }
 
 function footer() {
-  return `<footer class="foot board"><div class="wrap footin"><div><b>الأستاذ شادي عبيد</b>${S.wa ? `<p>للاستفسار والاشتراك عبر واتساب: <span dir="ltr">${esc(S.wa)}</span></p>` : '<p>منصة الرياضيات والفيزياء لطلاب البكالوريا العلمي</p>'}</div><p class="small">تصميم وتنفيذ MAHVAR | محور · نظام حماية البث المفعّل</p></div></footer>`;
+  return `<footer class="foot board"><div class="wrap footin"><div><b>منصة الأستاذ شادي عبيد</b>${S.wa ? `<p>للاستفسار والاشتراك عبر واتساب: <span dir="ltr">${esc(S.wa)}</span></p>` : '<p>منصة الأستاذ شادي عبيد التعليمية — التاريخ والجغرافيا</p>'}</div><p class="small">تصميم وتنفيذ MAHVAR | محور · نظام حماية البث المفعّل</p></div></footer>`;
 }
 
 function rStudent() {
@@ -792,7 +795,7 @@ const A = {
   stu() {
     return `<div class="panel">
       <div class="tool"><input id="q" type="search" placeholder="ابحث بالاسم أو الرقم" value="${esc(S.q)}" aria-label="بحث عن طالب"><span class="muted">${S.students.length} طالبًا · الحد المسموح: ${S.maxDevices} جهاز لكل طالب</span></div>
-      <div class="scroll"><table class="stack" id="stuT"><thead><tr><th>الاسم</th><th>الجوال</th><th>الجهاز المرتبط (الحماية)</th><th>الرياضيات</th><th>الفيزياء</th><th>إجراءات</th></tr></thead><tbody>${stuRows()}</tbody></table></div>
+      <div class="scroll"><table class="stack" id="stuT"><thead><tr><th>الاسم</th><th>الجوال</th><th>الجهاز المرتبط (الحماية)</th><th>التاريخ</th><th>الجغرافيا</th><th>إجراءات</th></tr></thead><tbody>${stuRows()}</tbody></table></div>
     </div>`;
   },
 
@@ -802,7 +805,7 @@ const A = {
       <div class="tool"><div class="tabs sm" role="tablist">${Object.keys(SUBJ).map(s => `<button type="button" role="tab" aria-selected="${s === k}" data-act="as" data-subj="${s}">${SUBJ[s]}</button>`).join('')}</div><span class="muted">${L[k].filter(l => l.free).length} مجانية من ${L[k].length}</span></div>
       ${L[k].length ? `<div class="scroll"><table class="stack"><thead><tr><th>الدرس</th><th>الوحدة</th><th>المدة</th><th>مصدر الفيديو</th><th>المشاهدات</th><th>الوصول</th><th></th></tr></thead><tbody>${L[k].map(l => {
         const pv = parseVideoUrl(l.videoSource);
-        const srcBadge = pv.provider === 'youtube' ? '<span class="st ok">YouTube معزول</span>' : pv.provider === 'drive' ? '<span class="st ok">Google Drive معزول</span>' : pv.provider === 'direct' ? '<span class="st ok">فيديو مباشر</span>' : '<span class="muted">سبورة تفاعلية</span>';
+        const srcBadge = pv.provider === 'youtube' ? '<span class="st ok">YouTube معزول</span>' : pv.provider === 'drive' ? '<span class="st ok">Google Drive معزول</span>' : pv.provider === 'direct' ? '<span class="st ok">فيديو مباشر</span>' : '<span class="muted">شاشة العرض</span>';
         return `<tr>
           <td data-l="الدرس"><b>${esc(l.t)}</b> ${l.pdfUrl ? '<span class="tag pdf">PDF</span>' : ''}</td>
           <td data-l="الوحدة">${esc(l.u)}</td>
@@ -817,12 +820,12 @@ const A = {
     <div class="panel" style="margin-top:16px">
       <h3>إضافة درس جديد (YouTube غير مدرج أو Google Drive)</h3>
       <form id="addL" class="fgrid">
-        <label>عنوان الدرس *<input id="nT" required placeholder="مثال: المتتاليات الحسابية"></label>
+        <label>عنوان الدرس *<input id="nT" required placeholder="مثال: الثورة الصناعية وأثرها"></label>
         <label>المادة<select id="nS">${Object.keys(SUBJ).map(s => `<option value="${s}" ${s === k ? 'selected' : ''}>${SUBJ[s]}</option>`).join('')}</select></label>
-        <label>الوحدة *<input id="nU" required placeholder="مثال: المتتاليات"></label>
+        <label>الوحدة *<input id="nU" required placeholder="مثال: الوحدة الأولى"></label>
         <label>المدة *<input id="nD" required dir="ltr" placeholder="12:30" pattern="\\d{1,2}:\\d{2}"></label>
         <label style="grid-column:1/-1">رابط الفيديو (YouTube Unlisted أو Google Drive)<input id="nV" dir="ltr" placeholder="https://youtu.be/... أو https://drive.google.com/file/d/..."></label>
-        <label>معادلة السبورة (اختياري)<input id="nF" dir="ltr" placeholder="Un = U0 + n·r"></label>
+        <label>عنوان فرعي أو تاريخ مفتاحي للدرس (اختياري)<input id="nF" placeholder="مثال: القرن التاسع عشر"></label>
         <label>رابط ملخص PDF (اختياري)<input id="nPdf" dir="ltr" placeholder="https://drive.google.com/..."></label>
         <label class="chk"><input id="nFree" type="checkbox"> درس مجاني للزوار</label>
         <button class="btn">حفظ وإضافة الدرس</button>
@@ -831,7 +834,7 @@ const A = {
   },
 
   codes() {
-    return `<div class="panel"><h3>توليد أكواد تفعيل مشفّرة</h3><p class="muted">ترسل الكود للطالب عبر واتساب بعد الدفع، فيُدخله في الموقع ويُفتح اشتراكه لمرة واحدة فقط.</p><form id="genC" class="fgrid"><label>المادة<select id="cS"><option value="both">المادتان</option><option value="math">الرياضيات</option><option value="phys">الفيزياء</option></select></label><label>المدة<select id="cM"><option value="1">شهر</option><option value="4">فصل دراسي</option></select></label><label>عدد الأكواد<input id="cN" type="number" min="1" max="20" value="3"></label><button class="btn">توليد الأكواد</button></form></div><div class="panel" style="margin-top:16px">${S.codes.length ? `<div class="scroll"><table class="stack"><thead><tr><th>الكود</th><th>المادة</th><th>المدة</th><th>الحالة</th><th></th></tr></thead><tbody>${S.codes.map(c => `<tr><td data-l="الكود"><span class="code" dir="ltr">${esc(c.c)}</span></td><td data-l="المادة">${subjName(c.subj)}</td><td data-l="المدة">${c.mo === 1 ? 'شهر' : 'فصل دراسي'}</td><td data-l="الحالة">${c.used ? `<span class="st no">مستخدم · ${esc(c.by)}</span>` : '<span class="st ok">متاح</span>'}</td><td data-l="">${c.used ? '' : `<button type="button" class="btn link sm" data-act="copy" data-v="${esc(c.c)}">نسخ الكود</button>`}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">لم يتم توليد أكواد تفعيل بعد.</div>'}</div>`;
+    return `<div class="panel"><h3>توليد أكواد تفعيل مشفّرة</h3><p class="muted">ترسل الكود للطالب عبر واتساب بعد الدفع، فيُدخله في الموقع ويُفتح اشتراكه لمرة واحدة فقط.</p><form id="genC" class="fgrid"><label>المادة<select id="cS"><option value="both">المادتان</option><option value="math">التاريخ</option><option value="phys">الجغرافيا</option></select></label><label>المدة<select id="cM"><option value="1">شهر</option><option value="4">فصل دراسي</option></select></label><label>عدد الأكواد<input id="cN" type="number" min="1" max="20" value="3"></label><button class="btn">توليد الأكواد</button></form></div><div class="panel" style="margin-top:16px">${S.codes.length ? `<div class="scroll"><table class="stack"><thead><tr><th>الكود</th><th>المادة</th><th>المدة</th><th>الحالة</th><th></th></tr></thead><tbody>${S.codes.map(c => `<tr><td data-l="الكود"><span class="code" dir="ltr">${esc(c.c)}</span></td><td data-l="المادة">${subjName(c.subj)}</td><td data-l="المدة">${c.mo === 1 ? 'شهر' : 'فصل دراسي'}</td><td data-l="الحالة">${c.used ? `<span class="st no">مستخدم · ${esc(c.by)}</span>` : '<span class="st ok">متاح</span>'}</td><td data-l="">${c.used ? '' : `<button type="button" class="btn link sm" data-act="copy" data-v="${esc(c.c)}">نسخ الكود</button>`}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">لم يتم توليد أكواد تفعيل بعد.</div>'}</div>`;
   },
 
   set() {
@@ -874,8 +877,8 @@ function stuRows() {
       <td data-l="الاسم"><b>${esc(s.name)}</b> ${s.status === 'blocked' ? '<span class="st no">محظور</span>' : ''}</td>
       <td data-l="الجوال" dir="ltr" style="text-align:right">${esc(s.phone)}</td>
       <td data-l="الجهاز المرتبط">${devHtml}</td>
-      <td data-l="الرياضيات">${cell(s, 'math')}</td>
-      <td data-l="الفيزياء">${cell(s, 'phys')}</td>
+      <td data-l="التاريخ">${cell(s, 'math')}</td>
+      <td data-l="الجغرافيا">${cell(s, 'phys')}</td>
       <td data-l="إجراءات">
         <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
           ${s.deviceFp ? `<button type="button" class="btn ghost xs" data-act="resetDev" data-id="${s.id}" title="السماح للطالب بالدخول من هاتف جديد">فك الجهاز</button>` : ''}
@@ -1034,7 +1037,7 @@ function editLessonM(k, id) {
       <input id="eV" dir="ltr" placeholder="https://youtu.be/... أو https://drive.google.com/file/d/..." value="${esc(l.videoSource || '')}">
       <small class="muted">سيتم تشغيل الفيديو داخل طبقة العزل المحمية مع العلامة المائية ومنع النسخ أو المشاركة.</small>
     </label>
-    <label>معادلة السبورة التوضيحية<input id="eF" dir="ltr" value="${esc(l.f || '')}"></label>
+    <label>عنوان فرعي أو تاريخ مفتاحي للدرس<input id="eF" value="${esc(l.f || '')}"></label>
     <label>رابط ملخص الدرس PDF (اختياري)<input id="ePdf" dir="ltr" placeholder="https://drive.google.com/file/d/..." value="${esc(l.pdfUrl || '')}"></label>
     <div class="row2">
       <button class="btn">حفظ التعديلات</button>
@@ -1823,7 +1826,7 @@ document.addEventListener('click', e => {
   if (!el || !cv) return;
   const ctx = cv.getContext('2d');
   let w = 0, h = 0, t0 = performance.now();
-  const syms = ['∫', '∑', 'π', '√', 'λ', 'ω', 'Δ', '∞', 'θ', 'Φ'];
+  const syms = ['✦', '◈', '★', '◇', '◉', 'N', 'E', 'W', 'S', '⌖'];
   const nodes = Array.from({ length: 26 }, (_, i) => ({
     x: Math.random(),
     y: Math.random(),
