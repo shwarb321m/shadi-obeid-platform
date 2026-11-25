@@ -3,14 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#1d3b33">
+<meta name="theme-color" content="#0F2942">
 <title>منصة الأستاذ شادي عبيد — الرياضيات والفيزياء</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light dark;--bg:light-dark(#fbfaf6,#0e1412);--ink:light-dark(#14201c,#e8eee9);--muted:light-dark(#5b6964,#9eb0a8);--card:light-dark(#ffffff,#161f1c);--line:light-dark(#e4e1d7,#2a3632);--soft:light-dark(#f2f0e8,#1b2522);--brand:light-dark(#1d3b33,#f5b83d);--board:#1d3b33;--chalk:#f3f0e6;--acc:#f5b83d;--acc-ink:#2a1d00;--ok:light-dark(#1f7a4d,#5fd39a);--warn:light-dark(#8a4f00,#f5b83d);--bad:light-dark(#b42318,#ff8a80)}
+/* الهوية البصرية: Swiss Precision & Blueprint Lab
+   الألوان المعتمدة: الكحلي الهندسي #0F2942 | المرجاني البرتقالي #fc6c56 | الأزرق المخبر #0284C7 | الخلفية #F8FAFC */
+:root{
+  color-scheme:light dark;
+  --bg:light-dark(#F8FAFC,#071320);
+  --ink:light-dark(#0F2942,#F0F6FC);
+  --muted:light-dark(#526880,#94ADC7);
+  --card:light-dark(#FFFFFF,#0D1F33);
+  --line:light-dark(#DCE5F0,#1E3856);
+  --soft:light-dark(#EFF4F9,#122842);
+  --brand:light-dark(#0284C7,#38BDF8);
+  --blue:#0284C7;
+  --cyan:#38BDF8;
+  --board:#0F2942;
+  --chalk:#F8FAFC;
+  --acc:#fc6c56;
+  --acc-ink:#ffffff;
+  --ok:light-dark(#0284C7,#38BDF8);
+  --warn:light-dark(#d9533f,#fc6c56);
+  --bad:light-dark(#dc2626,#ff8a80)
+}
 :root[data-theme=light]{color-scheme:light}
 :root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
@@ -28,81 +48,91 @@ a{color:inherit}
 button,input,select{font:inherit;color:inherit}
 .wrap{max-width:1240px;margin-inline:auto}
 .band{padding-block:clamp(32px,5vw,72px);padding-inline:max(5vw,16px)}
-.demo{background:#0c1714;color:#e9e5d8;padding:8px max(5vw,16px);font-size:14px}
+.demo{background:#081726;color:#e9f1f7;padding:8px max(5vw,16px);font-size:14px;border-bottom:1px solid rgba(56,189,248,.18)}
 .demoin{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.seg{display:flex;background:#1d2b27;border-radius:999px;padding:3px}
-.seg button{border:0;background:none;color:#cfd8d3;border-radius:999px;padding:8px 14px;min-height:38px;cursor:pointer;font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px}
+.seg{display:flex;background:#112942;border-radius:999px;padding:3px}
+.seg button{border:0;background:none;color:#c7d8e8;border-radius:999px;padding:8px 14px;min-height:38px;cursor:pointer;font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px}
 .seg button[aria-pressed=true]{background:var(--acc);color:var(--acc-ink)}
-.badge{background:#e5484d;color:#fff;border-radius:999px;font-size:12px;padding:0 7px;line-height:20px;min-width:20px;text-align:center}
+.badge{background:#fc6c56;color:#fff;border-radius:999px;font-size:12px;padding:0 7px;line-height:20px;min-width:20px;text-align:center}
 .badge:empty{display:none}
-.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-inline:max(5vw,16px)}
-.topin{display:flex;align-items:center;gap:16px;min-height:68px}
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-inline:max(5vw,16px)}
+.topin{display:flex;align-items:center;gap:16px;min-height:70px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-.brand b{display:block;font-family:'Readex Pro',sans-serif;font-size:17px;line-height:1.2}
+.brand b{display:block;font-family:'Readex Pro',sans-serif;font-size:17px;line-height:1.2;color:var(--ink)}
 .brand small{color:var(--muted);font-size:13px}
-.mark{width:42px;height:42px;border-radius:12px;background:var(--board);color:var(--acc);display:grid;place-items:center;font:700 22px 'Readex Pro',sans-serif;flex:none}
+.mark{width:42px;height:42px;border-radius:12px;background:var(--board);color:var(--acc);box-shadow:inset 0 0 0 1.5px rgba(2,132,199,.45);display:grid;place-items:center;font:700 22px 'Readex Pro',sans-serif;flex:none}
 .nav{display:flex;gap:4px;margin-inline-start:auto}
-.nav a{text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--muted);font-weight:500}
+.nav a{text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--muted);font-weight:600}
 .nav a:hover{color:var(--ink);background:var(--soft)}
 .acct{display:flex;gap:8px;align-items:center}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;background:var(--acc);color:var(--acc-ink);font-weight:700;padding:12px 20px;min-height:46px;cursor:pointer;text-decoration:none;transition:transform .15s,filter .15s;white-space:nowrap}
-.btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;background:var(--acc);color:var(--acc-ink);font-weight:700;padding:12px 22px;min-height:46px;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(252,108,86,.28);transition:transform .15s,filter .15s,box-shadow .15s;white-space:nowrap}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 10px 26px rgba(252,108,86,.38)}
 .btn:disabled{opacity:.55;pointer-events:none}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,label:focus-within{outline:3px solid color-mix(in srgb,var(--acc) 70%,transparent);outline-offset:2px}
-.btn.sm{padding:8px 14px;min-height:40px;font-size:14px;border-radius:10px}
-.btn.xs{padding:4px 10px;min-height:32px;font-size:13px;border-radius:8px}
+.btn.sm{padding:8px 14px;min-height:40px;font-size:14px;border-radius:10px;box-shadow:none}
+.btn.xs{padding:4px 10px;min-height:32px;font-size:13px;border-radius:8px;box-shadow:none}
 .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
-.btn.chalk{background:transparent;color:var(--chalk);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--chalk) 45%,transparent)}
+.btn.chalk{background:rgba(2,132,199,.14);color:var(--chalk);box-shadow:inset 0 0 0 1.5px rgba(56,189,248,.4)}
 .btn.link{background:none;color:var(--muted);padding:6px 8px;min-height:auto;box-shadow:none}
-.btn.danger{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
+.btn.danger{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad);box-shadow:none}
 .btn.full{width:100%}
-.btn.wa{background:#25d366;color:#04230f}
-.btn.okb{background:var(--ok);color:light-dark(#fff,#04230f)}
+.btn.wa{background:#25d366;color:#04230f;box-shadow:none}
+.btn.okb{background:var(--blue);color:#fff;box-shadow:none}
 .btn svg,.ib svg{width:18px;height:18px;flex:none}
-.board{background:var(--board);color:var(--chalk);background-image:radial-gradient(ellipse at 20% 0%,rgba(255,255,255,.07),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(0,0,0,.25),transparent 60%)}
+/* خلفية Blueprint Lab الكحلية الهندسية */
+.board{
+  background-color:var(--board);
+  color:var(--chalk);
+  background-image:
+    radial-gradient(ellipse at 20% 10%,rgba(2,132,199,.22),transparent 55%),
+    radial-gradient(ellipse at 85% 90%,rgba(252,108,86,.10),transparent 50%),
+    linear-gradient(rgba(56,189,248,.065) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(56,189,248,.065) 1px,transparent 1px);
+  background-size:100% 100%,100% 100%,32px 32px,32px 32px
+}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);align-items:center}
-.htxt p{font-size:18px;margin-top:16px;color:color-mix(in srgb,var(--chalk) 82%,transparent);max-width:34em}
-.ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
-.facts{list-style:none;margin:28px 0 0;display:flex;gap:28px;flex-wrap:wrap;border-top:1px dashed color-mix(in srgb,var(--chalk) 30%,transparent);padding:18px 0 0}
+.htxt p{font-size:18px;margin-top:16px;color:color-mix(in srgb,var(--chalk) 84%,transparent);max-width:34em}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.facts{list-style:none;margin:28px 0 0;display:flex;gap:28px;flex-wrap:wrap;border-top:1px dashed rgba(56,189,248,.28);padding:18px 0 0}
 .facts b{display:block;font:700 30px/1 'Readex Pro',sans-serif;color:var(--acc)}
 .facts li{font-size:15px}
-.hpic svg{width:100%;height:auto;display:block}
+.hpic svg{width:100%;height:auto;display:block;filter:drop-shadow(0 22px 44px rgba(5,15,28,.45))}
 .sechead{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
 .tabs{display:flex;gap:6px;background:var(--soft);padding:4px;border-radius:14px;flex-wrap:wrap}
 .tabs button{white-space:nowrap;border:0;background:none;padding:9px 16px;border-radius:10px;cursor:pointer;font-weight:600;color:var(--muted);min-height:42px;display:flex;align-items:center;justify-content:center;gap:6px}
-.tabs button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tabs button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 2px 6px rgba(15,41,66,.1)}
 .tabs button .cnt{font-size:12px;background:var(--line);border-radius:999px;padding:0 7px}
-.note{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-radius:12px;background:color-mix(in srgb,var(--acc) 16%,var(--card));margin-bottom:22px;font-weight:500}
-.note.ok{background:color-mix(in srgb,var(--ok) 14%,var(--card))}
+.note{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-radius:12px;background:color-mix(in srgb,var(--acc) 13%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);margin-bottom:22px;font-weight:500}
+.note.ok{background:color-mix(in srgb,var(--blue) 12%,var(--card));border-color:color-mix(in srgb,var(--blue) 30%,transparent)}
 .note.bad{background:color-mix(in srgb,var(--bad) 14%,var(--card));color:var(--bad)}
 .note>svg{width:20px;height:20px;flex:none}
 .note .btn{margin-inline-start:auto}
 .prog-bar{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .prog-track{flex:1;min-width:180px;height:10px;background:var(--soft);border-radius:999px;overflow:hidden}
-.prog-fill{height:100%;background:var(--ok);border-radius:999px;transition:width .3s}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--acc));border-radius:999px;transition:width .3s}
 .units{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.unit{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.unit{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 4px 14px rgba(15,41,66,.04)}
 .unit h3{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;font-size:18px}
-.unit h3 span{font-size:13px;color:var(--muted);font-weight:500}
+.unit h3 span{font-size:13px;color:var(--blue);font-weight:700}
 .lrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;text-align:start;background:none;border:0;border-top:1px solid var(--line);padding:12px 4px;cursor:pointer;border-radius:0}
-.lrow:hover .num{transform:scale(1.07)}
-.num{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--board);color:var(--acc);transition:transform .15s;position:relative}
+.lrow:hover .num{transform:scale(1.08)}
+.num{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;box-shadow:0 4px 12px rgba(2,132,199,.28);transition:transform .15s;position:relative}
 .num svg{width:16px;height:16px}
-.num.done-c{background:var(--ok);color:#fff}
-.lrow.locked .num{background:var(--soft);color:var(--muted)}
+.num.done-c{background:#10b981;color:#fff}
+.lrow.locked .num{background:var(--soft);color:var(--muted);box-shadow:none}
 .lt b{display:flex;align-items:center;gap:6px;font-weight:600;flex-wrap:wrap}
 .lt small{color:var(--muted);font-size:13px;display:flex;align-items:center;gap:8px}
 .lrow.locked .lt b{color:var(--muted)}
 .tag{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
-.tag.free{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
-.tag.open{background:color-mix(in srgb,var(--acc) 24%,transparent);color:var(--warn)}
+.tag.free{background:color-mix(in srgb,var(--blue) 14%,transparent);color:var(--blue)}
+.tag.open{background:color-mix(in srgb,var(--acc) 18%,transparent);color:var(--acc)}
 .tag.lk{background:var(--soft);color:var(--muted)}
-.tag.pdf{background:color-mix(in srgb,var(--brand) 14%,transparent);color:var(--brand);font-size:11px;padding:1px 7px}
+.tag.pdf{background:color-mix(in srgb,var(--blue) 14%,transparent);color:var(--blue);font-size:11px;padding:1px 7px}
 .soft{background:var(--soft)}
 .lead{color:var(--muted);margin:8px 0 24px;font-size:17px}
 .plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.plan{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:6px}
-.plan.best{background:var(--board);color:var(--chalk);border-color:var(--board)}
+.plan{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:6px;box-shadow:0 6px 20px rgba(15,41,66,.05)}
+.plan.best{background:var(--board);color:var(--chalk);border-color:var(--blue);box-shadow:0 14px 34px rgba(15,41,66,.22)}
 .ribbon{position:absolute;top:16px;inset-inline-end:16px;background:var(--acc);color:var(--acc-ink);font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px}
 .psub{color:var(--muted)}
 .plan.best .psub{color:color-mix(in srgb,var(--chalk) 70%,transparent)}
@@ -112,17 +142,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,la
 .plan li{margin-bottom:4px}
 .small{font-size:13px;color:var(--muted);margin-top:14px}
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:24px}
-.stp{border-top:3px solid var(--brand);padding-top:16px}
-.si{width:48px;height:48px;border-radius:14px;background:var(--soft);display:grid;place-items:center;color:var(--brand);margin-bottom:12px}
+.stp{border-top:3px solid var(--blue);padding-top:16px}
+.si{width:48px;height:48px;border-radius:14px;background:color-mix(in srgb,var(--blue) 12%,var(--soft));display:grid;place-items:center;color:var(--blue);margin-bottom:12px}
 .si svg{width:24px;height:24px}
 .stp h3{margin-bottom:6px}
 .stp p{color:var(--muted)}
 .foot{padding:28px max(5vw,16px)}
 .footin{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:end}
 .foot .small{color:color-mix(in srgb,var(--chalk) 65%,transparent);margin:0}
-.modal{position:fixed;inset:0;z-index:50;background:rgba(5,12,10,.68);display:grid;place-items:center;padding:16px;overflow:auto}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(7,19,32,.72);backdrop-filter:blur(4px);display:grid;place-items:center;padding:16px;overflow:auto}
 .modal[hidden]{display:none}
-.dlg{position:relative;background:var(--card);color:var(--ink);border-radius:20px;width:min(540px,100%);max-height:calc(100dvh - 32px);overflow:auto;padding:26px;box-shadow:0 20px 50px rgba(0,0,0,.35);animation:pop .2s ease-out}
+.dlg{position:relative;background:var(--card);color:var(--ink);border-radius:20px;width:min(540px,100%);max-height:calc(100dvh - 32px);overflow:auto;padding:26px;box-shadow:0 24px 60px rgba(7,19,32,.45);border:1px solid var(--line);animation:pop .2s ease-out}
 .dlg.wide{width:min(920px,100%)}
 @keyframes pop{from{transform:translateY(10px);opacity:0}}
 .x{position:absolute;top:10px;inset-inline-end:10px;width:40px;height:40px;border-radius:50%;border:0;background:var(--soft);font-size:22px;cursor:pointer;line-height:1;z-index:2}
@@ -137,64 +167,71 @@ input,select{border:1.5px solid var(--line);background:var(--bg);border-radius:1
 .mhead{text-align:center;margin-bottom:18px}
 .mhead p{color:var(--muted)}
 .mhead h3{padding:0;margin:12px 0 6px}
-.cic{width:64px;height:64px;border-radius:50%;background:var(--soft);display:grid;place-items:center;margin:0 auto;color:var(--muted)}
+.cic{width:64px;height:64px;border-radius:50%;background:var(--soft);display:grid;place-items:center;margin:0 auto;color:var(--blue)}
 .cic svg{width:28px;height:28px}
-.cic.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.cic.ok{background:color-mix(in srgb,var(--blue) 16%,transparent);color:var(--blue)}
 .step{font-weight:700;margin:16px 0 8px}
 .pick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .pk{border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 12px;text-align:start;cursor:pointer;display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:52px}
 .pk b{font-size:14px;font-weight:600}
 .pk span{font-weight:700;white-space:nowrap}
-.pk[aria-pressed=true]{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,var(--bg))}
+.pk[aria-pressed=true]{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--bg))}
 .inl{margin-top:10px}
 .tabs.sm button{font-size:14px;padding:8px 10px;flex:1}
 .pbody{margin-top:14px;display:grid;gap:12px}
 .wallets{display:grid;gap:8px}
 .wl{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;cursor:pointer}
-.wl input{width:18px;height:18px;min-height:0;accent-color:var(--board);flex:none}
+.wl input{width:18px;height:18px;min-height:0;accent-color:var(--acc);flex:none}
 .wl>span{flex:1;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .drop{border:2px dashed var(--line);border-radius:14px;min-height:110px;display:grid;place-items:center;gap:6px;cursor:pointer;color:var(--muted);text-align:center;padding:12px}
 .drop img{max-height:200px;border-radius:8px}
 .drop svg{width:28px;height:28px}
 .done{text-align:center}
 .done p{color:var(--muted);margin-bottom:16px}
-.tip{background:color-mix(in srgb,var(--acc) 16%,var(--card));border-radius:12px;padding:12px;font-size:14px;margin-bottom:14px;text-align:start}
+.tip{background:color-mix(in srgb,var(--blue) 11%,var(--card));border:1px solid color-mix(in srgb,var(--blue) 24%,transparent);border-radius:12px;padding:12px;font-size:14px;margin-bottom:14px;text-align:start}
 .subs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
 .sb{border:1px solid var(--line);border-radius:12px;padding:12px;display:grid}
 .sb span{font-size:14px;color:var(--muted)}
-.sb.on{border-color:var(--ok)}
-.sb.on span{color:var(--ok)}
+.sb.on{border-color:var(--blue)}
+.sb.on span{color:var(--blue)}
 .rq{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:15px;align-items:center}
 .st{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
-.st.pending{background:color-mix(in srgb,var(--acc) 24%,transparent);color:var(--warn)}
-.st.ok{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
+.st.pending{background:color-mix(in srgb,var(--acc) 18%,transparent);color:var(--acc)}
+.st.ok{background:color-mix(in srgb,var(--blue) 15%,transparent);color:var(--blue)}
 .st.no{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
 h4{margin:16px 0 6px}
 .muted{color:var(--muted)}
 
-/* مشغل الفيديو المحمي بطبقة العزل والعلامة المائية */
+/* مشغل الفيديو المحمي بطبقة العزل والعلامة المائية (Blueprint Lab Tablet) */
 .player{display:grid;gap:12px}
-.scr{position:relative;aspect-ratio:16/9;background:var(--board);background-image:radial-gradient(ellipse at 30% 10%,rgba(255,255,255,.08),transparent 60%);border-radius:14px;overflow:hidden;color:var(--chalk);display:grid;place-content:center;text-align:center;gap:8px;padding:20px;border:8px solid #7a4f27;cursor:pointer;user-select:none}
+.scr{
+  position:relative;aspect-ratio:16/9;
+  background-color:var(--board);
+  background-image:
+    radial-gradient(ellipse at 30% 15%,rgba(2,132,199,.25),transparent 60%),
+    linear-gradient(rgba(56,189,248,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(56,189,248,.07) 1px,transparent 1px);
+  background-size:100% 100%,28px 28px,28px 28px;
+  border-radius:16px;overflow:hidden;color:var(--chalk);display:grid;place-content:center;text-align:center;gap:8px;padding:20px;
+  border:7px solid #162638;
+  box-shadow:inset 0 0 0 1.5px rgba(56,189,248,.28),0 16px 40px rgba(15,41,66,.3);
+  cursor:pointer;user-select:none
+}
 .scr:fullscreen,.scr:-webkit-full-screen{border-width:4px;border-radius:0;width:100vw;height:100vh}
 .scr iframe,.scr video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;z-index:1}
-/* تكبير طفيف لإخفاء حواف وشعارات يوتيوب تماماً */
 .scr iframe.yt-frame{width:100%;height:118%;top:-9%;left:0;pointer-events:none}
-/* طبقة عزل شفافة تمنع النقر على أزرار يوتيوب أو المشاركة أو الزر الأيمن */
 .v-shield{position:absolute;inset:0;z-index:3;background:transparent;cursor:pointer}
-/* طبقة عزل زر فتح نافذة خارجية في Google Drive */
 .drive-shield{position:absolute;top:0;left:0;right:0;height:64px;z-index:4;background:transparent}
-/* العلامة المائية الديناميكية المحمية ضد الحذف */
-.wm{position:absolute;z-index:6;font-size:13px;font-weight:700;color:rgba(255,255,255,.46);background:rgba(0,0,0,.22);padding:2px 9px;border-radius:6px;transform:rotate(-8deg);white-space:nowrap;transition:top 1.4s ease,left 1.4s ease;pointer-events:none;top:18%;left:12%;text-shadow:0 1px 2px rgba(0,0,0,.8);letter-spacing:.02em}
-.wm-ghost{position:absolute;z-index:6;font-size:11px;font-weight:700;color:rgba(245,184,61,.32);pointer-events:none;bottom:14%;right:16%;font-family:ui-monospace,Consolas,monospace}
-/* ضبابية الأمان عند فقدان التركيز أو محاولة تصوير الشاشة */
+.wm{position:absolute;z-index:6;font-size:13px;font-weight:700;color:rgba(255,255,255,.48);background:rgba(15,41,66,.35);padding:2px 9px;border-radius:6px;transform:rotate(-8deg);white-space:nowrap;transition:top 1.4s ease,left 1.4s ease;pointer-events:none;top:18%;left:12%;text-shadow:0 1px 2px rgba(0,0,0,.8);letter-spacing:.02em}
+.wm-ghost{position:absolute;z-index:6;font-size:11px;font-weight:700;color:rgba(56,189,248,.34);pointer-events:none;bottom:14%;right:16%;font-family:ui-monospace,Consolas,monospace}
 .scr.blurred>*:not(.sec-overlay){filter:blur(18px)!important}
-.sec-overlay{position:absolute;inset:0;z-index:8;background:rgba(12,23,20,.92);color:#fff;display:none;place-content:center;text-align:center;padding:24px;gap:10px}
+.sec-overlay{position:absolute;inset:0;z-index:8;background:rgba(10,25,41,.94);color:#fff;display:none;place-content:center;text-align:center;padding:24px;gap:10px}
 .scr.blurred .sec-overlay,.scr.tampered .sec-overlay{display:grid}
-.sc-u{font-size:14px;opacity:.7;position:relative;z-index:2}
+.sc-u{font-size:14px;color:var(--cyan);opacity:.9;position:relative;z-index:2}
 .sc-t{font:700 clamp(22px,4vw,36px) 'Readex Pro',sans-serif;position:relative;z-index:2}
-.sc-f{font:700 clamp(26px,5vw,48px) 'Caveat',cursive;color:#fff3c9;clip-path:inset(0 100% 0 0);animation:write 2.4s .4s ease forwards;position:relative;z-index:2}
+.sc-f{font:700 clamp(26px,5vw,48px) 'Caveat',cursive;color:#38BDF8;clip-path:inset(0 100% 0 0);animation:write 2.4s .4s ease forwards;position:relative;z-index:2}
 @keyframes write{to{clip-path:inset(0 0 0 0)}}
-.bigp{position:absolute;z-index:5;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:opacity .2s;pointer-events:none}
+.bigp{position:absolute;z-index:5;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;box-shadow:0 8px 28px rgba(252,108,86,.55);transition:opacity .2s;pointer-events:none}
 .bigp svg{width:30px;height:30px}
 .scr.on .bigp{opacity:0}
 .ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -205,8 +242,95 @@ h4{margin:16px 0 6px}
 .pinfo{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap}
 .pinfo h3{margin-bottom:4px}
 .pinfo p{color:var(--muted);font-size:14px}
-.sec-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok);padding:4px 10px;border-radius:999px;font-weight:600}
+.sec-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;background:color-mix(in srgb,var(--blue) 15%,transparent);color:var(--blue);padding:4px 10px;border-radius:999px;font-weight:600}
 .big{width:100%;border-radius:12px;display:block}
+
+/* ============================================================================
+ * الافتتاحية السينمائية (Swiss Precision & Blueprint Lab Cinematic Intro)
+ * ============================================================================ */
+.c-intro{
+  position:fixed;inset:0;z-index:9999;
+  background:#071524;
+  background-image:
+    radial-gradient(circle at 50% 45%,rgba(2,132,199,.26),transparent 60%),
+    radial-gradient(circle at 50% 55%,rgba(252,108,86,.12),transparent 45%),
+    linear-gradient(rgba(56,189,248,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(56,189,248,.06) 1px,transparent 1px);
+  background-size:100% 100%,100% 100%,36px 36px,36px 36px;
+  color:#F8FAFC;
+  display:grid;place-items:center;overflow:hidden;
+  transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1),filter .75s ease
+}
+.c-intro.out{opacity:0;transform:scale(1.09);filter:blur(8px);pointer-events:none}
+.c-intro[hidden]{display:none}
+#introCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ci-stage{position:relative;z-index:2;text-align:center;padding:24px;max-width:680px;width:100%;display:grid;justify-items:center;gap:14px}
+.ci-emblem{position:relative;width:146px;height:146px;display:grid;place-items:center;margin-bottom:4px}
+.ci-emblem svg{width:100%;height:100%;overflow:visible}
+.ci-ring1{transform-origin:center;animation:ciSpin 14s linear infinite}
+.ci-ring2{transform-origin:center;animation:ciSpinRev 10s linear infinite}
+.ci-wave{stroke-dasharray:260;stroke-dashoffset:260;animation:ciDraw 1.8s .2s cubic-bezier(.4,0,.2,1) forwards}
+.ci-core{animation:ciPulse 2.2s ease-in-out infinite}
+@keyframes ciSpin{to{transform:rotate(360deg)}}
+@keyframes ciSpinRev{to{transform:rotate(-360deg)}}
+@keyframes ciDraw{to{stroke-dashoffset:0}}
+@keyframes ciPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 14px rgba(252,108,86,.45))}50%{transform:scale(1.05);filter:drop-shadow(0 0 28px rgba(252,108,86,.85))}}
+.ci-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:700;letter-spacing:.04em;
+  color:#38BDF8;background:rgba(2,132,199,.16);
+  border:1px solid rgba(56,189,248,.35);
+  padding:5px 16px;border-radius:999px;
+  opacity:0;transform:translateY(12px);
+  animation:ciUp .65s .35s cubic-bezier(.2,.8,.2,1) forwards
+}
+.ci-title{
+  font:700 clamp(30px,5.2vw,52px)/1.2 'Readex Pro',sans-serif;
+  color:#FFFFFF;
+  text-shadow:0 8px 30px rgba(0,0,0,.45);
+  opacity:0;transform:translateY(16px);
+  animation:ciUp .75s .55s cubic-bezier(.2,.8,.2,1) forwards
+}
+.ci-title span{color:#fc6c56}
+.ci-sub{
+  font-size:clamp(16px,2.2vw,20px);
+  color:#BAE6FD;max-width:30em;
+  opacity:0;transform:translateY(16px);
+  animation:ciUp .75s .78s cubic-bezier(.2,.8,.2,1) forwards
+}
+.ci-formulas{
+  display:flex;gap:18px;flex-wrap:wrap;justify-content:center;
+  font:700 21px 'Caveat',cursive;color:rgba(248,250,252,.72);
+  margin-top:4px;opacity:0;
+  animation:ciUp .75s 1s ease forwards
+}
+.ci-formulas span{background:rgba(15,41,66,.75);border:1px solid rgba(56,189,248,.22);padding:3px 14px;border-radius:10px}
+.ci-bar-wrap{
+  width:min(280px,80%);height:5px;background:rgba(56,189,248,.16);
+  border-radius:999px;overflow:hidden;margin-top:12px;
+  opacity:0;animation:ciUp .5s .9s ease forwards
+}
+.ci-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#0284C7,#fc6c56);
+  border-radius:999px;
+  box-shadow:0 0 14px #fc6c56;
+  animation:ciLoad 3.1s .4s cubic-bezier(.4,0,.2,1) forwards
+}
+@keyframes ciUp{to{opacity:1;transform:translateY(0)}}
+@keyframes ciLoad{0%{width:0%}45%{width:58%}85%{width:92%}100%{width:100%}}
+.ci-enter{
+  margin-top:10px;opacity:0;transform:translateY(12px);
+  animation:ciUp .65s 1.15s ease forwards
+}
+.ci-skip{
+  position:absolute;top:20px;inset-inline-start:20px;z-index:4;
+  background:rgba(15,41,66,.7);color:#cbd5e1;
+  border:1px solid rgba(56,189,248,.28);border-radius:999px;
+  padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer;
+  backdrop-filter:blur(6px);transition:background .2s,color .2s
+}
+.ci-skip:hover{background:var(--acc);color:#fff;border-color:var(--acc)}
 
 /* لوحة تحكم الأستاذ */
 .adm{padding:clamp(24px,4vw,48px) max(5vw,16px);min-height:70vh}
@@ -266,6 +390,47 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 </style>
 </head>
 <body>
+<!-- الافتتاحية السينمائية التفاعلية (Swiss Precision & Blueprint Lab) -->
+<div class="c-intro" id="cinemaIntro" role="dialog" aria-label="الافتتاحية السينمائية لمنصة الأستاذ شادي عبيد">
+  <canvas id="introCanvas"></canvas>
+  <button type="button" class="ci-skip" data-act="skipIntro">تخطي الافتتاحية ✕</button>
+  <div class="ci-stage">
+    <div class="ci-emblem">
+      <svg viewBox="0 0 160 160" aria-hidden="true">
+        <defs>
+          <linearGradient id="ciGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#0284C7"/>
+            <stop offset="100%" stop-color="#fc6c56"/>
+          </linearGradient>
+        </defs>
+        <g class="ci-ring1" fill="none" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="10 8" opacity=".65">
+          <circle cx="80" cy="80" r="72"/>
+          <circle cx="80" cy="8" r="3.5" fill="#38BDF8"/>
+          <circle cx="80" cy="152" r="3.5" fill="#fc6c56"/>
+        </g>
+        <g class="ci-ring2" fill="none" stroke="#38BDF8" stroke-width="1.8" stroke-dasharray="36 18" opacity=".8">
+          <circle cx="80" cy="80" r="58"/>
+        </g>
+        <circle cx="80" cy="80" r="44" fill="#0F2942" stroke="url(#ciGrad)" stroke-width="2.5" class="ci-core"/>
+        <path class="ci-wave" d="M 44 82 Q 62 50, 80 82 T 116 82" fill="none" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" opacity=".45"/>
+        <text x="80" y="96" text-anchor="middle" font-family="'Readex Pro',Tahoma,sans-serif" font-weight="700" font-size="44" fill="#fc6c56">ش</text>
+      </svg>
+    </div>
+    <div class="ci-tag">SWISS PRECISION &amp; BLUEPRINT LAB · بكالوريا علمي</div>
+    <h1 class="ci-title">منصة الأستاذ <span>شادي عبيد</span></h1>
+    <p class="ci-sub">طريقك نحو التفوق في الرياضيات والفيزياء</p>
+    <div class="ci-formulas" dir="ltr">
+      <span>f(x) = sin x</span>
+      <span>T₀ = 2π√(l/g)</span>
+      <span>∫ f(x) dx = F(x) + C</span>
+    </div>
+    <div class="ci-bar-wrap"><div class="ci-bar"></div></div>
+    <div class="ci-enter">
+      <button type="button" class="btn sm" data-act="skipIntro">ابدأ التعلم الآن ←</button>
+    </div>
+  </div>
+</div>
+
 <div class="demo" id="demoBar" hidden>
   <div class="wrap demoin">
     <span>🔒 وضع الإدارة — الأستاذ شادي عبيد (هذا الشريط يظهر لك أنت فقط ولا يراه الطلاب)</span>
@@ -476,7 +641,7 @@ function toast(t) {
 function rimg(r) {
   if (r.receipt) return r.receipt;
   const s = stu(r.sid);
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 320" font-family="Tahoma,sans-serif"><rect width="240" height="320" rx="14" fill="#f7f7f2"/><path d="M0 14a14 14 0 0 1 14-14h212a14 14 0 0 1 14 14v50H0z" fill="#1b5e4a"/><text x="120" y="40" fill="#fff" font-size="17" text-anchor="middle">${esc(r.method)}</text><circle cx="120" cy="100" r="22" fill="#2fa36b"/><path d="M109 100l8 8 15-16" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><text x="120" y="148" font-size="14" text-anchor="middle" fill="#333">تمت عملية التحويل</text><text x="120" y="186" font-size="28" font-weight="700" text-anchor="middle" fill="#111">${r.amount} $</text><line x1="20" y1="206" x2="220" y2="206" stroke="#ddd" stroke-dasharray="4 4"/><text x="220" y="232" font-size="12" text-anchor="end" fill="#666">من: ${esc(s ? s.name : '')}</text><text x="220" y="254" font-size="12" text-anchor="end" fill="#666">إلى: شادي عبيد</text><text x="220" y="276" font-size="12" text-anchor="end" fill="#666">رقم العملية: ${esc(r.txRef || (48210000 + r.id * 137))}</text><text x="220" y="298" font-size="12" text-anchor="end" fill="#666">${fmtS(r.at)}</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 320" font-family="Tahoma,sans-serif"><rect width="240" height="320" rx="14" fill="#F8FAFC"/><path d="M0 14a14 14 0 0 1 14-14h212a14 14 0 0 1 14 14v50H0z" fill="#0F2942"/><text x="120" y="40" fill="#fff" font-size="17" text-anchor="middle">${esc(r.method)}</text><circle cx="120" cy="100" r="22" fill="#0284C7"/><path d="M109 100l8 8 15-16" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><text x="120" y="148" font-size="14" text-anchor="middle" fill="#0F2942">تمت عملية التحويل</text><text x="120" y="186" font-size="28" font-weight="700" text-anchor="middle" fill="#fc6c56">${r.amount} $</text><line x1="20" y1="206" x2="220" y2="206" stroke="#DCE5F0" stroke-dasharray="4 4"/><text x="220" y="232" font-size="12" text-anchor="end" fill="#526880">من: ${esc(s ? s.name : '')}</text><text x="220" y="254" font-size="12" text-anchor="end" fill="#526880">إلى: شادي عبيد</text><text x="220" y="276" font-size="12" text-anchor="end" fill="#526880">رقم العملية: ${esc(r.txRef || (48210000 + r.id * 137))}</text><text x="220" y="298" font-size="12" text-anchor="end" fill="#526880">${fmtS(r.at)}</text></svg>`;
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 }
 
@@ -497,7 +662,7 @@ function parseVideoUrl(rawUrl) {
   return { provider: 'direct', id: url };
 }
 
-const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" role="img" aria-label="شاشة درس على سبورة مع زر تشغيل"><defs><linearGradient id="bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c5a4c"/><stop offset="1" stop-color="#16302a"/></linearGradient><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a6a37"/><stop offset="1" stop-color="#6e4520"/></linearGradient></defs><rect x="14" y="22" width="540" height="334" rx="20" fill="#0b1915" opacity=".55"/><rect x="4" y="4" width="540" height="334" rx="18" fill="url(#wd)"/><rect x="18" y="18" width="512" height="262" rx="8" fill="url(#bd)"/><g fill="none" stroke="#f3f0e6" stroke-width="2.4" stroke-linecap="round" opacity=".88"><path d="M52 210H262M70 232V70"/><path d="M70 150c18-60 36-60 54 0s36 60 54 0 36-60 54 0" stroke="#f5b83d"/><path d="M372 64H492"/><path d="M432 64L462 178" stroke-dasharray="0"/><path d="M432 64L402 178" stroke-dasharray="4 7" opacity=".6"/><path d="M398 192q32 22 68 0" stroke-dasharray="3 6" opacity=".7"/></g><circle cx="465" cy="190" r="15" fill="#f3f0e6" opacity=".9"/><circle cx="460" cy="185" r="5" fill="#fff"/><g font-family="Caveat,cursive" font-weight="700" fill="#f3f0e6"><text x="88" y="64" font-size="28">f(x) = sin x</text><text x="356" y="250" font-size="30" fill="#fff3c9">T₀ = 2π√(l/g)</text><text x="60" y="262" font-size="24" opacity=".85">∫ sin x dx = −cos x + C</text></g><g><circle cx="274" cy="146" r="38" fill="#f5b83d"/><circle cx="274" cy="146" r="38" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="6"/><path d="M262 128v36l30-18z" fill="#2a1d00"/></g><text x="300" y="112" font-size="13" fill="#f3f0e6" opacity=".35" transform="rotate(-10 300 112)" font-family="Tahoma,sans-serif">منصة الأستاذ شادي عبيد</text><rect x="18" y="290" width="512" height="36" rx="8" fill="#0c1915"/><rect x="34" y="306" width="300" height="4" rx="2" fill="#2c4a42"/><rect x="34" y="306" width="118" height="4" rx="2" fill="#f5b83d"/><circle cx="152" cy="308" r="7" fill="#f5b83d"/><text x="514" y="313" font-size="13" fill="#cfd8d3" text-anchor="end" font-family="Tahoma,sans-serif">04:58 / 11:50</text><text x="420" y="313" font-size="13" fill="#9fb0a9" text-anchor="end" font-family="Tahoma,sans-serif">النوّاس الثقلي</text></svg>`;
+const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" role="img" aria-label="شاشة مختبر الرياضيات والفيزياء مع زر تشغيل"><defs><linearGradient id="bd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12314E"/><stop offset="1" stop-color="#091B2E"/></linearGradient><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25384C"/><stop offset="1" stop-color="#111C28"/></linearGradient><pattern id="bpGrid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#38BDF8" stroke-width="0.6" stroke-opacity="0.14"/></pattern></defs><g stroke="#38BDF8" stroke-opacity=".18" fill="none" stroke-width="1"><circle cx="110" cy="175" r="145" stroke-dasharray="6 6"/><circle cx="430" cy="160" r="120" stroke-dasharray="4 8"/><line x1="0" y1="45" x2="560" y2="45"/><line x1="0" y1="315" x2="560" y2="315"/></g><rect x="20" y="24" width="524" height="320" rx="24" fill="#050E18" opacity=".6"/><rect x="12" y="12" width="524" height="320" rx="22" fill="url(#wd)" stroke="#38BDF8" stroke-opacity=".35" stroke-width="1.5"/><rect x="26" y="26" width="496" height="292" rx="14" fill="url(#bd)"/><rect x="26" y="26" width="496" height="292" rx="14" fill="url(#bpGrid)"/><g fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" opacity=".85"><path d="M52 184H310M82 268V74"/><polygon points="82,68 78,78 86,78" fill="#38BDF8" stroke="none"/><polygon points="316,184 306,180 306,188" fill="#38BDF8" stroke="none"/><circle cx="136" cy="184" r="82" stroke="#38BDF8" stroke-opacity=".22" stroke-width="1.2" stroke-dasharray="4 4"/><path d="M82 184c24-82 54-82 78 0s54 82 78 0 42-64 62-20" stroke="#F5B83D" stroke-width="3"/><path d="M376 74H488"/><path d="M384 74l6-8M400 74l6-8M416 74l6-8M432 74l6-8M448 74l6-8M464 74l6-8M480 74l6-8" stroke-width="1.3" opacity=".6"/><path d="M432 74L470 192" stroke="#38BDF8" stroke-width="2.2"/><path d="M432 74L394 192" stroke="#38BDF8" stroke-dasharray="4 7" opacity=".55"/><path d="M432 74V202" stroke="#38BDF8" stroke-dasharray="2 5" opacity=".4"/><path d="M392 204q40 24 80 0" stroke="#38BDF8" stroke-dasharray="3 6" opacity=".75"/></g><circle cx="470" cy="195" r="14" fill="#38BDF8"/><circle cx="394" cy="195" r="12" fill="none" stroke="#38BDF8" stroke-dasharray="3 3" opacity=".65"/><circle cx="465" cy="190" r="4" fill="#E0F2FE"/><g font-family="Tahoma,sans-serif" font-size="11" fill="#7DD3FC" opacity=".8"><text x="67" y="122">1</text><text x="68" y="198">0</text><text x="60" y="248">-1</text><text x="128" y="202">π/2</text><text x="208" y="202">π</text></g><g font-family="Caveat,cursive" font-weight="700" fill="#F8FAFC"><text x="102" y="92" font-size="28" fill="#BAE6FD">f(x) = sin x</text><text x="358" y="272" font-size="30" fill="#E0F2FE">T₀ = 2π√(l/g)</text></g><g><circle cx="268" cy="172" r="42" fill="#fc6c56" opacity=".22"/><circle cx="268" cy="172" r="34" fill="#fc6c56"/><path d="M258 156v32l27-16z" fill="#ffffff"/></g></svg>`;
 
 /* ============================================================================
  * 3. بناء واجهة الطالب (Student View)
@@ -505,7 +670,7 @@ const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" r
 function header() {
   const u = S.user;
   const isAdmin = u && u.role === 'admin';
-  return `<header class="top"><div class="wrap topin"><a class="brand" href="#top"><span class="mark">ش</span><span><b>الأستاذ شادي عبيد</b><small>رياضيات وفيزياء · بكالوريا علمي</small></span></a><nav class="nav" aria-label="أقسام الموقع"><a href="#lessons">الدروس</a><a href="#plans">الاشتراكات</a><a href="#how">طريقة الاشتراك</a></nav><div class="acct">${
+  return `<header class="top"><div class="wrap topin"><a class="brand" href="#top"><span class="mark">ش</span><span><b>منصة الأستاذ شادي عبيد</b><small>رياضيات وفيزياء · بكالوريا علمي</small></span></a><nav class="nav" aria-label="أقسام الموقع"><a href="#lessons">الدروس</a><a href="#plans">الاشتراكات</a><a href="#how">طريقة الاشتراك</a></nav><div class="acct">${
     u ? `${isAdmin ? `<button type="button" class="btn sm" data-act="view" data-view="admin">لوحة التحكم</button>` : `<button type="button" class="btn ghost sm" data-act="mine">${I.user} ${esc(u.name.split(' ')[0])}</button>`}<button type="button" class="btn link sm" data-act="logout">خروج</button>`
       : `<button type="button" class="btn ghost sm" data-act="auth" data-mode="login">دخول</button><button type="button" class="btn sm" data-act="auth" data-mode="signup">إنشاء حساب</button>`
   }</div></div></header>`;
@@ -515,9 +680,9 @@ function hero() {
   const all = [...L.math, ...L.phys], fr = all.filter(l => l.free).length;
   const firstFree = [...L.math.map(l => ({ ...l, k: 'math' })), ...L.phys.map(l => ({ ...l, k: 'phys' }))].find(l => l.free);
   const ctaBtn = firstFree
-    ? `<button type="button" class="btn" data-act="play" data-subj="${firstFree.k}" data-id="${firstFree.id}">${I.play} شاهد درسًا مجانيًا</button>`
-    : `<a class="btn" href="#lessons">${I.play} تصفّح الدروس</a>`;
-  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1>دروس الرياضيات والفيزياء بالفيديو مع الأستاذ شادي عبيد</h1><p>شروحات قصيرة ومركّزة لطلاب البكالوريا العلمي. شاهد الدروس المجانية الآن، واشترك لتفتح بقية الدروس مع ملخصات القوانين.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (رياضيات وفيزياء)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
+    ? `<button type="button" class="btn" data-act="play" data-subj="${firstFree.k}" data-id="${firstFree.id}">${I.play} ابدأ التعلم الآن</button>`
+    : `<a class="btn" href="#lessons">${I.play} ابدأ التعلم الآن</a>`;
+  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1>منصة الأستاذ شادي عبيد</h1><p style="font-size:20px;color:#BAE6FD;font-weight:600;margin-top:10px">طريقك نحو التفوق في الرياضيات والفيزياء</p><p>شروحات دقيقة ومركّزة لطلاب البكالوريا العلمي بأسلوب هندسي واضح، مع ملخصات القوانين ومتابعة مستمرة لتقدمك.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (رياضيات وفيزياء)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
 }
 
 function getLessonProgress(lid) {
@@ -1630,6 +1795,98 @@ document.addEventListener('input', e => {
 });
 
 modal.addEventListener('click', e => { if (e.target === modal) closeM(); });
+
+/* ============================================================================
+ * 8. محرك الافتتاحية السينمائية التفاعلية (Blueprint Lab 60fps Canvas Engine)
+ * ============================================================================ */
+let introRaf = null, introTimer = null;
+function closeCinemaIntro() {
+  const el = document.getElementById('cinemaIntro');
+  if (!el || el.hidden || el.classList.contains('out')) return;
+  el.classList.add('out');
+  clearTimeout(introTimer);
+  setTimeout(() => {
+    if (introRaf) cancelAnimationFrame(introRaf);
+    el.hidden = true;
+  }, 760);
+}
+
+document.addEventListener('click', e => {
+  if (e.target.closest('[data-act="skipIntro"]')) {
+    closeCinemaIntro();
+  }
+});
+
+(function initCinemaIntro() {
+  const el = document.getElementById('cinemaIntro');
+  const cv = document.getElementById('introCanvas');
+  if (!el || !cv) return;
+  const ctx = cv.getContext('2d');
+  let w = 0, h = 0, t0 = performance.now();
+  const syms = ['∫', '∑', 'π', '√', 'λ', 'ω', 'Δ', '∞', 'θ', 'Φ'];
+  const nodes = Array.from({ length: 26 }, (_, i) => ({
+    x: Math.random(),
+    y: Math.random(),
+    vx: (Math.random() - 0.5) * 0.0005,
+    vy: (Math.random() - 0.5) * 0.0005,
+    sym: syms[i % syms.length],
+    col: i % 3 === 0 ? '#fc6c56' : '#38BDF8',
+    sz: 14 + (i % 4) * 4
+  }));
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = cv.clientWidth || window.innerWidth;
+    h = cv.clientHeight || window.innerHeight;
+    cv.width = w * dpr;
+    cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function frame(now) {
+    const dt = (now - t0) * 0.001;
+    ctx.clearRect(0, 0, w, h);
+
+    // رسم موجات جيبية هندسية متداخلة (f(x) = sin x & تداخل الأمواج)
+    for (let k = 0; k < 2; k++) {
+      ctx.beginPath();
+      ctx.strokeStyle = k === 0 ? 'rgba(2, 132, 199, 0.28)' : 'rgba(252, 108, 86, 0.24)';
+      ctx.lineWidth = k === 0 ? 2.2 : 1.8;
+      const amp = (k === 0 ? 42 : 28);
+      const freq = k === 0 ? 0.008 : 0.012;
+      const speed = k === 0 ? 2.2 : -1.8;
+      const baseY = h * (k === 0 ? 0.72 : 0.28);
+      for (let x = 0; x <= w; x += 12) {
+        const y = baseY + Math.sin(x * freq + dt * speed) * amp * Math.sin(dt * 0.9 + k);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    // رموز رياضية وفيزيائية عائمة في فضاء المختبر
+    ctx.font = '700 16px "Caveat", monospace';
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      n.x = (n.x + n.vx + 1) % 1;
+      n.y = (n.y + n.vy + 1) % 1;
+      const px = n.x * w, py = n.y * h;
+      ctx.fillStyle = n.col;
+      ctx.globalAlpha = 0.24 + 0.15 * Math.sin(dt * 2 + i);
+      ctx.font = `700 ${n.sz}px "Caveat", sans-serif`;
+      ctx.fillText(n.sym, px, py);
+    }
+    ctx.globalAlpha = 1;
+
+    introRaf = requestAnimationFrame(frame);
+  }
+  introRaf = requestAnimationFrame(frame);
+  // إغلاق تلقائي سلس بعد اكتمال العرض السينمائي (3.8 ثانية)
+  introTimer = setTimeout(closeCinemaIntro, 3800);
+})();
+
 render();
 }
 </script>
