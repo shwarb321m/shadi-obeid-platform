@@ -57,9 +57,10 @@ button,input,select{font:inherit;color:inherit}
 .badge:empty{display:none}
 .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-inline:max(5vw,16px)}
 .topin{display:flex;align-items:center;gap:16px;min-height:70px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-.brand b{display:block;font-family:'Readex Pro',sans-serif;font-size:17px;line-height:1.2;color:var(--ink)}
-.brand small{color:var(--muted);font-size:13px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}
+.brand b{display:flex;align-items:center;gap:8px;font-family:'Readex Pro',sans-serif;font-size:clamp(15px,1.8vw,18px);line-height:1.2;color:var(--ink);white-space:nowrap}
+.brand b .en{color:var(--blue);font-weight:600;font-size:.92em;letter-spacing:.02em}
+.brand small{display:block;color:var(--muted);font-size:12.5px}
 .mark{width:42px;height:42px;border-radius:12px;background:var(--board);color:var(--acc);box-shadow:inset 0 0 0 1.5px rgba(2,132,199,.45);display:grid;place-items:center;font:700 22px 'Readex Pro',sans-serif;flex:none}
 .nav{display:flex;gap:4px;margin-inline-start:auto}
 .nav a{text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--muted);font-weight:600}
@@ -79,16 +80,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,la
 .btn.wa{background:#25d366;color:#04230f;box-shadow:none}
 .btn.okb{background:var(--blue);color:#fff;box-shadow:none}
 .btn svg,.ib svg{width:18px;height:18px;flex:none}
-/* خلفية Blueprint Lab الكحلية الهندسية */
+/* خلفية كحلية أطلسية ناعمة بدون مربعات بيانية */
 .board{
   background-color:var(--board);
   color:var(--chalk);
   background-image:
-    radial-gradient(ellipse at 20% 10%,rgba(2,132,199,.22),transparent 55%),
-    radial-gradient(ellipse at 85% 90%,rgba(252,108,86,.10),transparent 50%),
-    linear-gradient(rgba(56,189,248,.065) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(56,189,248,.065) 1px,transparent 1px);
-  background-size:100% 100%,100% 100%,32px 32px,32px 32px
+    radial-gradient(ellipse at 18% 12%,rgba(2,132,199,.24),transparent 58%),
+    radial-gradient(ellipse at 85% 88%,rgba(252,108,86,.12),transparent 52%),
+    radial-gradient(circle at 75% 25%,rgba(56,189,248,.08),transparent 40%)
 }
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);align-items:center}
 .htxt p{font-size:18px;margin-top:16px;color:color-mix(in srgb,var(--chalk) 84%,transparent);max-width:34em}
@@ -202,16 +201,14 @@ input,select{border:1.5px solid var(--line);background:var(--bg);border-radius:1
 h4{margin:16px 0 6px}
 .muted{color:var(--muted)}
 
-/* مشغل الفيديو المحمي بطبقة العزل والعلامة المائية (Blueprint Lab Tablet) */
+/* مشغل الفيديو المحمي بطبقة العزل والعلامة المائية */
 .player{display:grid;gap:12px}
 .scr{
   position:relative;aspect-ratio:16/9;
   background-color:var(--board);
   background-image:
-    radial-gradient(ellipse at 30% 15%,rgba(2,132,199,.25),transparent 60%),
-    linear-gradient(rgba(56,189,248,.07) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(56,189,248,.07) 1px,transparent 1px);
-  background-size:100% 100%,28px 28px,28px 28px;
+    radial-gradient(ellipse at 30% 15%,rgba(2,132,199,.26),transparent 62%),
+    radial-gradient(ellipse at 80% 85%,rgba(252,108,86,.12),transparent 55%);
   border-radius:16px;overflow:hidden;color:var(--chalk);display:grid;place-content:center;text-align:center;gap:8px;padding:20px;
   border:7px solid #162638;
   box-shadow:inset 0 0 0 1.5px rgba(56,189,248,.28),0 16px 40px rgba(15,41,66,.3);
@@ -246,17 +243,14 @@ h4{margin:16px 0 6px}
 .big{width:100%;border-radius:12px;display:block}
 
 /* ============================================================================
- * الافتتاحية السينمائية (Swiss Precision & Blueprint Lab Cinematic Intro)
+ * الافتتاحية السينمائية (Cinematic Intro — التاريخ والجغرافيا)
  * ============================================================================ */
 .c-intro{
   position:fixed;inset:0;z-index:9999;
   background:#071524;
   background-image:
-    radial-gradient(circle at 50% 45%,rgba(2,132,199,.26),transparent 60%),
-    radial-gradient(circle at 50% 55%,rgba(252,108,86,.12),transparent 45%),
-    linear-gradient(rgba(56,189,248,.06) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(56,189,248,.06) 1px,transparent 1px);
-  background-size:100% 100%,100% 100%,36px 36px,36px 36px;
+    radial-gradient(circle at 50% 42%,rgba(2,132,199,.28),transparent 62%),
+    radial-gradient(circle at 50% 58%,rgba(252,108,86,.13),transparent 48%);
   color:#F8FAFC;
   display:grid;place-items:center;overflow:hidden;
   transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1),filter .75s ease
@@ -417,7 +411,7 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
       </svg>
     </div>
     <div class="ci-tag">منصة الأستاذ شادي عبيد التعليمية</div>
-    <h1 class="ci-title">منصة الأستاذ <span>شادي عبيد</span></h1>
+    <h1 class="ci-title" style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap"><span>الأستاذ شادي عبيد</span> <span style="color:#38BDF8;font-weight:600;font-size:.82em" dir="ltr">| Shadi Obeid</span></h1>
     <p class="ci-sub">طريقك نحو التفوق والتميّز في التاريخ والجغرافيا</p>
     <div class="ci-formulas">
       <span>التاريخ</span>
@@ -449,15 +443,17 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 /* ============================================================================
  * 1. إعدادات الاتصال بخادم Google Apps Script والبصمة الأمنية للجهاز
  * ============================================================================ */
-const STORAGE_KEY = 'SHADI_PLATFORM_PRODUCTION_V2';
+const STORAGE_KEY = 'SHADI_PLATFORM_PRODUCTION_V3';
 const DEVICE_KEY  = 'SHADI_DEVICE_FP_V2';
 try {
   localStorage.removeItem('SHADI_PLATFORM_STATE_V2');
   localStorage.removeItem('SHADI_PLATFORM_PRODUCTION_V1');
+  localStorage.removeItem('SHADI_PLATFORM_PRODUCTION_V2');
 } catch (e) {}
 
-// ضع رابط نشر Google Apps Script Web App هنا (أو من داخل لوحة تحكم الأستاذ -> الأسعار والدفع)
-let API_URL = localStorage.getItem('SHADI_GAS_API_URL') || '';
+// الرابط السحابي الحيّ المربوط بـ Google Apps Script للمزامنة الفورية بين جميع الأجهزة
+const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbyHaiA7xhs3cquq9LFj7jxofpuPJeaB86jZiW-sccj_zlL-8VmHD4eSgAd9lnj99ofMUQ/exec';
+let API_URL = localStorage.getItem('SHADI_GAS_API_URL') || DEFAULT_API_URL;
 
 const now = Date.now(), DAY = 864e5, HR = 36e5;
 const SUBJ = { math: 'التاريخ', phys: 'الجغرافيا' };
@@ -558,31 +554,116 @@ function loadState() {
   } catch (e) {}
 }
 
-function saveState() {
+function getCloudPayload(adminForce = false) {
+  const cleanS = Object.assign({}, S);
+  delete cleanS.user;
+  delete cleanS.token;
+  delete cleanS.view;
+  delete cleanS.tab;
+  delete cleanS.q;
+  return { L, S: cleanS, adminForce: Boolean(adminForce) };
+}
+
+function applyCloudData(data) {
+  if (!data) return;
+  const curUser = S.user;
+  const curView = S.view;
+  const curTab  = S.tab;
+  const curSubj = S.subj;
+  const curAs   = S.as;
+  const curRf   = S.rf;
+  const curQ    = S.q;
+
+  if (data.L && (Array.isArray(data.L.math) || Array.isArray(data.L.phys))) {
+    L = {
+      math: Array.isArray(data.L.math) ? data.L.math : [],
+      phys: Array.isArray(data.L.phys) ? data.L.phys : []
+    };
+  }
+  if (data.S) {
+    S = Object.assign(S, data.S);
+  }
+  S.view = curView;
+  S.tab  = curTab;
+  S.subj = curSubj;
+  S.as   = curAs;
+  S.rf   = curRf;
+  S.q    = curQ;
+
+  if (curUser) {
+    if (curUser.role === 'admin') {
+      S.user = curUser;
+    } else {
+      const fresh = S.students.find(x => x.id === curUser.id || digits(x.phone) === digits(curUser.phone));
+      S.user = fresh || curUser;
+    }
+  }
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S }));
   } catch (e) {}
 }
 
+let syncInFlight = false;
+async function syncFromCloud(quiet = true) {
+  if (!API_URL || syncInFlight) return;
+  syncInFlight = true;
+  try {
+    const res = await fetch(API_URL + '?action=get&t=' + Date.now(), { method: 'GET' });
+    const json = await res.json();
+    if (json && json.ok && json.data) {
+      applyCloudData(json.data);
+      if (modal.hidden) render();
+      else {
+        const pc = $('#pc');
+        if (pc) pc.textContent = S.requests.filter(r => r.st === 'pending').length || '';
+      }
+    }
+  } catch (e) {
+    if (!quiet) toast('تعذّر تحديث البيانات السحابية حالياً');
+  } finally {
+    syncInFlight = false;
+  }
+}
+
+async function pushToCloud(adminForce = false) {
+  if (!API_URL) return;
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'sync',
+        payload: getCloudPayload(adminForce)
+      })
+    });
+    const json = await res.json();
+    if (json && json.ok && json.data) {
+      applyCloudData(json.data);
+      if (modal.hidden) render();
+    }
+  } catch (e) {}
+}
+
+function saveState(adminForce = false) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S }));
+  } catch (e) {}
+  const isAdmin = !!(S.user && S.user.role === 'admin');
+  pushToCloud(adminForce || isAdmin);
+}
+
 loadState();
+// جلب أحدث البيانات من السحابة فور فتح المنصة، وتحديثها دورياً
+syncFromCloud(true);
+setInterval(() => {
+  if (modal.hidden) syncFromCloud(true);
+}, 10000);
 
 /**
- * استدعاء خادم Google Apps Script في حال تم ربط API_URL
+ * استدعاء خادم Google Apps Script المباشر
  */
 async function callGasApi(action, payload = {}) {
-  if (!API_URL) return null;
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({
-      action,
-      payload,
-      auth: { token: S.token, deviceFp: MY_DEVICE_FP }
-    })
-  });
-  const json = await res.json();
-  if (!json.ok) throw new Error(json.error || 'حدث خطأ في الاتصال بالخادم');
-  return json.data;
+  return pushToCloud(Boolean(S.user && S.user.role === 'admin'));
 }
 
 let uid = 200, after = null, P = null, tick = null, wmT = null, wmObserver = null, ytPlayer = null;
@@ -665,7 +746,7 @@ function parseVideoUrl(rawUrl) {
   return { provider: 'direct', id: url };
 }
 
-const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" role="img" aria-label="شاشة منصة الأستاذ شادي عبيد مع زر تشغيل"><defs><linearGradient id="bd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12314E"/><stop offset="1" stop-color="#091B2E"/></linearGradient><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25384C"/><stop offset="1" stop-color="#111C28"/></linearGradient><pattern id="bpGrid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#38BDF8" stroke-width="0.6" stroke-opacity="0.14"/></pattern></defs><g stroke="#38BDF8" stroke-opacity=".18" fill="none" stroke-width="1"><circle cx="110" cy="175" r="145" stroke-dasharray="6 6"/><circle cx="430" cy="160" r="120" stroke-dasharray="4 8"/><line x1="0" y1="45" x2="560" y2="45"/><line x1="0" y1="315" x2="560" y2="315"/></g><rect x="20" y="24" width="524" height="320" rx="24" fill="#050E18" opacity=".6"/><rect x="12" y="12" width="524" height="320" rx="22" fill="url(#wd)" stroke="#38BDF8" stroke-opacity=".35" stroke-width="1.5"/><rect x="26" y="26" width="496" height="292" rx="14" fill="url(#bd)"/><rect x="26" y="26" width="496" height="292" rx="14" fill="url(#bpGrid)"/><g fill="none" stroke="#38BDF8" stroke-width="1.8" stroke-linecap="round" opacity=".82"><path d="M52 204H306M78 268V74"/><polygon points="78,68 74,78 82,78" fill="#38BDF8" stroke="none"/><polygon points="312,204 302,200 302,208" fill="#38BDF8" stroke="none"/><path d="M78 196c28-72 56-72 84 0s56 72 84 0 38-54 56-18" stroke="#F5B83D" stroke-width="3"/><circle cx="428" cy="154" r="64" stroke="#38BDF8" stroke-width="2"/><ellipse cx="428" cy="154" rx="30" ry="64" stroke="#38BDF8" stroke-dasharray="4 4" opacity=".75"/><line x1="364" y1="154" x2="492" y2="154" stroke="#38BDF8" stroke-dasharray="4 4" opacity=".75"/><path d="M374 124q54 18 108 0M374 184q54-18 108 0" stroke="#38BDF8" stroke-width="1.3" opacity=".65"/><circle cx="428" cy="154" r="5" fill="#fc6c56"/></g><g font-family="'Readex Pro',Tahoma,sans-serif" font-weight="700" fill="#BAE6FD"><text x="175" y="92" font-size="18" text-anchor="middle">خط الزمن التاريخي</text><text x="428" y="248" font-size="18" text-anchor="middle" fill="#E0F2FE">الخرائط والجغرافيا</text></g><g><circle cx="268" cy="172" r="42" fill="#fc6c56" opacity=".22"/><circle cx="268" cy="172" r="34" fill="#fc6c56"/><path d="M258 156v32l27-16z" fill="#ffffff"/></g></svg>`;
+const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" role="img" aria-label="شاشة منصة الأستاذ شادي عبيد — خط الزمن التاريخي والخرائط الجغرافية"><defs><linearGradient id="bd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12314E"/><stop offset="1" stop-color="#091B2E"/></linearGradient><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25384C"/><stop offset="1" stop-color="#111C28"/></linearGradient></defs><g stroke="#38BDF8" stroke-opacity=".14" fill="none" stroke-width="1"><circle cx="110" cy="175" r="145" stroke-dasharray="6 8"/><circle cx="430" cy="160" r="120" stroke-dasharray="4 8"/></g><rect x="20" y="24" width="524" height="320" rx="24" fill="#050E18" opacity=".6"/><rect x="12" y="12" width="524" height="320" rx="22" fill="url(#wd)" stroke="#38BDF8" stroke-opacity=".35" stroke-width="1.5"/><rect x="26" y="26" width="496" height="292" rx="14" fill="url(#bd)"/><g fill="none" stroke-linecap="round"><text x="178" y="76" font-family="'Readex Pro',Tahoma,sans-serif" font-weight="700" font-size="16" fill="#BAE6FD" text-anchor="middle">خط الأحداث التاريخية</text><line x1="56" y1="168" x2="306" y2="168" stroke="#38BDF8" stroke-width="3"/><polygon points="50,168 60,163 60,173" fill="#38BDF8"/><polygon points="312,168 302,163 302,173" fill="#38BDF8"/><line x1="88" y1="168" x2="88" y2="128" stroke="#38BDF8" stroke-width="1.8" stroke-dasharray="3 3"/><circle cx="88" cy="168" r="6" fill="#0284C7" stroke="#E0F2FE" stroke-width="2"/><rect x="58" y="102" width="60" height="22" rx="6" fill="#173A5E" stroke="#38BDF8" stroke-width="1"/><text x="88" y="117" font-family="Tahoma,sans-serif" font-size="10" font-weight="700" fill="#E0F2FE" text-anchor="middle">عصور قديمة</text><line x1="154" y1="168" x2="154" y2="210" stroke="#F5B83D" stroke-width="1.8" stroke-dasharray="3 3"/><circle cx="154" cy="168" r="6" fill="#F5B83D" stroke="#0F2942" stroke-width="2"/><rect x="122" y="212" width="64" height="22" rx="6" fill="#173A5E" stroke="#F5B83D" stroke-width="1"/><text x="154" y="227" font-family="Tahoma,sans-serif" font-size="10" font-weight="700" fill="#FEF08A" text-anchor="middle">عصور وسطى</text><line x1="220" y1="168" x2="220" y2="128" stroke="#38BDF8" stroke-width="1.8" stroke-dasharray="3 3"/><circle cx="220" cy="168" r="6" fill="#0284C7" stroke="#E0F2FE" stroke-width="2"/><rect x="190" y="102" width="60" height="22" rx="6" fill="#173A5E" stroke="#38BDF8" stroke-width="1"/><text x="220" y="117" font-family="Tahoma,sans-serif" font-size="10" font-weight="700" fill="#E0F2FE" text-anchor="middle">تاريخ حديث</text><line x1="282" y1="168" x2="282" y2="210" stroke="#fc6c56" stroke-width="1.8" stroke-dasharray="3 3"/><circle cx="282" cy="168" r="6" fill="#fc6c56" stroke="#fff" stroke-width="2"/><rect x="250" y="212" width="64" height="22" rx="6" fill="#173A5E" stroke="#fc6c56" stroke-width="1"/><text x="282" y="227" font-family="Tahoma,sans-serif" font-size="10" font-weight="700" fill="#FECDD3" text-anchor="middle">تاريخ معاصر</text><g opacity=".88"><circle cx="430" cy="154" r="62" stroke="#38BDF8" stroke-width="2"/><ellipse cx="430" cy="154" rx="28" ry="62" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4 4" opacity=".75"/><line x1="368" y1="154" x2="492" y2="154" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4 4" opacity=".75"/><line x1="430" y1="92" x2="430" y2="216" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4 4" opacity=".75"/><path d="M378 124q52 16 104 0M378 184q52-16 104 0" stroke="#38BDF8" stroke-width="1.2" opacity=".65"/><polygon points="430,104 436,148 430,142 424,148" fill="#fc6c56"/><polygon points="430,204 436,160 430,166 424,160" fill="#38BDF8" opacity=".75"/><circle cx="430" cy="154" r="4.5" fill="#fff"/><text x="430" y="84" font-family="Tahoma,sans-serif" font-size="11" font-weight="700" fill="#fc6c56" text-anchor="middle">N</text></g><text x="430" y="248" font-family="'Readex Pro',Tahoma,sans-serif" font-weight="700" font-size="16" fill="#E0F2FE" text-anchor="middle">الخرائط والجغرافيا</text></g><g><circle cx="268" cy="168" r="42" fill="#fc6c56" opacity=".22"/><circle cx="268" cy="168" r="34" fill="#fc6c56"/><path d="M258 152v32l27-16z" fill="#ffffff"/></g></svg>`;
 
 /* ============================================================================
  * 3. بناء واجهة الطالب (Student View)
@@ -673,7 +754,7 @@ const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" r
 function header() {
   const u = S.user;
   const isAdmin = u && u.role === 'admin';
-  return `<header class="top"><div class="wrap topin"><a class="brand" href="#top"><span class="mark">ش</span><span><b>منصة الأستاذ شادي عبيد</b><small>التاريخ والجغرافيا</small></span></a><nav class="nav" aria-label="أقسام الموقع"><a href="#lessons">الدروس</a><a href="#plans">الاشتراكات</a><a href="#how">طريقة الاشتراك</a></nav><div class="acct">${
+  return `<header class="top"><div class="wrap topin"><a class="brand" href="#top"><span class="mark">ش</span><span><b><span>الأستاذ شادي عبيد</span> <span class="en" dir="ltr">| Shadi Obeid</span></b><small>التاريخ والجغرافيا</small></span></a><nav class="nav" aria-label="أقسام الموقع"><a href="#lessons">الدروس</a><a href="#plans">الاشتراكات</a><a href="#how">طريقة الاشتراك</a></nav><div class="acct">${
     u ? `${isAdmin ? `<button type="button" class="btn sm" data-act="view" data-view="admin">لوحة التحكم</button>` : `<button type="button" class="btn ghost sm" data-act="mine">${I.user} ${esc(u.name.split(' ')[0])}</button>`}<button type="button" class="btn link sm" data-act="logout">خروج</button>`
       : `<button type="button" class="btn ghost sm" data-act="auth" data-mode="login">دخول</button><button type="button" class="btn sm" data-act="auth" data-mode="signup">إنشاء حساب</button>`
   }</div></div></header>`;
@@ -685,7 +766,7 @@ function hero() {
   const ctaBtn = firstFree
     ? `<button type="button" class="btn" data-act="play" data-subj="${firstFree.k}" data-id="${firstFree.id}">${I.play} ابدأ التعلم الآن</button>`
     : `<a class="btn" href="#lessons">${I.play} ابدأ التعلم الآن</a>`;
-  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1>منصة الأستاذ شادي عبيد</h1><p style="font-size:20px;color:#BAE6FD;font-weight:600;margin-top:10px">طريقك نحو التفوق في التاريخ والجغرافيا</p><p>شروحات مصوّرة دقيقة ومركّزة للدروس، مع الملخصات الشاملة والخرائط المفاهيمية ومتابعة مستمرة لتقدمك.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (التاريخ والجغرافيا)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
+  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1 style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span>الأستاذ شادي عبيد</span> <span style="color:#38BDF8;font-size:.72em;font-weight:600" dir="ltr">| Shadi Obeid</span></h1><p style="font-size:20px;color:#BAE6FD;font-weight:600;margin-top:10px">طريقك نحو التفوق في التاريخ والجغرافيا</p><p>شروحات مصوّرة دقيقة ومركّزة للدروس، مع الملخصات الشاملة والخرائط المفاهيمية والخطوط الزمنية ومتابعة مستمرة لتقدمك.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (التاريخ والجغرافيا)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
 }
 
 function getLessonProgress(lid) {
@@ -866,10 +947,16 @@ const A = {
 function stuRows() {
   const q = S.q.trim(), qd = digits(q);
   const list = S.students.filter(s => !q || s.name.includes(q) || (qd && digits(s.phone).includes(qd)));
-  if (!list.length) return '<tr><td colspan="6" class="muted">لا يوجد طالب بهذا الاسم أو الرقم.</td></tr>';
-  const cell = (s, k) => active(s, k) ? `<span class="st ok">حتى ${fmtS(s.subs[k])}</span>` : (s.subs && s.subs[k]) ? '<span class="st no">منتهٍ</span>' : '<span class="muted">—</span>';
+  if (!list.length) return '<tr><td colspan="6" class="muted">لا يوجد طالب مسجّل بعد. سيظهر الطلاب هنا فور تسجيلهم في المنصة.</td></tr>';
+  const cell = (s, k) => {
+    if (active(s, k)) return `<span class="st ok">فعّال حتى ${fmtS(s.subs[k])}</span>`;
+    const pendReq = S.requests.find(r => r.sid === s.id && r.st === 'pending' && (r.subj === 'both' || r.subj === k));
+    if (pendReq) return `<span class="st pending">⏳ بانتظار موافقتك</span>`;
+    return (s.subs && s.subs[k]) ? '<span class="st no">منتهٍ</span>' : '<span class="muted">—</span>';
+  };
 
   return list.map(s => {
+    const pendReq = S.requests.find(r => r.sid === s.id && r.st === 'pending');
     const devHtml = s.deviceFp
       ? `<span class="dev-tag" title="البصمة: ${esc(s.deviceFp)}">🔒 ${esc(s.deviceLabel || 'جهاز مرتبط')}</span>${s.deviceAlerts ? ` <span class="st no" title="حاول الدخول من جهاز آخر">⚠️ ${s.deviceAlerts} محاولة</span>` : ''}`
       : '<span class="muted">غير مرتبط بعد</span>';
@@ -881,6 +968,7 @@ function stuRows() {
       <td data-l="الجغرافيا">${cell(s, 'phys')}</td>
       <td data-l="إجراءات">
         <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+          ${pendReq ? `<button type="button" class="btn okb xs" data-act="appr" data-id="${pendReq.id}">قبول الطلب (${pendReq.amount}$) ✓</button>` : ''}
           ${s.deviceFp ? `<button type="button" class="btn ghost xs" data-act="resetDev" data-id="${s.id}" title="السماح للطالب بالدخول من هاتف جديد">فك الجهاز</button>` : ''}
           ${active(s, 'math') || active(s, 'phys') ? `<button type="button" class="btn link xs" data-act="stop" data-id="${s.id}">إيقاف الاشتراك</button>` : `<button type="button" class="btn link xs" data-act="give" data-id="${s.id}">تفعيل شهر</button>`}
           <button type="button" class="btn danger xs" data-act="blockStu" data-id="${s.id}">${s.status === 'blocked' ? 'فك الحظر' : 'حظر'}</button>
@@ -900,7 +988,7 @@ function rAdmin() {
     ['codes', 'أكواد التفعيل'],
     ['set', 'الأسعار والأمان']
   ];
-  return `<div class="adm"><div class="wrap"><div class="ahead"><div><h1>لوحة تحكم الأستاذ شادي عبيد</h1><p class="muted">إدارة الطلاب، فك قفل الأجهزة، الدروس المعزولة، ومراجعة إشعارات الدفع.</p></div><button type="button" class="btn ghost sm" data-act="view" data-view="student">معاينة واجهة الطالب</button></div><div class="tabs adm-t" role="tablist" aria-label="أقسام لوحة التحكم">${tabs.map(([k, n]) => `<button type="button" role="tab" aria-selected="${S.tab === k}" data-act="atab" data-tab="${k}">${n}${k === 'req' && pend ? ` <span class="badge">${pend}</span>` : ''}</button>`).join('')}</div>${A[S.tab]()}</div></div>`;
+  return `<div class="adm"><div class="wrap"><div class="ahead"><div><h1>لوحة تحكم الأستاذ شادي عبيد</h1><p class="muted">إدارة الطلاب، فك قفل الأجهزة، الدروس المعزولة، ومراجعة إشعارات الدفع.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn ghost sm" data-act="syncCloud">🔄 تحديث البيانات</button><button type="button" class="btn ghost sm" data-act="view" data-view="student">معاينة واجهة الطالب</button></div></div><div class="tabs adm-t" role="tablist" aria-label="أقسام لوحة التحكم">${tabs.map(([k, n]) => `<button type="button" role="tab" aria-selected="${S.tab === k}" data-act="atab" data-tab="${k}">${n}${k === 'req' && pend ? ` <span class="badge">${pend}</span>` : ''}</button>`).join('')}</div>${A[S.tab]()}</div></div>`;
 }
 
 function render() {
@@ -1447,7 +1535,7 @@ document.addEventListener('click', e => {
       }
       const p = plan(sub.plan);
       const r = {
-        id: ++uid,
+        id: Date.now(),
         sid: S.user.id,
         plan: p.id,
         subj: p.both ? 'both' : sub.subj,
@@ -1461,8 +1549,7 @@ document.addEventListener('click', e => {
       S.requests.unshift(r);
       sub.file = null;
       sub.txRef = '';
-      saveState();
-      if (API_URL) callGasApi('sub.request', r).catch(() => {});
+      saveState(false);
       render();
       doneM(
         'تم إرسال طلبك بنجاح',
@@ -1595,10 +1682,14 @@ document.addEventListener('click', e => {
       localStorage.removeItem(STORAGE_KEY);
       location.reload();
       break;
+    case 'syncCloud':
+      toast('جارٍ مزامنة البيانات مع السحابة...');
+      syncFromCloud(false).then(() => toast('تم تحديث البيانات من السحابة بنجاح ✓'));
+      break;
   }
 });
 
-document.addEventListener('submit', e => {
+document.addEventListener('submit', async e => {
   e.preventDefault();
   const f = e.target;
 
@@ -1627,15 +1718,20 @@ document.addEventListener('submit', e => {
       }
       S.user = { id: 0, name: 'الأستاذ شادي عبيد', phone: S.adminPhone, role: 'admin', subs: { math: now + 3650 * DAY, phys: now + 3650 * DAY } };
       S.view = 'admin';
-      saveState();
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S })); } catch (_) {}
       closeM();
       window.scrollTo(0, 0);
-      toast('أهلاً بك أستاذ شادي — تم فتح لوحة التحكم');
+      toast('أهلاً بك أستاذ شادي — جارٍ جلب أحدث بيانات الطلاب...');
+      await syncFromCloud(true);
+      render();
       return;
     }
 
     if (su && name.length < 3) { er.textContent = 'اكتب اسمك الكامل (3 أحرف على الأقل).'; return; }
     if (normPh.length < 9) { er.textContent = 'اكتب رقم جوال صحيح.'; return; }
+
+    // مزامنة سحابية سريعة قبل تسجيل/دخول الطالب لضمان أحدث قائمة حسابات
+    await syncFromCloud(true);
 
     if (su) {
       if (S.students.some(s => digits(s.phone) === normPh) || normPh === digits(S.adminPhone)) {
@@ -1643,7 +1739,7 @@ document.addEventListener('submit', e => {
         return;
       }
       const s = {
-        id: ++uid,
+        id: Date.now(),
         name,
         phone: ph,
         pass: pw,
@@ -1657,7 +1753,7 @@ document.addEventListener('submit', e => {
       };
       S.students.unshift(s);
       S.user = s;
-      saveState();
+      saveState(false);
       toast('أهلاً ' + name.split(' ')[0] + '، تم إنشاء حسابك وربطه بجهازك');
     } else {
       const s = S.students.find(x => digits(x.phone) === normPh);
@@ -1774,7 +1870,21 @@ document.addEventListener('change', e => {
   else if (t.id === 'rcpt' && t.files[0]) {
     if ($('#txRefIn')) sub.txRef = $('#txRefIn').value.trim();
     const rd = new FileReader();
-    rd.onload = () => { sub.file = rd.result; subM(); };
+    rd.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const cv = document.createElement('canvas');
+        const maxW = 480;
+        const scale = img.width > maxW ? maxW / img.width : 1;
+        cv.width = Math.round(img.width * scale);
+        cv.height = Math.round(img.height * scale);
+        cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+        sub.file = cv.toDataURL('image/jpeg', 0.62);
+        subM();
+      };
+      img.onerror = () => { sub.file = rd.result; subM(); };
+      img.src = rd.result;
+    };
     rd.readAsDataURL(t.files[0]);
   } else if (t.classList.contains('frt')) {
     const l = L[t.dataset.subj].find(x => x.id === t.dataset.id);
@@ -1852,33 +1962,33 @@ document.addEventListener('click', e => {
     const dt = (now - t0) * 0.001;
     ctx.clearRect(0, 0, w, h);
 
-    // رسم موجات جيبية هندسية متداخلة (f(x) = sin x & تداخل الأمواج)
-    for (let k = 0; k < 2; k++) {
+    // رسم خط زمني أفقي واحد (Timeline) مع محطات تاريخية مضيئة ودوائر بوصلة جغرافية
+    const tlY = h * 0.78;
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.22)';
+    ctx.lineWidth = 2;
+    ctx.moveTo(w * 0.12, tlY);
+    ctx.lineTo(w * 0.88, tlY);
+    ctx.stroke();
+
+    for (let m = 0; m < 5; m++) {
+      const mx = w * (0.2 + m * 0.15);
+      const pulse = 4 + Math.sin(dt * 3 + m) * 1.5;
       ctx.beginPath();
-      ctx.strokeStyle = k === 0 ? 'rgba(2, 132, 199, 0.28)' : 'rgba(252, 108, 86, 0.24)';
-      ctx.lineWidth = k === 0 ? 2.2 : 1.8;
-      const amp = (k === 0 ? 42 : 28);
-      const freq = k === 0 ? 0.008 : 0.012;
-      const speed = k === 0 ? 2.2 : -1.8;
-      const baseY = h * (k === 0 ? 0.72 : 0.28);
-      for (let x = 0; x <= w; x += 12) {
-        const y = baseY + Math.sin(x * freq + dt * speed) * amp * Math.sin(dt * 0.9 + k);
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
+      ctx.fillStyle = m % 2 === 0 ? 'rgba(252, 108, 86, 0.45)' : 'rgba(2, 132, 199, 0.45)';
+      ctx.arc(mx, tlY, pulse, 0, Math.PI * 2);
+      ctx.fill();
     }
 
-    // رموز رياضية وفيزيائية عائمة في فضاء المختبر
-    ctx.font = '700 16px "Caveat", monospace';
+    // رموز البوصلة والاتجاهات الجغرافية العائمة بهدوء
     for (let i = 0; i < nodes.length; i++) {
       const n = nodes[i];
       n.x = (n.x + n.vx + 1) % 1;
       n.y = (n.y + n.vy + 1) % 1;
       const px = n.x * w, py = n.y * h;
       ctx.fillStyle = n.col;
-      ctx.globalAlpha = 0.24 + 0.15 * Math.sin(dt * 2 + i);
-      ctx.font = `700 ${n.sz}px "Caveat", sans-serif`;
+      ctx.globalAlpha = 0.2 + 0.12 * Math.sin(dt * 1.8 + i);
+      ctx.font = `700 ${n.sz}px "Readex Pro", sans-serif`;
       ctx.fillText(n.sym, px, py);
     }
     ctx.globalAlpha = 1;
