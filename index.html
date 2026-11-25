@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0F2942">
-<title>منصة الأستاذ شادي عبيد</title>
+<title>Shadi Obaid | شادي عبيد</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,8 +58,9 @@ button,input,select{font:inherit;color:inherit}
 .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-inline:max(5vw,16px)}
 .topin{display:flex;align-items:center;gap:16px;min-height:70px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}
-.brand b{display:flex;align-items:center;gap:8px;font-family:'Readex Pro',sans-serif;font-size:clamp(15px,1.8vw,18px);line-height:1.2;color:var(--ink);white-space:nowrap}
-.brand b .en{color:var(--blue);font-weight:600;font-size:.92em;letter-spacing:.02em}
+.brand b{display:inline-flex;align-items:center;gap:7px;font-family:'Readex Pro','IBM Plex Sans Arabic',sans-serif;font-size:clamp(14px,1.75vw,18px);line-height:1.2;color:var(--ink);white-space:nowrap;direction:ltr}
+.brand b .en{color:var(--blue);font-weight:700;letter-spacing:.01em}
+.brand b .sep{color:var(--muted);font-weight:400;opacity:.65}
 .brand small{display:block;color:var(--muted);font-size:12.5px}
 .mark{width:42px;height:42px;border-radius:12px;background:var(--board);color:var(--acc);box-shadow:inset 0 0 0 1.5px rgba(2,132,199,.45);display:grid;place-items:center;font:700 22px 'Readex Pro',sans-serif;flex:none}
 .nav{display:flex;gap:4px;margin-inline-start:auto}
@@ -378,14 +379,14 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 @media(max-width:1000px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:760px){.nav{display:none}.acct{margin-inline-start:auto}.brand small{display:none}.units{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:560px){.plans{grid-template-columns:minmax(0,1fr)}.rcard{grid-template-columns:auto minmax(0,1fr)}.ramt{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}.pick{grid-template-columns:minmax(0,1fr)}.subs{grid-template-columns:minmax(0,1fr)}.dlg{padding:20px 16px}.bar{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}}
+@media(max-width:560px){.topin{gap:8px;min-height:62px}.mark{width:34px;height:34px;font-size:18px;border-radius:10px}.brand{gap:7px}.brand b{font-size:13.5px;gap:5px}.acct{gap:6px}.acct .btn.sm{padding:6px 10px;min-height:36px;font-size:13px}.plans{grid-template-columns:minmax(0,1fr)}.rcard{grid-template-columns:auto minmax(0,1fr)}.ramt{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}.pick{grid-template-columns:minmax(0,1fr)}.subs{grid-template-columns:minmax(0,1fr)}.dlg{padding:20px 16px}.bar{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}}
 @media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-bottom:1px solid var(--line)}.stack td{display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;padding:4px 0}.stack td::before{content:attr(data-l);color:var(--muted);font-size:13px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.sc-f{clip-path:none}}
 </style>
 </head>
 <body>
 <!-- الافتتاحية السينمائية التفاعلية (Swiss Precision & Blueprint Lab) -->
-<div class="c-intro" id="cinemaIntro" role="dialog" aria-label="الافتتاحية السينمائية لمنصة الأستاذ شادي عبيد">
+<div class="c-intro" id="cinemaIntro" role="dialog" aria-label="الافتتاحية السينمائية — Shadi Obaid | شادي عبيد">
   <canvas id="introCanvas"></canvas>
   <button type="button" class="ci-skip" data-act="skipIntro">تخطي الافتتاحية ✕</button>
   <div class="ci-stage">
@@ -410,8 +411,8 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
         <text x="80" y="96" text-anchor="middle" font-family="'Readex Pro',Tahoma,sans-serif" font-weight="700" font-size="44" fill="#fc6c56">ش</text>
       </svg>
     </div>
-    <div class="ci-tag">منصة الأستاذ شادي عبيد التعليمية</div>
-    <h1 class="ci-title" style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap"><span>الأستاذ شادي عبيد</span> <span style="color:#38BDF8;font-weight:600;font-size:.82em" dir="ltr">| Shadi Obeid</span></h1>
+    <div class="ci-tag">المنصة التعليمية الرسمية</div>
+    <h1 class="ci-title" dir="ltr" style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap"><span style="color:#38BDF8">Shadi Obaid</span> <span style="color:rgba(248,250,252,.45);font-weight:400">|</span> <span>شادي عبيد</span></h1>
     <p class="ci-sub">طريقك نحو التفوق والتميّز في التاريخ والجغرافيا</p>
     <div class="ci-formulas">
       <span>التاريخ</span>
@@ -427,7 +428,7 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 
 <div class="demo" id="demoBar" hidden>
   <div class="wrap demoin">
-    <span>🔒 وضع الإدارة — الأستاذ شادي عبيد (هذا الشريط يظهر لك أنت فقط ولا يراه الطلاب)</span>
+    <span>🔒 وضع الإدارة — <b dir="ltr">Shadi Obaid | شادي عبيد</b> (هذا الشريط يظهر لك أنت فقط ولا يراه الطلاب)</span>
     <div class="seg" role="group" aria-label="تبديل الواجهة">
       <button type="button" data-act="view" data-view="admin" aria-pressed="true">لوحة تحكم المدرّس <span class="badge" id="pc"></span></button>
       <button type="button" data-act="view" data-view="student" aria-pressed="false">معاينة واجهة الطالب</button>
@@ -538,12 +539,94 @@ let S = {
   codes: []
 };
 
+// مسودة نموذج إضافة الدرس لحفظ ما يكتبه الأستاذ ومنع مسحه تحت أي ظرف حتى بعد تبديل التبويبات
+const draftL = { t: '', s: '', u: '', d: '', v: '', f: '', pdf: '', free: false };
+
+// تحويل الأرقام العربية والشرقية (٠-٩) إلى أرقام إنجليزية قياسية تلقائياً
+const toEn = s => String(s ?? '')
+  .replace(/[٠-٩]/g, d => d.charCodeAt(0) - 1632)
+  .replace(/[۰-۹]/g, d => d.charCodeAt(0) - 1776);
+const digits = s => toEn(s).replace(/\D/g, '');
+
+function normDur(raw) {
+  const s = toEn(raw).trim().replace(/\./g, ':');
+  if (!s) return null;
+  if (/^\d{1,3}$/.test(s)) {
+    const m = Number(s);
+    return m > 0 ? `${String(m).padStart(2, '0')}:00` : null;
+  }
+  const p = s.split(':').map(x => x.trim());
+  if (p.length === 2 && /^\d{1,3}$/.test(p[0]) && /^\d{1,2}$/.test(p[1])) {
+    const m = Number(p[0]), sec = Number(p[1]);
+    if (sec >= 60) return null;
+    return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  }
+  if (p.length === 3 && /^\d{1,2}$/.test(p[0]) && /^\d{1,2}$/.test(p[1]) && /^\d{1,2}$/.test(p[2])) {
+    const h = Number(p[0]), m = Number(p[1]), sec = Number(p[2]);
+    if (m >= 60 || sec >= 60) return null;
+    return `${String(h * 60 + m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  }
+  return null;
+}
+
+function formatWaPhone(raw) {
+  let d = digits(raw);
+  if (!d) return '';
+  if (d.startsWith('00')) d = d.slice(2);
+  if (d.startsWith('09') && d.length === 10) return '963' + d.slice(1);
+  if (d.startsWith('9') && d.length === 9) return '963' + d;
+  return d;
+}
+
+function makeUid(prefix = 'L') {
+  return prefix + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 6).toUpperCase();
+}
+
+function dataSignature() {
+  return JSON.stringify({
+    L,
+    students: S.students,
+    requests: S.requests,
+    codes: S.codes,
+    prices: S.prices,
+    wallets: S.wallets,
+    wa: S.wa,
+    maxDevices: S.maxDevices
+  });
+}
+
+function isUserTypingInApp() {
+  const ae = document.activeElement;
+  if (!ae || ae === document.body) return false;
+  const tag = ae.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+    const appEl = document.getElementById('app');
+    if (appEl && appEl.contains(ae)) return true;
+  }
+  // حماية إضافية: إذا كان هناك نص مكتوب في خانات إضافة الدرس لا نعيد بناء الواجهة بالخلفية
+  if (S.view === 'admin' && S.tab === 'les' && (draftL.t || draftL.u || draftL.d || draftL.v || draftL.f || draftL.pdf)) {
+    return true;
+  }
+  return false;
+}
+
+function saveLocalOnly() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S }));
+  } catch (e) {}
+}
+
 function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const parsed = JSON.parse(raw);
-    if (parsed.L) L = parsed.L;
+    if (parsed.L && (Array.isArray(parsed.L.math) || Array.isArray(parsed.L.phys))) {
+      L = {
+        math: Array.isArray(parsed.L.math) ? parsed.L.math : [],
+        phys: Array.isArray(parsed.L.phys) ? parsed.L.phys : []
+      };
+    }
     if (parsed.S) {
       S = Object.assign(S, parsed.S);
       if (S.user && S.user.role !== 'admin') {
@@ -561,11 +644,13 @@ function getCloudPayload(adminForce = false) {
   delete cleanS.view;
   delete cleanS.tab;
   delete cleanS.q;
+  delete cleanS.demoBar;
   return { L, S: cleanS, adminForce: Boolean(adminForce) };
 }
 
 function applyCloudData(data) {
-  if (!data) return;
+  if (!data) return false;
+  const prevSig = dataSignature();
   const curUser = S.user;
   const curView = S.view;
   const curTab  = S.tab;
@@ -590,32 +675,67 @@ function applyCloudData(data) {
   S.rf   = curRf;
   S.q    = curQ;
 
+  let forceRerender = false;
   if (curUser) {
     if (curUser.role === 'admin') {
       S.user = curUser;
     } else {
       const fresh = S.students.find(x => x.id === curUser.id || digits(x.phone) === digits(curUser.phone));
-      S.user = fresh || curUser;
+      if (fresh) {
+        if (fresh.status === 'blocked') {
+          S.user = null;
+          S.view = 'student';
+          forceRerender = true;
+          toast('تم إيقاف هذا الحساب من قِبل الإدارة');
+        } else {
+          const fps = String(fresh.deviceFp || '').split('|').filter(Boolean);
+          if (fps.length > 0 && !fps.includes(MY_DEVICE_FP)) {
+            S.user = null;
+            S.view = 'student';
+            forceRerender = true;
+            toast('تم نقل الحساب إلى جهاز جديد؛ تم تسجيل الخروج من هذا الجهاز');
+          } else {
+            S.user = fresh;
+          }
+        }
+      } else {
+        S.user = curUser;
+      }
     }
   }
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S }));
-  } catch (e) {}
+  saveLocalOnly();
+  return forceRerender || (prevSig !== dataSignature());
+}
+
+function updateBadgesOnly() {
+  const pc = document.getElementById('pc');
+  const cnt = S.requests.filter(r => r.st === 'pending').length;
+  if (pc) pc.textContent = cnt || '';
 }
 
 let syncInFlight = false;
+let pushInFlight = false;
+let pendingPush = false;
+let pendingAdminForce = false;
+let mutationSeq = 0;
+
 async function syncFromCloud(quiet = true) {
-  if (!API_URL || syncInFlight) return;
+  if (!API_URL) API_URL = DEFAULT_API_URL;
+  if (!API_URL || syncInFlight || pushInFlight || pendingPush) return;
   syncInFlight = true;
+  const seqAtStart = mutationSeq;
   try {
     const res = await fetch(API_URL + '?action=get&t=' + Date.now(), { method: 'GET' });
     const json = await res.json();
+    // إذا قام المستخدم بحفظ تعديل محلي أثناء انتظار الشبكة، نتجاهل الرد القديم منعاً لمسح التعديل الجديد
+    if (seqAtStart !== mutationSeq || pushInFlight || pendingPush) return;
     if (json && json.ok && json.data) {
-      applyCloudData(json.data);
-      if (modal.hidden) render();
-      else {
-        const pc = $('#pc');
-        if (pc) pc.textContent = S.requests.filter(r => r.st === 'pending').length || '';
+      const changed = applyCloudData(json.data);
+      updateBadgesOnly();
+      if (!quiet) {
+        if (modal.hidden && !isUserTypingInApp()) render();
+      } else if (changed && modal.hidden && !isUserTypingInApp()) {
+        render();
       }
     }
   } catch (e) {
@@ -626,7 +746,15 @@ async function syncFromCloud(quiet = true) {
 }
 
 async function pushToCloud(adminForce = false) {
+  if (!API_URL) API_URL = DEFAULT_API_URL;
   if (!API_URL) return;
+  if (pushInFlight) {
+    pendingPush = true;
+    pendingAdminForce = pendingAdminForce || Boolean(adminForce);
+    return;
+  }
+  pushInFlight = true;
+  const seqSent = mutationSeq;
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
@@ -637,36 +765,48 @@ async function pushToCloud(adminForce = false) {
       })
     });
     const json = await res.json();
-    if (json && json.ok && json.data) {
-      applyCloudData(json.data);
-      if (modal.hidden) render();
+    // لا نطبّق بيانات الرد إلا إذا لم يجرِ تعديل محلي أحدث أثناء الإرسال
+    if (seqSent === mutationSeq && !pendingPush && json && json.ok && json.data) {
+      const changed = applyCloudData(json.data);
+      updateBadgesOnly();
+      if (changed && modal.hidden && !isUserTypingInApp()) {
+        render();
+      }
     }
-  } catch (e) {}
+  } catch (e) {
+  } finally {
+    pushInFlight = false;
+    if (pendingPush) {
+      const nextForce = pendingAdminForce;
+      pendingPush = false;
+      pendingAdminForce = false;
+      pushToCloud(nextForce);
+    }
+  }
 }
 
 function saveState(adminForce = false) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S }));
-  } catch (e) {}
+  mutationSeq++;
+  saveLocalOnly();
   const isAdmin = !!(S.user && S.user.role === 'admin');
   pushToCloud(adminForce || isAdmin);
 }
 
 loadState();
-// جلب أحدث البيانات من السحابة فور فتح المنصة، وتحديثها دورياً
+// جلب أحدث البيانات من السحابة فور فتح المنصة، وتحديثها دورياً بهدوء دون مسح أي حقل يكتب فيه المستخدم
 syncFromCloud(true);
 setInterval(() => {
-  if (modal.hidden) syncFromCloud(true);
-}, 10000);
+  if (modal.hidden && !isUserTypingInApp()) syncFromCloud(true);
+}, 12000);
 
 /**
  * استدعاء خادم Google Apps Script المباشر
  */
-async function callGasApi(action, payload = {}) {
+async function callGasApi() {
   return pushToCloud(Boolean(S.user && S.user.role === 'admin'));
 }
 
-let uid = 200, after = null, P = null, tick = null, wmT = null, wmObserver = null, ytPlayer = null;
+let after = null, P = null, tick = null, wmT = null, wmObserver = null, ytPlayer = null;
 const sub = { plan: 'm1', subj: 'math', w: 0, tab: 'pay', file: null, txRef: '' };
 const $ = s => document.querySelector(s);
 const app = $('#app'), modal = $('#modal');
@@ -704,7 +844,6 @@ const active = (s, k) => !!(s && (s.role === 'admin' || (s.subs && s.subs[k] && 
 const canWatch = (l, k) => l.free || active(S.user, k);
 const subjName = k => k === 'both' ? 'المادتان' : SUBJ[k];
 const addM = (t, m) => { const d = new Date(t); d.setMonth(d.getMonth() + m); return d.getTime(); };
-const digits = s => String(s || '').replace(/\D/g, '');
 
 function grant(s, subj, mo) {
   if (!s.subs) s.subs = {};
@@ -730,19 +869,18 @@ function rimg(r) {
 }
 
 /**
- * تحليل رابط الفيديو (YouTube Unlisted أو Google Drive أو مباشر)
+ * تحليل رابط الفيديو (YouTube Unlisted / Shorts / Live / Watch أو Google Drive أو مباشر)
  */
 function parseVideoUrl(rawUrl) {
   const url = String(rawUrl || '').trim();
   if (!url) return { provider: 'chalkboard', id: '' };
-  const yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/);
-  if (yt || /^[a-zA-Z0-9_-]{11}$/.test(url)) {
-    return { provider: 'youtube', id: yt ? yt[1] : url };
-  }
-  const dr = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  if (dr || url.includes('drive.google.com')) {
-    return { provider: 'drive', id: dr ? dr[1] : url };
-  }
+  if (/^[a-zA-Z0-9_-]{11}$/.test(url)) return { provider: 'youtube', id: url };
+  const yt = url.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|shorts\/|live\/|v\/))([a-zA-Z0-9_-]{11})/)
+          || (url.includes('youtube.com/watch') && url.match(/[?&]v=([a-zA-Z0-9_-]{11})/));
+  if (yt && yt[1]) return { provider: 'youtube', id: yt[1] };
+  const dr = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || (url.includes('drive.google.com') && url.match(/[?&]id=([a-zA-Z0-9_-]+)/));
+  if (dr && dr[1]) return { provider: 'drive', id: dr[1] };
+  if (url.includes('drive.google.com')) return { provider: 'drive', id: url };
   return { provider: 'direct', id: url };
 }
 
@@ -754,7 +892,7 @@ const HERO = `<svg viewBox="0 0 560 360" direction="ltr" style="direction:ltr" r
 function header() {
   const u = S.user;
   const isAdmin = u && u.role === 'admin';
-  return `<header class="top"><div class="wrap topin"><a class="brand" href="#top"><span class="mark">ش</span><span><b><span>الأستاذ شادي عبيد</span> <span class="en" dir="ltr">| Shadi Obeid</span></b><small>التاريخ والجغرافيا</small></span></a><nav class="nav" aria-label="أقسام الموقع"><a href="#lessons">الدروس</a><a href="#plans">الاشتراكات</a><a href="#how">طريقة الاشتراك</a></nav><div class="acct">${
+  return `<header class="top"><div class="wrap topin"><a class="brand" href="#top"><span class="mark">ش</span><span><b dir="ltr"><span class="en">Shadi Obaid</span> <span class="sep">|</span> <span>شادي عبيد</span></b><small>التاريخ والجغرافيا</small></span></a><nav class="nav" aria-label="أقسام الموقع"><a href="#lessons">الدروس</a><a href="#plans">الاشتراكات</a><a href="#how">طريقة الاشتراك</a></nav><div class="acct">${
     u ? `${isAdmin ? `<button type="button" class="btn sm" data-act="view" data-view="admin">لوحة التحكم</button>` : `<button type="button" class="btn ghost sm" data-act="mine">${I.user} ${esc(u.name.split(' ')[0])}</button>`}<button type="button" class="btn link sm" data-act="logout">خروج</button>`
       : `<button type="button" class="btn ghost sm" data-act="auth" data-mode="login">دخول</button><button type="button" class="btn sm" data-act="auth" data-mode="signup">إنشاء حساب</button>`
   }</div></div></header>`;
@@ -766,7 +904,7 @@ function hero() {
   const ctaBtn = firstFree
     ? `<button type="button" class="btn" data-act="play" data-subj="${firstFree.k}" data-id="${firstFree.id}">${I.play} ابدأ التعلم الآن</button>`
     : `<a class="btn" href="#lessons">${I.play} ابدأ التعلم الآن</a>`;
-  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1 style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span>الأستاذ شادي عبيد</span> <span style="color:#38BDF8;font-size:.72em;font-weight:600" dir="ltr">| Shadi Obeid</span></h1><p style="font-size:20px;color:#BAE6FD;font-weight:600;margin-top:10px">طريقك نحو التفوق في التاريخ والجغرافيا</p><p>شروحات مصوّرة دقيقة ومركّزة للدروس، مع الملخصات الشاملة والخرائط المفاهيمية والخطوط الزمنية ومتابعة مستمرة لتقدمك.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (التاريخ والجغرافيا)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
+  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1 style="direction:ltr;display:flex;align-items:baseline;justify-content:flex-end;gap:12px;flex-wrap:wrap"><span style="color:#38BDF8">Shadi Obaid</span> <span style="color:rgba(248,250,252,.45);font-weight:400">|</span> <span>شادي عبيد</span></h1><p style="font-size:20px;color:#BAE6FD;font-weight:600;margin-top:10px">طريقك نحو التفوق في التاريخ والجغرافيا</p><p>شروحات مصوّرة دقيقة ومركّزة للدروس، مع الملخصات الشاملة والخرائط المفاهيمية والخطوط الزمنية ومتابعة مستمرة لتقدمك.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (التاريخ والجغرافيا)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
 }
 
 function getLessonProgress(lid) {
@@ -818,7 +956,7 @@ function howSec() {
 }
 
 function footer() {
-  return `<footer class="foot board"><div class="wrap footin"><div><b>منصة الأستاذ شادي عبيد</b>${S.wa ? `<p>للاستفسار والاشتراك عبر واتساب: <span dir="ltr">${esc(S.wa)}</span></p>` : '<p>منصة الأستاذ شادي عبيد التعليمية — التاريخ والجغرافيا</p>'}</div><p class="small">تصميم وتنفيذ MAHVAR | محور · نظام حماية البث المفعّل</p></div></footer>`;
+  return `<footer class="foot board"><div class="wrap footin"><div><b dir="ltr" style="display:inline-block">Shadi Obaid | شادي عبيد</b>${S.wa ? `<p>للاستفسار والاشتراك عبر واتساب: <span dir="ltr">${esc(S.wa)}</span></p>` : '<p>المنصة التعليمية الرسمية — التاريخ والجغرافيا</p>'}</div><p class="small">تصميم وتنفيذ MAHVAR | محور · نظام حماية البث المفعّل</p></div></footer>`;
 }
 
 function rStudent() {
@@ -882,9 +1020,10 @@ const A = {
 
   les() {
     const k = S.as;
+    const selSubj = draftL.s || k;
     return `<div class="panel">
-      <div class="tool"><div class="tabs sm" role="tablist">${Object.keys(SUBJ).map(s => `<button type="button" role="tab" aria-selected="${s === k}" data-act="as" data-subj="${s}">${SUBJ[s]}</button>`).join('')}</div><span class="muted">${L[k].filter(l => l.free).length} مجانية من ${L[k].length}</span></div>
-      ${L[k].length ? `<div class="scroll"><table class="stack"><thead><tr><th>الدرس</th><th>الوحدة</th><th>المدة</th><th>مصدر الفيديو</th><th>المشاهدات</th><th>الوصول</th><th></th></tr></thead><tbody>${L[k].map(l => {
+      <div class="tool"><div class="tabs sm" role="tablist">${Object.keys(SUBJ).map(s => `<button type="button" role="tab" aria-selected="${s === k}" data-act="as" data-subj="${s}">${SUBJ[s]} <span class="cnt">${L[s].length}</span></button>`).join('')}</div><span class="muted">${L[k].filter(l => l.free).length} مجانية من ${L[k].length}</span></div>
+      ${L[k].length ? `<div class="scroll"><table class="stack"><thead><tr><th>الدرس</th><th>الوحدة</th><th>المدة</th><th>مصدر الفيديو</th><th>المشاهدات</th><th>الوصول</th><th>إجراءات</th></tr></thead><tbody>${L[k].map(l => {
         const pv = parseVideoUrl(l.videoSource);
         const srcBadge = pv.provider === 'youtube' ? '<span class="st ok">YouTube معزول</span>' : pv.provider === 'drive' ? '<span class="st ok">Google Drive معزول</span>' : pv.provider === 'direct' ? '<span class="st ok">فيديو مباشر</span>' : '<span class="muted">شاشة العرض</span>';
         return `<tr>
@@ -894,21 +1033,21 @@ const A = {
           <td data-l="مصدر الفيديو">${srcBadge}</td>
           <td data-l="المشاهدات">${l.v}</td>
           <td data-l="الوصول"><label class="sw"><input type="checkbox" class="frt" data-subj="${k}" data-id="${l.id}" ${l.free ? 'checked' : ''}><span>${l.free ? 'مجاني' : 'مقفل'}</span></label></td>
-          <td data-l=""><button type="button" class="btn link sm" data-act="editL" data-subj="${k}" data-id="${l.id}">تعديل الرابط</button></td>
+          <td data-l="إجراءات"><div style="display:flex;gap:6px;justify-content:flex-end"><button type="button" class="btn ghost xs" data-act="editL" data-subj="${k}" data-id="${l.id}">تعديل</button><button type="button" class="btn danger xs" data-act="delL" data-subj="${k}" data-id="${l.id}">حذف</button></div></td>
         </tr>`;
       }).join('')}</tbody></table></div>` : `<div class="empty">لا توجد دروس مضافة في مادة ${SUBJ[k]} بعد. أضف الدرس الأول من النموذج أدناه.</div>`}
     </div>
     <div class="panel" style="margin-top:16px">
       <h3>إضافة درس جديد (YouTube غير مدرج أو Google Drive)</h3>
-      <form id="addL" class="fgrid">
-        <label>عنوان الدرس *<input id="nT" required placeholder="مثال: الثورة الصناعية وأثرها"></label>
-        <label>المادة<select id="nS">${Object.keys(SUBJ).map(s => `<option value="${s}" ${s === k ? 'selected' : ''}>${SUBJ[s]}</option>`).join('')}</select></label>
-        <label>الوحدة *<input id="nU" required placeholder="مثال: الوحدة الأولى"></label>
-        <label>المدة *<input id="nD" required dir="ltr" placeholder="12:30" pattern="\\d{1,2}:\\d{2}"></label>
-        <label style="grid-column:1/-1">رابط الفيديو (YouTube Unlisted أو Google Drive)<input id="nV" dir="ltr" placeholder="https://youtu.be/... أو https://drive.google.com/file/d/..."></label>
-        <label>عنوان فرعي أو تاريخ مفتاحي للدرس (اختياري)<input id="nF" placeholder="مثال: القرن التاسع عشر"></label>
-        <label>رابط ملخص PDF (اختياري)<input id="nPdf" dir="ltr" placeholder="https://drive.google.com/..."></label>
-        <label class="chk"><input id="nFree" type="checkbox"> درس مجاني للزوار</label>
+      <form id="addL" class="fgrid" autocomplete="off" novalidate>
+        <label>عنوان الدرس *<input id="nT" autocomplete="off" placeholder="مثال: الثورة الصناعية وأثرها" value="${esc(draftL.t)}"></label>
+        <label>المادة<select id="nS">${Object.keys(SUBJ).map(s => `<option value="${s}" ${s === selSubj ? 'selected' : ''}>${SUBJ[s]}</option>`).join('')}</select></label>
+        <label>الوحدة *<input id="nU" autocomplete="off" placeholder="مثال: الوحدة الأولى" value="${esc(draftL.u)}"></label>
+        <label>المدة (مثال 15:30 أو 45) *<input id="nD" autocomplete="off" dir="ltr" placeholder="15:30" value="${esc(draftL.d)}"></label>
+        <label style="grid-column:1/-1">رابط الفيديو (YouTube Unlisted أو Google Drive)<input id="nV" autocomplete="off" dir="ltr" placeholder="https://youtu.be/... أو https://drive.google.com/file/d/..." value="${esc(draftL.v)}"></label>
+        <label>عنوان فرعي أو تاريخ مفتاحي للدرس (اختياري)<input id="nF" autocomplete="off" placeholder="مثال: القرن التاسع عشر" value="${esc(draftL.f)}"></label>
+        <label>رابط ملخص PDF (اختياري)<input id="nPdf" autocomplete="off" dir="ltr" placeholder="https://drive.google.com/..." value="${esc(draftL.pdf)}"></label>
+        <label class="chk"><input id="nFree" type="checkbox" ${draftL.free ? 'checked' : ''}> درس مجاني للزوار</label>
         <button class="btn">حفظ وإضافة الدرس</button>
       </form>
     </div>`;
@@ -919,23 +1058,28 @@ const A = {
   },
 
   set() {
-    return `<form id="setF">
+    return `<form id="setF" autocomplete="off">
       <div class="panel">
         <h3>أسعار الاشتراك ($)</h3>
-        <div class="fgrid">${PLANS.map(p => `<label>${p.n} · ${p.sub}<input type="number" min="0" id="pr_${p.id}" value="${S.prices[p.id]}"></label>`).join('')}</div>
+        <div class="fgrid">${PLANS.map(p => `<label>${p.n} · ${p.sub}<input type="text" inputmode="decimal" dir="ltr" id="pr_${p.id}" value="${S.prices[p.id]}"></label>`).join('')}</div>
       </div>
       <div class="panel" style="margin-top:16px">
         <h3>أرقام الدفع والتواصل</h3>
         <div class="fgrid">${S.wallets.map((w, i) => `<label>${w.n}<input id="w_${i}" dir="ltr" placeholder="أدخل رقم ${w.n}" value="${esc(w.v)}"></label>`).join('')}<label>رقم واتساب الأستاذ<input id="waN" dir="ltr" placeholder="09xx xxx xxx" value="${esc(S.wa)}"></label></div>
       </div>
       <div class="panel" style="margin-top:16px">
-        <h3>إعدادات الأمان وبيانات دخول الأستاذ وقاعدة البيانات</h3>
+        <h3>إعدادات الأمان وبيانات دخول الأستاذ</h3>
         <div class="fgrid">
           <label>عدد الأجهزة المسموحة لكل طالب<select id="maxDev"><option value="1" ${S.maxDevices === 1 ? 'selected' : ''}>جهاز واحد فقط (حماية قصوى)</option><option value="2" ${S.maxDevices === 2 ? 'selected' : ''}>جهازان (موبايل + لابتوب)</option></select></label>
           <label>اسم المستخدم السري للأستاذ<input id="admUser" type="text" dir="ltr" value="${esc(S.adminUser || 'shadi_admin')}"></label>
           <label>كلمة المرور السرية للأستاذ<input id="admPass" type="text" dir="ltr" value="${esc(S.adminPass)}"></label>
-          <label style="grid-column:1/-1">رابط خادم Google Apps Script Web App (اختياري)<input id="gasUrl" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(API_URL)}"></label>
         </div>
+        <details style="margin-top:14px;font-size:14px;color:var(--muted)">
+          <summary style="cursor:pointer;font-weight:600">إعدادات الربط السحابي المتقدمة (متصل تلقائياً ✓)</summary>
+          <div style="margin-top:10px">
+            <label style="display:grid;gap:6px">رابط خادم Google Apps Script Web App<input id="gasUrl" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(API_URL || DEFAULT_API_URL)}"></label>
+          </div>
+        </details>
       </div>
       <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
         <button class="btn">حفظ الإعدادات</button>
@@ -988,7 +1132,7 @@ function rAdmin() {
     ['codes', 'أكواد التفعيل'],
     ['set', 'الأسعار والأمان']
   ];
-  return `<div class="adm"><div class="wrap"><div class="ahead"><div><h1>لوحة تحكم الأستاذ شادي عبيد</h1><p class="muted">إدارة الطلاب، فك قفل الأجهزة، الدروس المعزولة، ومراجعة إشعارات الدفع.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn ghost sm" data-act="syncCloud">🔄 تحديث البيانات</button><button type="button" class="btn ghost sm" data-act="view" data-view="student">معاينة واجهة الطالب</button></div></div><div class="tabs adm-t" role="tablist" aria-label="أقسام لوحة التحكم">${tabs.map(([k, n]) => `<button type="button" role="tab" aria-selected="${S.tab === k}" data-act="atab" data-tab="${k}">${n}${k === 'req' && pend ? ` <span class="badge">${pend}</span>` : ''}</button>`).join('')}</div>${A[S.tab]()}</div></div>`;
+  return `<div class="adm"><div class="wrap"><div class="ahead"><div><h1>لوحة التحكم — <span dir="ltr" style="color:var(--blue)">Shadi Obaid | شادي عبيد</span></h1><p class="muted">إدارة الطلاب، فك قفل الأجهزة، الدروس المعزولة، ومراجعة إشعارات الدفع.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn ghost sm" data-act="syncCloud">🔄 تحديث البيانات</button><button type="button" class="btn ghost sm" data-act="view" data-view="student">معاينة واجهة الطالب</button></div></div><div class="tabs adm-t" role="tablist" aria-label="أقسام لوحة التحكم">${tabs.map(([k, n]) => `<button type="button" role="tab" aria-selected="${S.tab === k}" data-act="atab" data-tab="${k}">${n}${k === 'req' && pend ? ` <span class="badge">${pend}</span>` : ''}</button>`).join('')}</div>${A[S.tab]()}</div></div>`;
 }
 
 function render() {
@@ -1019,7 +1163,7 @@ function stopPlayerCleanup() {
   clearInterval(wmT);
   if (wmObserver) { wmObserver.disconnect(); wmObserver = null; }
   if (P && S.user && P.lessonId && P.pos > 3) {
-    saveLessonProgress(P.lessonId, P.pos, P.pos >= P.dur * 0.85);
+    saveLessonProgress(P.lessonId, P.pos, P.pos >= P.dur * 0.85, true);
   }
   if (ytPlayer && typeof ytPlayer.destroy === 'function') {
     try { ytPlayer.destroy(); } catch (e) {}
@@ -1036,7 +1180,7 @@ function closeM() {
   render();
 }
 
-function saveLessonProgress(lessonId, posSec, isDone) {
+function saveLessonProgress(lessonId, posSec, isDone, syncCloud = false) {
   if (!S.user) return;
   const key = S.user.id + '_' + lessonId;
   const prev = S.progress[key] || { pos: 0, done: false };
@@ -1044,10 +1188,8 @@ function saveLessonProgress(lessonId, posSec, isDone) {
     pos: Math.floor(posSec),
     done: Boolean(prev.done || isDone)
   };
-  saveState();
-  if (API_URL) {
-    callGasApi('lesson.progress', { lessonId, posSec: Math.floor(posSec), completed: Boolean(prev.done || isDone) }).catch(() => {});
-  }
+  if (syncCloud) saveState();
+  else saveLocalOnly();
 }
 
 function lockedM(k, id) {
@@ -1074,8 +1216,9 @@ function authM(mode) {
 function payBody(p, amt) {
   if (sub.tab === 'wa') {
     const msg = `مرحبًا أستاذ شادي، أريد الاشتراك: ${p.n} · ${p.both ? 'المادتان' : SUBJ[sub.subj]} (${amt} $). الاسم: ${S.user.name} · ${S.user.phone}`;
-    if (!digits(S.wa)) return `<p class="muted">يرجى التواصل مع الأستاذ شادي عبيد مباشرة للحصول على كود التفعيل ثم إدخاله في تبويب «كود تفعيل».</p>`;
-    return `<p>تواصل مع الأستاذ مباشرة، وبعد الدفع يرسل لك كود تفعيل تُدخله في تبويب «كود تفعيل».</p><a class="btn wa full" href="https://wa.me/963${digits(S.wa).replace(/^0/, '')}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${I.wa} فتح محادثة واتساب</a><p class="small" style="margin:0">الرقم: <span dir="ltr">${esc(S.wa)}</span></p>`;
+    const waNum = formatWaPhone(S.wa);
+    if (!waNum) return `<p class="muted">يرجى التواصل مع الأستاذ شادي عبيد مباشرة للحصول على كود التفعيل ثم إدخاله في تبويب «كود تفعيل».</p>`;
+    return `<p>تواصل مع الأستاذ مباشرة، وبعد الدفع يرسل لك كود تفعيل تُدخله في تبويب «كود تفعيل».</p><a class="btn wa full" href="https://wa.me/${waNum}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${I.wa} فتح محادثة واتساب</a><p class="small" style="margin:0">الرقم: <span dir="ltr">${esc(S.wa)}</span></p>`;
   }
   if (sub.tab === 'code') {
     return `<label class="inl" style="margin:0">كود التفعيل<input id="codeIn" dir="ltr" placeholder="SH-XXXX-XX" autocomplete="off"></label><p class="err" id="codeErr"></p><button type="button" class="btn full" data-act="redeem">تفعيل الاشتراك</button><p class="small" style="margin:0">أدخل الكود الذي حصلت عليه من الأستاذ لتفعيل اشتراكك فورًا.</p>`;
@@ -1115,11 +1258,11 @@ function editLessonM(k, id) {
   const l = L[k].find(x => x.id === id);
   if (!l) return;
   openM(`<h3>تعديل الدرس وربط الفيديو</h3>
-  <form id="editLF" class="form" data-subj="${k}" data-id="${l.id}">
+  <form id="editLF" class="form" data-subj="${k}" data-id="${l.id}" autocomplete="off" novalidate>
     <label>عنوان الدرس<input id="eT" required value="${esc(l.t)}"></label>
     <div class="row2">
       <label>الوحدة<input id="eU" required value="${esc(l.u)}"></label>
-      <label>المدة<input id="eD" required dir="ltr" value="${esc(l.d)}"></label>
+      <label>المدة (مثال 15:30 أو 45)<input id="eD" required dir="ltr" value="${esc(l.d)}"></label>
     </div>
     <label>رابط الفيديو (YouTube غير مدرج أو Google Drive)
       <input id="eV" dir="ltr" placeholder="https://youtu.be/... أو https://drive.google.com/file/d/..." value="${esc(l.videoSource || '')}">
@@ -1165,7 +1308,7 @@ function playM(k, id) {
     const drivePreviewUrl = `https://drive.google.com/file/d/${encodeURIComponent(parsed.id)}/preview`;
     mediaEmbedHtml = `<iframe src="${drivePreviewUrl}" allow="autoplay; encrypted-media" sandbox="allow-scripts allow-same-origin allow-forms"></iframe><div class="drive-shield" title="طبقة حماية المنصة"></div>`;
   } else if (parsed.provider === 'direct' && parsed.id) {
-    mediaEmbedHtml = `<video id=" html5Vid" src="${esc(parsed.id)}" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video><div class="v-shield" data-act="pp"></div>`;
+    mediaEmbedHtml = `<video id="html5Vid" src="${esc(parsed.id)}" playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture></video><div class="v-shield" data-act="pp"></div>`;
   } else {
     // شاشة السبورة التفاعلية الافتراضية عند عدم وضع رابط خارجي بعد
     mediaEmbedHtml = `<div class="sc-u">${SUBJ[k]} · ${esc(l.u)}</div><div class="sc-t">${esc(l.t)}</div><div class="sc-f" dir="ltr">${esc(l.f)}</div><div class="v-shield" data-act="pp"></div>`;
@@ -1212,6 +1355,7 @@ function playM(k, id) {
     provider: parsed.provider,
     videoId: parsed.id,
     pos: startPos,
+    lastSavedSec: startPos,
     dur: totalSec,
     on: true,
     speed: 1,
@@ -1226,7 +1370,7 @@ function playM(k, id) {
   initMediaController();
   upd();
 
-  // مؤقت تحديث شريط التقدم وحفظ موقع التوقف
+  // مؤقت تحديث شريط التقدم وحفظ موقع التوقف محلياً وسحابياً دون إغراق الشبكة
   tick = setInterval(() => {
     if (!P || !P.on) return;
     if (P.provider === 'youtube' && ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
@@ -1250,9 +1394,11 @@ function playM(k, id) {
 
     if (P.pos >= P.dur) {
       P.on = false;
-      saveLessonProgress(P.lessonId, P.dur, true);
-    } else if (Math.floor(P.pos) % 5 === 0) {
-      saveLessonProgress(P.lessonId, P.pos, P.pos >= P.dur * 0.85);
+      P.lastSavedSec = P.dur;
+      saveLessonProgress(P.lessonId, P.dur, true, true);
+    } else if (Math.abs(P.pos - (P.lastSavedSec || 0)) >= 8) {
+      P.lastSavedSec = P.pos;
+      saveLessonProgress(P.lessonId, P.pos, P.pos >= P.dur * 0.85, false);
     }
     upd();
   }, 250);
@@ -1301,20 +1447,23 @@ function initMediaController() {
 
 function createYtInstance() {
   if (!P || P.provider !== 'youtube' || !document.getElementById('ytMount')) return;
+  const pVars = {
+    autoplay: 1,
+    controls: 0,
+    disablekb: 1,
+    fs: 0,
+    iv_load_policy: 3,
+    modestbranding: 1,
+    rel: 0,
+    playsinline: 1,
+    start: Math.floor(P.pos)
+  };
+  if (/^https?:/.test(window.location.protocol)) {
+    pVars.origin = window.location.origin;
+  }
   ytPlayer = new window.YT.Player('ytMount', {
     videoId: P.videoId,
-    playerVars: {
-      autoplay: 1,
-      controls: 0,
-      disablekb: 1,
-      fs: 0,
-      iv_load_policy: 3,
-      modestbranding: 1,
-      rel: 0,
-      showinfo: 0,
-      start: Math.floor(P.pos),
-      origin: window.location.origin !== 'null' ? window.location.origin : 'https://shadi-platform.local'
-    },
+    playerVars: pVars,
     events: {
       onReady: (e) => {
         if (P && P.pos > 0) e.target.seekTo(P.pos, true);
@@ -1520,7 +1669,7 @@ document.addEventListener('click', e => {
       break;
     case 'send': {
       const txEl = $('#txRefIn'), er = $('#payErr');
-      const txRef = (txEl ? txEl.value : '').trim();
+      const txRef = toEn(txEl ? txEl.value : '').trim();
       sub.txRef = txRef;
       if (txRef.length < 4) {
         if (er) er.textContent = 'يرجى إدخال رقم عملية التحويل الموجود في الإشعار (4 خانات على الأقل).';
@@ -1528,14 +1677,14 @@ document.addEventListener('click', e => {
       }
       // فحص عدم تكرار رقم عملية التحويل لمنع الغش
       const normRef = txRef.toUpperCase().replace(/\s+/g, '');
-      const dup = S.requests.find(r => r.st !== 'no' && String(r.txRef || '').toUpperCase().replace(/\s+/g, '') === normRef);
+      const dup = S.requests.find(r => r.st !== 'no' && toEn(r.txRef || '').toUpperCase().replace(/\s+/g, '') === normRef);
       if (dup) {
         if (er) er.textContent = '⚠️ رقم عملية التحويل هذا مستخدم مسبقاً! لا يمكن إرسال نفس الإشعار مرتين.';
         break;
       }
       const p = plan(sub.plan);
       const r = {
-        id: Date.now(),
+        id: Date.now() + Math.floor(Math.random() * 1000),
         sid: S.user.id,
         plan: p.id,
         subj: p.both ? 'both' : sub.subj,
@@ -1558,13 +1707,12 @@ document.addEventListener('click', e => {
       break;
     }
     case 'redeem': {
-      const v = ($('#codeIn').value || '').trim().toUpperCase(), c = S.codes.find(x => x.c === v), er = $('#codeErr');
+      const v = toEn($('#codeIn').value || '').trim().toUpperCase(), c = S.codes.find(x => x.c === v), er = $('#codeErr');
       if (!c) { er.textContent = 'الكود غير صحيح، تأكد منه وأعد المحاولة.'; break; }
       if (c.used) { er.textContent = 'هذا الكود مستخدم من قبل ولا يمكن تفعيله مرتين.'; break; }
       c.used = true;
       c.by = S.user.name;
       grant(S.user, c.subj, c.mo);
-      if (API_URL) callGasApi('sub.redeem', { code: v }).catch(() => {});
       render();
       doneM('تم تفعيل اشتراكك بنجاح', `فُتحت دروس ${subjName(c.subj)} حتى ${fmtD(S.user.subs[c.subj === 'both' ? 'math' : c.subj])}.`);
       break;
@@ -1596,7 +1744,12 @@ document.addEventListener('click', e => {
           sc.appendChild(w);
         }
       }
-      if (P) { P.on = true; if (ytPlayer && ytPlayer.playVideo) ytPlayer.playVideo(); upd(); }
+      if (P) {
+        P.on = true;
+        if (P.provider === 'youtube' && ytPlayer && ytPlayer.playVideo) ytPlayer.playVideo();
+        else if (P.provider === 'direct') { const vid = document.getElementById('html5Vid'); if (vid) vid.play().catch(() => {}); }
+        upd();
+      }
       break;
     }
     case 'atab':
@@ -1613,29 +1766,30 @@ document.addEventListener('click', e => {
       break;
     case 'rimg': {
       const r = S.requests.find(x => x.id === Number(d.id));
-      openM(`<h3>إشعار الدفع · ${esc(stu(r.sid).name)} <small class="muted">(#${esc(r.txRef || r.id)})</small></h3><img class="big" src="${rimg(r)}" alt="إشعار الدفع">`);
+      if (r) openM(`<h3>إشعار الدفع · ${esc(stu(r.sid).name)} <small class="muted">(#${esc(r.txRef || r.id)})</small></h3><img class="big" src="${rimg(r)}" alt="إشعار الدفع">`);
       break;
     }
     case 'appr':
     case 'rej': {
-      const r = S.requests.find(x => x.id === Number(d.id)), s = stu(r.sid);
+      const r = S.requests.find(x => x.id === Number(d.id));
+      if (!r) break;
+      const s = stu(r.sid);
       if (d.act === 'appr') {
         r.st = 'ok';
         grant(s, r.subj, plan(r.plan).mo);
         toast(`تم قبول اشتراك ${s.name} وفُتحت دروسه`);
       } else {
         r.st = 'no';
-        saveState();
+        saveState(true);
         toast(`تم رفض طلب ${s.name}`);
       }
-      if (API_URL) callGasApi('admin.request.decide', { id: r.id, approve: d.act === 'appr' }).catch(() => {});
       render();
       break;
     }
     case 'stop': {
       const s = stu(Number(d.id));
       s.subs = {};
-      saveState();
+      saveState(true);
       render();
       toast(`تم إيقاف اشتراك ${s.name}`);
       break;
@@ -1652,8 +1806,7 @@ document.addEventListener('click', e => {
       s.deviceFp = '';
       s.deviceLabel = '';
       s.deviceAlerts = 0;
-      saveState();
-      if (API_URL) callGasApi('admin.student.resetDevice', { id: s.id }).catch(() => {});
+      saveState(true);
       render();
       toast(`🔓 تم فك قفل الجهاز للطالب ${s.name}؛ يمكنه الآن الدخول من جهازه الجديد`);
       break;
@@ -1662,7 +1815,7 @@ document.addEventListener('click', e => {
       const s = stu(Number(d.id));
       s.status = s.status === 'blocked' ? 'active' : 'blocked';
       if (S.user && S.user.id === s.id && s.status === 'blocked') S.user = null;
-      saveState();
+      saveState(true);
       render();
       toast(s.status === 'blocked' ? `🚫 تم حظر حساب ${s.name}` : `✅ تم إعادة تفعيل حساب ${s.name}`);
       break;
@@ -1673,9 +1826,10 @@ document.addEventListener('click', e => {
     case 'delL': {
       const k = d.subj, id = d.id;
       L[k] = L[k].filter(x => x.id !== id);
-      saveState();
-      closeM();
-      toast('تم حذف الدرس');
+      saveState(true);
+      if (!modal.hidden) closeM();
+      else render();
+      toast('تم حذف الدرس بنجاح');
       break;
     }
     case 'resetDemo':
@@ -1684,7 +1838,7 @@ document.addEventListener('click', e => {
       break;
     case 'syncCloud':
       toast('جارٍ مزامنة البيانات مع السحابة...');
-      syncFromCloud(false).then(() => toast('تم تحديث البيانات من السحابة بنجاح ✓'));
+      syncFromCloud(false).then(() => { render(); toast('تم تحديث البيانات من السحابة بنجاح ✓'); });
       break;
   }
 });
@@ -1696,9 +1850,9 @@ document.addEventListener('submit', async e => {
   if (f.id === 'authF') {
     const su = f.dataset.mode === 'signup';
     const name = su ? $('#fName').value.trim() : '';
-    const ph = $('#fPhone').value.trim();
+    const ph = toEn($('#fPhone').value).trim();
     const normPh = digits(ph);
-    const pw = $('#fPass').value;
+    const pw = toEn($('#fPass').value).trim() || $('#fPass').value;
     const er = $('#authErr');
 
     const admUser = String(S.adminUser || 'shadi_admin').trim().toLowerCase();
@@ -1712,16 +1866,16 @@ document.addEventListener('submit', async e => {
 
     // فحص دخول الأستاذ (المدير) بالاسم السري أو الرقم السري وكلمة المرور السرية
     if (isAdmMatch) {
-      if (pw !== S.adminPass) {
+      if (pw !== S.adminPass && $('#fPass').value !== S.adminPass) {
         er.textContent = 'بيانات الدخول غير صحيحة.';
         return;
       }
-      S.user = { id: 0, name: 'الأستاذ شادي عبيد', phone: S.adminPhone, role: 'admin', subs: { math: now + 3650 * DAY, phys: now + 3650 * DAY } };
+      S.user = { id: 0, name: 'شادي عبيد', phone: S.adminPhone, role: 'admin', subs: { math: now + 3650 * DAY, phys: now + 3650 * DAY } };
       S.view = 'admin';
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S })); } catch (_) {}
+      saveLocalOnly();
       closeM();
       window.scrollTo(0, 0);
-      toast('أهلاً بك أستاذ شادي — جارٍ جلب أحدث بيانات الطلاب...');
+      toast('أهلاً بك أستاذ شادي — جارٍ جلب أحدث بيانات المنصة...');
       await syncFromCloud(true);
       render();
       return;
@@ -1739,10 +1893,10 @@ document.addEventListener('submit', async e => {
         return;
       }
       const s = {
-        id: Date.now(),
+        id: Date.now() + Math.floor(Math.random() * 1000),
         name,
         phone: ph,
-        pass: pw,
+        pass: $('#fPass').value,
         role: 'student',
         subs: {},
         deviceFp: MY_DEVICE_FP,
@@ -1759,14 +1913,14 @@ document.addEventListener('submit', async e => {
       const s = S.students.find(x => digits(x.phone) === normPh);
       if (!s) { er.textContent = 'لا يوجد حساب مسجّل بهذا الرقم.'; return; }
       if (s.status === 'blocked') { er.textContent = 'تم إيقاف هذا الحساب من قِبل الإدارة.'; return; }
-      if (s.pass && s.pass !== pw) { er.textContent = 'كلمة المرور غير صحيحة.'; return; }
+      if (s.pass && s.pass !== $('#fPass').value && toEn(s.pass) !== pw) { er.textContent = 'كلمة المرور غير صحيحة.'; return; }
 
       // التحقق من بصمة الجهاز (منع فتح الحساب على أجهزة أخرى)
       const savedFps = String(s.deviceFp || '').split('|').filter(Boolean);
       if (savedFps.length > 0 && !savedFps.includes(MY_DEVICE_FP)) {
         if (savedFps.length >= (S.maxDevices || 1)) {
           s.deviceAlerts = (s.deviceAlerts || 0) + 1;
-          saveState();
+          saveState(false);
           er.textContent = `🔒 هذا الحساب مرتبط بجهاز آخر (${s.deviceLabel || 'هاتف آخر'}). لمنع مشاركة الحسابات لا يُسمح بالدخول من جهاز جديد إلا بعد فك الارتباط من الأستاذ.`;
           return;
         } else {
@@ -1780,7 +1934,7 @@ document.addEventListener('submit', async e => {
       }
 
       S.user = s;
-      saveState();
+      saveState(false);
       toast('أهلاً بعودتك ' + s.name.split(' ')[0]);
     }
 
@@ -1791,25 +1945,52 @@ document.addEventListener('submit', async e => {
   }
 
   if (f.id === 'addL') {
-    const k = $('#nS').value, d = $('#nD').value.trim(), vUrl = $('#nV').value.trim();
-    if (!/^\d{1,2}:\d{2}$/.test(d)) { toast('اكتب المدة بالشكل 12:30'); return; }
+    const title = ($('#nT').value || '').trim();
+    const unit = ($('#nU').value || '').trim();
+    const k = $('#nS').value;
+    const rawDur = ($('#nD').value || '').trim();
+    const vUrl = ($('#nV').value || '').trim();
+    const subTitle = ($('#nF').value || '').trim();
+    const pdfUrl = ($('#nPdf').value || '').trim();
+    const isFree = $('#nFree').checked;
+
+    if (!title) { toast('يرجى كتابة عنوان الدرس أولاً'); $('#nT').focus(); return; }
+    if (!unit) { toast('يرجى كتابة اسم الوحدة الدراسية'); $('#nU').focus(); return; }
+    const cleanDur = normDur(rawDur);
+    if (!cleanDur) {
+      toast('يرجى كتابة مدة الدرس بالدقائق (مثال: 15:30 أو 45)');
+      $('#nD').focus();
+      return;
+    }
+
     const pv = parseVideoUrl(vUrl);
     L[k].push({
-      id: 'n' + (++uid),
-      u: $('#nU').value.trim(),
-      t: $('#nT').value.trim(),
-      d: d.padStart(5, '0'),
-      free: $('#nFree').checked,
-      f: $('#nF').value.trim() || '…',
+      id: makeUid('L'),
+      u: unit,
+      t: title,
+      d: cleanDur,
+      free: isFree,
+      f: subTitle || '…',
       provider: pv.provider,
       videoSource: vUrl,
-      pdfUrl: $('#nPdf').value.trim(),
+      pdfUrl: pdfUrl,
       v: 0
     });
+
+    // تفريغ المسودة فقط بعد نجاح حفظ وإضافة الدرس فعلياً
+    draftL.t = '';
+    draftL.s = k;
+    draftL.u = '';
+    draftL.d = '';
+    draftL.v = '';
+    draftL.f = '';
+    draftL.pdf = '';
+    draftL.free = false;
+
     S.as = k;
-    saveState();
+    saveState(true);
     render();
-    toast('تمت إضافة الدرس بنجاح وظهر للطلاب');
+    toast('✓ تمت إضافة الدرس بنجاح وحُفظ سحابياً للطلاب');
     return;
   }
 
@@ -1817,28 +1998,35 @@ document.addEventListener('submit', async e => {
     const k = f.dataset.subj, id = f.dataset.id;
     const l = L[k].find(x => x.id === id);
     if (l) {
-      l.t = $('#eT').value.trim();
-      l.u = $('#eU').value.trim();
-      l.d = $('#eD').value.trim();
-      l.videoSource = $('#eV').value.trim();
+      const title = ($('#eT').value || '').trim();
+      const unit = ($('#eU').value || '').trim();
+      const cleanDur = normDur($('#eD').value);
+      if (!title || !unit) { toast('يرجى كتابة عنوان الدرس والوحدة'); return; }
+      if (!cleanDur) { toast('يرجى كتابة مدة الدرس بالشكل الصحيح (مثال: 15:30 أو 45)'); $('#eD').focus(); return; }
+      l.t = title;
+      l.u = unit;
+      l.d = cleanDur;
+      l.videoSource = ($('#eV').value || '').trim();
       l.provider = parseVideoUrl(l.videoSource).provider;
-      l.f = $('#eF').value.trim() || '…';
-      l.pdfUrl = $('#ePdf').value.trim();
-      saveState();
+      l.f = ($('#eF').value || '').trim() || '…';
+      l.pdfUrl = ($('#ePdf').value || '').trim();
+      saveState(true);
       closeM();
-      toast('تم تحديث بيانات ورابط الدرس بنجاح');
+      toast('✓ تم تحديث بيانات ورابط الدرس بنجاح');
     }
     return;
   }
 
   if (f.id === 'genC') {
-    const n = Math.min(20, Math.max(1, Number($('#cN').value) || 1));
+    const n = Math.min(20, Math.max(1, Number(toEn($('#cN').value)) || 1));
     const ch = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
     const r = m => Array.from({ length: m }, () => ch[Math.floor(Math.random() * ch.length)]).join('');
     for (let i = 0; i < n; i++) {
-      S.codes.unshift({ c: `SH-${r(4)}-${r(2)}`, subj: $('#cS').value, mo: Number($('#cM').value), used: false });
+      let cStr = `SH-${r(4)}-${r(2)}`;
+      while (S.codes.some(x => x.c === cStr)) cStr = `SH-${r(4)}-${r(2)}`;
+      S.codes.unshift({ c: cStr, subj: $('#cS').value, mo: Number($('#cM').value), used: false });
     }
-    saveState();
+    saveState(true);
     render();
     toast(`تم توليد ${pl(n, 'كود واحد', 'كودين', 'أكواد', 'كودًا')}`);
     return;
@@ -1846,26 +2034,30 @@ document.addEventListener('submit', async e => {
 
   if (f.id === 'setF') {
     PLANS.forEach(p => {
-      const v = Number($('#pr_' + p.id).value);
-      if (v >= 0) S.prices[p.id] = v;
+      const rawPr = toEn($('#pr_' + p.id).value).trim();
+      const v = Number(rawPr);
+      if (rawPr !== '' && !Number.isNaN(v) && v >= 0) S.prices[p.id] = v;
     });
-    S.wallets.forEach((w, i) => { w.v = $('#w_' + i).value.trim(); });
-    S.wa = $('#waN').value.trim();
+    S.wallets.forEach((w, i) => { w.v = toEn($('#w_' + i).value).trim(); });
+    S.wa = toEn($('#waN').value).trim();
     S.maxDevices = Number($('#maxDev').value) || 1;
     if ($('#admUser') && $('#admUser').value.trim().length >= 3) S.adminUser = $('#admUser').value.trim();
     if ($('#admPass').value.trim().length >= 4) S.adminPass = $('#admPass').value.trim();
-    const gasInput = $('#gasUrl').value.trim();
-    API_URL = gasInput;
+    const gasEl = $('#gasUrl');
+    const gasInput = gasEl ? gasEl.value.trim() : '';
+    API_URL = gasInput || DEFAULT_API_URL;
     localStorage.setItem('SHADI_GAS_API_URL', API_URL);
-    saveState();
+    saveState(true);
     render();
-    toast('تم حفظ الإعدادات وتحديث قواعد الحماية');
+    toast('✓ تم حفظ الإعدادات ومزامنتها سحابياً بنجاح');
   }
 });
 
 document.addEventListener('change', e => {
   const t = e.target;
   if (t.id === 'sSubj') sub.subj = t.value;
+  else if (t.id === 'nS') draftL.s = t.value;
+  else if (t.id === 'nFree') draftL.free = t.checked;
   else if (t.name === 'wal') sub.w = Number(t.value);
   else if (t.id === 'rcpt' && t.files[0]) {
     if ($('#txRefIn')) sub.txRef = $('#txRefIn').value.trim();
@@ -1888,23 +2080,30 @@ document.addEventListener('change', e => {
     rd.readAsDataURL(t.files[0]);
   } else if (t.classList.contains('frt')) {
     const l = L[t.dataset.subj].find(x => x.id === t.dataset.id);
+    if (!l) return;
     l.free = t.checked;
     t.nextElementSibling.textContent = l.free ? 'مجاني' : 'مقفل';
-    saveState();
+    saveState(true);
     toast(`«${l.t}» أصبح ${l.free ? 'مجانيًا للجميع' : 'للمشتركين فقط'}`);
   }
 });
 
 document.addEventListener('input', e => {
-  if (e.target.id === 'q') {
-    S.q = e.target.value;
+  const t = e.target;
+  if (t.id === 'q') {
+    S.q = t.value;
     const tb = $('#stuT tbody');
     if (tb) tb.innerHTML = stuRows();
-  } else if (e.target.id === 'prog' && P) {
-    seekPlayer(Number(e.target.value));
-  } else if (e.target.id === 'txRefIn') {
-    sub.txRef = e.target.value;
-  }
+  } else if (t.id === 'prog' && P) {
+    seekPlayer(Number(t.value));
+  } else if (t.id === 'txRefIn') {
+    sub.txRef = t.value;
+  } else if (t.id === 'nT') draftL.t = t.value;
+  else if (t.id === 'nU') draftL.u = t.value;
+  else if (t.id === 'nD') draftL.d = t.value;
+  else if (t.id === 'nV') draftL.v = t.value;
+  else if (t.id === 'nF') draftL.f = t.value;
+  else if (t.id === 'nPdf') draftL.pdf = t.value;
 });
 
 modal.addEventListener('click', e => { if (e.target === modal) closeM(); });
@@ -1934,6 +2133,11 @@ document.addEventListener('click', e => {
   const el = document.getElementById('cinemaIntro');
   const cv = document.getElementById('introCanvas');
   if (!el || !cv) return;
+  // إذا كان الأستاذ مسجّل الدخول مسبقاً في لوحة التحكم، نتخطى الافتتاحية فوراً لتسهيل عمله
+  if (S.user && S.user.role === 'admin' && S.view === 'admin') {
+    el.hidden = true;
+    return;
+  }
   const ctx = cv.getContext('2d');
   let w = 0, h = 0, t0 = performance.now();
   const syms = ['✦', '◈', '★', '◇', '◉', 'N', 'E', 'W', 'S', '⌖'];
