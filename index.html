@@ -38,9 +38,12 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;overflow-x:clip;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 input,textarea,select{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
 @media print{html,body{display:none!important;visibility:hidden!important;background:#000!important}}
-.cap-curtain{position:fixed;inset:0;z-index:99999;background:#040B14;color:#F8FAFC;display:grid;place-items:center;text-align:center;padding:24px}
+.cap-curtain{position:fixed;inset:0;z-index:2147483647;background:#000000!important;color:#F8FAFC;display:grid;place-items:center;text-align:center;padding:24px}
 .cap-curtain[hidden]{display:none!important}
-.cap-box{max-width:460px;background:#0D1F33;border:1.5px solid rgba(252,108,86,.5);border-radius:20px;padding:28px 24px;box-shadow:0 24px 60px rgba(0,0,0,.75);display:grid;gap:12px;justify-items:center}
+.cap-curtain.pure-black .cap-box{display:none!important;opacity:0!important;visibility:hidden!important}
+html.sec-black,html.sec-black body{background:#000000!important}
+html.sec-black body>*:not(#captureCurtain){visibility:hidden!important;opacity:0!important}
+.cap-box{max-width:460px;background:#0A1624;border:1.5px solid rgba(252,108,86,.5);border-radius:20px;padding:28px 24px;box-shadow:0 24px 60px rgba(0,0,0,.9);display:grid;gap:12px;justify-items:center}
 .otp-in{font:700 26px/1.2 ui-monospace,Consolas,monospace!important;letter-spacing:10px;text-align:center;color:var(--acc)}
 .wm-diag{position:absolute;z-index:6;inset:0;display:grid;place-items:center;pointer-events:none;font:700 clamp(14px,2.2vw,22px) 'Readex Pro',sans-serif;color:rgba(255,255,255,.08);transform:rotate(-18deg);user-select:none;white-space:nowrap}
 body.noscroll{overflow:hidden}
@@ -1651,8 +1654,13 @@ function startSub(d) {
 }
 
 /* ============================================================================
- * 6. نظام الحماية المتعدد الطبقات لمنع لقطة الشاشة وتسجيل الشاشة والنسخ
+ * 6. نظام الإعتام الفوري الأسود (0ms Pitch-Black Shield) لمنع اللقطة والتسجيل والخلفية
  * ============================================================================ */
+let hardCaptureLock = false;
+let hardLockAt = 0;
+let revealBoxTimer = null;
+let lastDriveTapAt = 0;
+
 function pauseActiveVideoImmediate() {
   if (!P) return;
   P.on = false;
@@ -1666,29 +1674,100 @@ function pauseActiveVideoImmediate() {
   upd();
 }
 
-function activateCaptureShield(reason) {
+function wipeClipboardRepeatedly() {
+  if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') return;
+  const wipe = () => navigator.clipboard.writeText('').catch(() => {});
+  wipe();
+  setTimeout(wipe, 50);
+  setTimeout(wipe, 140);
+  setTimeout(wipe, 320);
+}
+
+// تحويل كامل شاشة الموقع إلى اللون الأسود الصافي #000000 في 0 ملي ثانية قبل التقاط الصورة أو عند الخلفية
+function enterPureBlack(isHardCapture = false, reason = '') {
   pauseActiveVideoImmediate();
-  // مسح الحافظة فوراً لإبطال أي صورة التُقطت عبر PrintScreen أو أداة القص
-  if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-    navigator.clipboard.writeText('محتوى محمي — Shadi Obaid | شادي عبيد').catch(() => {});
-  }
   const cur = document.getElementById('captureCurtain');
   const rsn = document.getElementById('capReason');
-  if (rsn && reason) rsn.textContent = reason;
-  if (cur) cur.hidden = false;
+  document.documentElement.classList.add('sec-black');
+  if (cur) {
+    cur.classList.add('pure-black');
+    cur.hidden = false;
+  }
+  if (isHardCapture) {
+    hardCaptureLock = true;
+    hardLockAt = Date.now();
+    wipeClipboardRepeatedly();
+    if (rsn && reason) rsn.textContent = reason;
+    clearTimeout(revealBoxTimer);
+    revealBoxTimer = setTimeout(maybeShowCapNotice, 1800);
+  }
+}
+
+function maybeShowCapNotice() {
+  if (!hardCaptureLock) return;
+  // طالما النافذة في الخلفية أو أداة القص مفتوحة، نبقي الشاشة سوداء 100% بدون أي نص أو إشعار ليظهر في اللقطة
+  if (document.hidden || !document.hasFocus()) {
+    clearTimeout(revealBoxTimer);
+    revealBoxTimer = setTimeout(maybeShowCapNotice, 500);
+    return;
+  }
+  const cur = document.getElementById('captureCurtain');
+  if (cur) cur.classList.remove('pure-black');
+}
+
+function activateCaptureShield(reason) {
+  enterPureBlack(true, reason || '🛡️ تم إعتام الشاشة فوراً لحماية المحتوى من التصوير أو التسجيل.');
 }
 
 function dismissCaptureShield() {
+  hardCaptureLock = false;
+  clearTimeout(revealBoxTimer);
+  document.documentElement.classList.remove('sec-black');
   const cur = document.getElementById('captureCurtain');
-  if (cur) cur.hidden = true;
+  if (cur) {
+    cur.hidden = true;
+    cur.classList.remove('pure-black');
+  }
 }
+
+function restoreFromBackgroundIfSafe() {
+  if (hardCaptureLock) {
+    maybeShowCapNotice();
+    return;
+  }
+  if (!document.hidden && document.hasFocus()) {
+    document.documentElement.classList.remove('sec-black');
+    const cur = document.getElementById('captureCurtain');
+    if (cur) {
+      cur.hidden = true;
+      cur.classList.remove('pure-black');
+    }
+  }
+}
+
+// تتبع النقر داخل مشغل Google Drive فقط لتمييزه عن الخروج للخلفية
+document.addEventListener('pointerdown', e => {
+  if (P && P.provider === 'drive' && e.target && e.target.closest && e.target.closest('#scr')) {
+    lastDriveTapAt = Date.now();
+  }
+  if (hardCaptureLock) {
+    if (Date.now() - hardLockAt > 1200) {
+      const cur = document.getElementById('captureCurtain');
+      if (cur) cur.classList.remove('pure-black');
+    }
+  } else if (!document.hidden) {
+    document.documentElement.classList.remove('sec-black');
+    const cur = document.getElementById('captureCurtain');
+    if (cur) cur.hidden = true;
+  }
+}, true);
 
 // 1) حظر واجهات تسجيل الشاشة والتقاط البث في المتصفح وإضافاته (getDisplayMedia + captureStream + PiP)
 (function lockCaptureApis() {
   try {
     if (navigator.mediaDevices) {
       navigator.mediaDevices.getDisplayMedia = function() {
-        activateCaptureShield('🛡️ تم حظر محاولة تسجيل الشاشة عبر المتصفح.');
+        enterPureBlack(true, '🛡️ تم حظر محاولة تسجيل الشاشة عبر المتصفح.');
         return Promise.reject(new DOMException('Screen recording is disabled on this platform.', 'NotAllowedError'));
       };
     }
@@ -1696,7 +1775,7 @@ function dismissCaptureShield() {
   try {
     if (typeof HTMLMediaElement !== 'undefined') {
       const blockStream = function() {
-        activateCaptureShield('🛡️ تم حظر محاولة اعتراض أو تسجيل بث الفيديو.');
+        enterPureBlack(true, '🛡️ تم حظر محاولة اعتراض أو تسجيل بث الفيديو.');
         throw new DOMException('Stream capture disabled', 'SecurityError');
       };
       HTMLMediaElement.prototype.captureStream = blockStream;
@@ -1706,7 +1785,7 @@ function dismissCaptureShield() {
   document.addEventListener('enterpictureinpicture', e => {
     e.preventDefault();
     if (document.exitPictureInPicture) document.exitPictureInPicture().catch(() => {});
-    activateCaptureShield('🛡️ وضع صورة داخل صورة معطّل لحماية الدروس.');
+    enterPureBlack(true, '🛡️ وضع صورة داخل صورة معطّل لحماية الدروس.');
   }, true);
 })();
 
@@ -1720,20 +1799,23 @@ document.addEventListener('dragstart', e => {
   e.preventDefault();
 });
 window.addEventListener('beforeprint', () => {
-  activateCaptureShield('🛡️ طباعة الصفحة أو حفظها كملف PDF غير مسموح به.');
+  enterPureBlack(true, '🛡️ طباعة الصفحة أو حفظها كملف PDF غير مسموح به.');
 });
 
-// 3) اعتراض جميع اختصارات لقطة الشاشة وتسجيل الشاشة على ويندوز وماك والهواتف (keydown + keyup)
+// 3) إعتام استباقي فوري (0ms) قبل التقاط الشاشة على اللابتوب (بمجرد لمس زر Windows/Command أو PrintScreen)
 function isCaptureShortcut(e) {
   const k = e.key || '';
   const kl = k.toLowerCase();
-  if (k === 'PrintScreen' || e.keyCode === 44) return '🛡️ تم رصد محاولة أخذ لقطة شاشة (PrintScreen) وتم حجب المحتوى.';
-  // Windows Snipping Tool / Screen Recorder (Win+Shift+S / Win+Shift+R / Win+Alt+R / Win+G) & macOS (Cmd+Shift+3/4/5)
+  if (k === 'PrintScreen' || e.keyCode === 44) return '🛡️ تم حجب الشاشة ومسح الحافظة لمنع أخذ لقطة شاشة.';
+  // إعتام فوري لحظة ضغط زر Windows / Command قبل اكتمال اختصار Win+Shift+S أو Win+PrtScn أو Win+Alt+R أو Cmd+Shift+3/4/5
+  if (k === 'Meta' || k === 'OS' || e.keyCode === 91 || e.keyCode === 92) {
+    return '🛡️ تم إعتام الشاشة تلقائياً لحماية المحتوى من أدوات القص والتسجيل.';
+  }
   if (e.metaKey && e.shiftKey && ['s', 'r', '3', '4', '5'].includes(kl)) {
-    return '🛡️ تم رصد اختصار أداة لقطة أو تسجيل الشاشة وتم إعتام المحتوى فوراً.';
+    return '🛡️ تم إعتام الشاشة فوراً لمنع لقطة أو تسجيل الشاشة.';
   }
   if (e.metaKey && e.altKey && kl === 'r') {
-    return '🛡️ تم رصد اختصار تسجيل الشاشة (Screen Recorder) وتم إيقاف العرض.';
+    return '🛡️ تم إعتام الشاشة فوراً لمنع تسجيل الشاشة.';
   }
   return '';
 }
@@ -1746,9 +1828,11 @@ document.addEventListener('keydown', e => {
   }
   const capMsg = isCaptureShortcut(e);
   if (capMsg) {
-    e.preventDefault();
-    e.stopPropagation();
-    activateCaptureShield(capMsg);
+    if (e.key === 'PrintScreen' || e.keyCode === 44) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    enterPureBlack(true, capMsg);
     return false;
   }
   // منع F12 و Ctrl+Shift+I/J/C و Ctrl+U/S/P
@@ -1759,37 +1843,60 @@ document.addEventListener('keydown', e => {
     ((e.ctrlKey || e.metaKey) && ['u', 's', 'p'].includes(kl))
   ) {
     e.preventDefault();
-    if (kl === 'p') activateCaptureShield('🛡️ حفظ أو طباعة الصفحة معطّل لحماية المحتوى التعليمي.');
+    if (kl === 'p') enterPureBlack(true, '🛡️ حفظ أو طباعة الصفحة معطّل لحماية المحتوى التعليمي.');
     else toast('🛡️ أدوات فحص الكود وحفظ الصفحة معطّلة لحماية المحتوى التعليمي');
     return false;
   }
 }, true);
 
 document.addEventListener('keyup', e => {
-  const capMsg = isCaptureShortcut(e);
-  if (capMsg || e.key === 'PrintScreen' || e.keyCode === 44) {
-    activateCaptureShield(capMsg || '🛡️ تم رصد محاولة أخذ لقطة شاشة وتم مسح الحافظة.');
+  if (e.key === 'PrintScreen' || e.keyCode === 44) {
+    enterPureBlack(true, '🛡️ تم إعتام الشاشة ومسح الحافظة لمنع تصوير الشاشة.');
   }
 }, true);
 
-// 4) إعتام وإيقاف فوري عند فتح مركز التحكم في الهاتف لتسجيل الشاشة أو تشغيل أداة قص خارجية أثناء المشاهدة
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden && P) {
-    pauseActiveVideoImmediate();
+// 4) حماية الموبايل: إعتام فوري (0ms) عند إيماءة السحب بـ 3 أصابع لتصوير الشاشة
+document.addEventListener('touchstart', e => {
+  if (e.touches && e.touches.length >= 3) {
+    enterPureBlack(true, '🛡️ تم إعتام الشاشة لمنع لقطة الشاشة بالإيماءات على الهاتف.');
   }
-});
+}, { capture: true, passive: true });
+
+document.addEventListener('touchmove', e => {
+  if (e.touches && e.touches.length >= 3) {
+    enterPureBlack(true, '🛡️ تم إعتام الشاشة لمنع لقطة الشاشة بالإيماءات على الهاتف.');
+  }
+}, { capture: true, passive: true });
+
+// 5) إعتام كامل للموقع باللون الأسود #000000 فوراً (على اللابتوب والموبايل) بمجرد انتقال الموقع للخلفية أو فتح مركز التحكم/أداة خارجية
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    enterPureBlack(false);
+  } else {
+    setTimeout(restoreFromBackgroundIfSafe, 90);
+  }
+}, true);
+
+window.addEventListener('pagehide', () => {
+  enterPureBlack(false);
+}, true);
 
 window.addEventListener('blur', () => {
-  if (!P) return;
-  setTimeout(() => {
-    // السماح بالنقر الطبيعي داخل إطار الفيديو المعزول نفسه دون تفعيل خاطئ، وحجب أي أداة خارجية تسحب التركيز
-    const ae = document.activeElement;
-    if (ae && ae.tagName === 'IFRAME' && $('#scr') && $('#scr').contains(ae)) return;
-    if (!document.hasFocus()) {
-      pauseActiveVideoImmediate();
-    }
-  }, 25);
-});
+  // إذا كان الطالب قد نقر للتو داخل مشغل Google Drive فقط لا نغلق الشاشة
+  if (P && P.provider === 'drive' && Date.now() - lastDriveTapAt < 300) {
+    setTimeout(() => {
+      const ae = document.activeElement;
+      if (ae && ae.tagName === 'IFRAME' && $('#scr') && $('#scr').contains(ae)) return;
+      if (!document.hasFocus()) enterPureBlack(false);
+    }, 20);
+    return;
+  }
+  enterPureBlack(false);
+}, true);
+
+window.addEventListener('focus', () => {
+  setTimeout(restoreFromBackgroundIfSafe, 90);
+}, true);
 
 /* ============================================================================
  * 7. معالجة النقرات والأحداث والنماذج
