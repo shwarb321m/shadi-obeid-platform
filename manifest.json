@@ -1,16 +1,16 @@
 {
   "name": "منصة الأستاذ شادي عبيد — الرياضيات والفيزياء",
   "short_name": "شادي عبيد",
-  "description": "منصة دروس الرياضيات والفيزياء بالفيديو لطلاب البكالوريا العلمي مع الأستاذ شادي عبيد",
+  "description": "منصة الأستاذ شادي عبيد — طريقك نحو التفوق في الرياضيات والفيزياء للبكالوريا العلمي",
   "lang": "ar",
   "dir": "rtl",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#1d3b33",
-  "theme_color": "#1d3b33",
+  "background_color": "#0F2942",
+  "theme_color": "#0F2942",
   "icons": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%231d3b33'/%3E%3Ctext x='64' y='86' font-family='Tahoma,sans-serif' font-size='72' font-weight='bold' fill='%23f5b83d' text-anchor='middle'%3E%D8%B4%3C/text%3E%3C/svg%3E",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%230F2942'/%3E%3Ccircle cx='64' cy='64' r='50' fill='none' stroke='%230284C7' stroke-width='3' stroke-opacity='.45'/%3E%3Ctext x='64' y='86' font-family='Tahoma,sans-serif' font-size='70' font-weight='bold' fill='%23fc6c56' text-anchor='middle'%3E%D8%B4%3C/text%3E%3C/svg%3E",
       "sizes": "128x128",
       "type": "image/svg+xml",
       "purpose": "any maskable"
