@@ -159,10 +159,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,la
 .foot{padding:28px max(5vw,16px)}
 .footin{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:end}
 .foot .small{color:color-mix(in srgb,var(--chalk) 65%,transparent);margin:0}
-.modal{position:fixed;inset:0;z-index:50;background:rgba(7,19,32,.72);backdrop-filter:blur(4px);display:grid;place-items:center;padding:16px;overflow:auto}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(7,19,32,.76);backdrop-filter:blur(4px);display:grid;place-items:safe center;padding:14px;overflow:auto}
 .modal[hidden]{display:none}
-.dlg{position:relative;background:var(--card);color:var(--ink);border-radius:20px;width:min(540px,100%);max-height:calc(100dvh - 32px);overflow:auto;padding:26px;box-shadow:0 24px 60px rgba(7,19,32,.45);border:1px solid var(--line);animation:pop .2s ease-out}
-.dlg.wide{width:min(920px,100%)}
+.dlg{position:relative;background:var(--card);color:var(--ink);border-radius:20px;width:min(540px,100%);max-height:calc(100dvh - 28px);overflow:auto;padding:24px;box-shadow:0 24px 60px rgba(7,19,32,.45);border:1px solid var(--line);animation:pop .2s ease-out}
+.dlg.wide{width:min(880px,96vw);padding:18px 20px}
 @keyframes pop{from{transform:translateY(10px);opacity:0}}
 .x{position:absolute;top:10px;inset-inline-end:10px;width:40px;height:40px;border-radius:50%;border:0;background:var(--soft);font-size:22px;cursor:pointer;line-height:1;z-index:2}
 .dlg h3{font-size:22px;margin-bottom:14px;padding-inline-end:40px}
@@ -211,44 +211,70 @@ input,select{border:1.5px solid var(--line);background:var(--bg);border-radius:1
 h4{margin:16px 0 6px}
 .muted{color:var(--muted)}
 
-/* مشغل الفيديو المحمي بطبقة العزل والعلامة المائية */
+/* مشغل الفيديو المتجاوب والمحمي مع دعم كامل لشريط التحكم في وضع ملء الشاشة للموبايل واللابتوب */
 .player{display:grid;gap:12px}
+.fs-stage{position:relative;display:grid;gap:10px;width:100%}
 .scr{
-  position:relative;aspect-ratio:16/9;
+  position:relative;width:100%;aspect-ratio:16/9;max-height:calc(100dvh - 220px);margin-inline:auto;
   background-color:var(--board);
   background-image:
     radial-gradient(ellipse at 30% 15%,rgba(2,132,199,.26),transparent 62%),
     radial-gradient(ellipse at 80% 85%,rgba(252,108,86,.12),transparent 55%);
-  border-radius:16px;overflow:hidden;color:var(--chalk);display:grid;place-content:center;text-align:center;gap:8px;padding:20px;
-  border:7px solid #162638;
-  box-shadow:inset 0 0 0 1.5px rgba(56,189,248,.28),0 16px 40px rgba(15,41,66,.3);
+  border-radius:14px;overflow:hidden;color:var(--chalk);display:grid;place-content:center;text-align:center;gap:8px;padding:16px;
+  border:4px solid #162638;
+  box-shadow:inset 0 0 0 1.5px rgba(56,189,248,.28),0 14px 36px rgba(15,41,66,.28);
   cursor:pointer;user-select:none
 }
-.scr:fullscreen,.scr:-webkit-full-screen{border-width:4px;border-radius:0;width:100vw;height:100vh}
 .scr iframe,.scr video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;z-index:1}
 .scr iframe.yt-frame{width:100%;height:118%;top:-9%;left:0;pointer-events:none}
 .v-shield{position:absolute;inset:0;z-index:3;background:transparent;cursor:pointer}
-.drive-shield{position:absolute;top:0;left:0;right:0;height:64px;z-index:4;background:transparent}
-.wm{position:absolute;z-index:6;font-size:13px;font-weight:700;color:rgba(255,255,255,.48);background:rgba(15,41,66,.35);padding:2px 9px;border-radius:6px;transform:rotate(-8deg);white-space:nowrap;transition:top 1.4s ease,left 1.4s ease;pointer-events:none;top:18%;left:12%;text-shadow:0 1px 2px rgba(0,0,0,.8);letter-spacing:.02em}
-.wm-ghost{position:absolute;z-index:6;font-size:11px;font-weight:700;color:rgba(56,189,248,.34);pointer-events:none;bottom:14%;right:16%;font-family:ui-monospace,Consolas,monospace}
+.drive-shield{position:absolute;top:0;left:0;right:0;height:60px;z-index:4;background:transparent}
+.wm{position:absolute;z-index:6;font-size:clamp(10px,1.4vw,13px);font-weight:700;color:rgba(255,255,255,.48);background:rgba(15,41,66,.35);padding:2px 8px;border-radius:6px;transform:rotate(-8deg);white-space:nowrap;transition:top 1.4s ease,left 1.4s ease;pointer-events:none;top:18%;left:12%;text-shadow:0 1px 2px rgba(0,0,0,.8);letter-spacing:.02em;max-width:86%;overflow:hidden;text-overflow:ellipsis}
+.wm-ghost{position:absolute;z-index:6;font-size:clamp(9px,1.1vw,11px);font-weight:700;color:rgba(56,189,248,.34);pointer-events:none;bottom:14%;right:14%;font-family:ui-monospace,Consolas,monospace}
 .scr.blurred>*:not(.sec-overlay){filter:blur(18px)!important}
-.sec-overlay{position:absolute;inset:0;z-index:8;background:rgba(10,25,41,.94);color:#fff;display:none;place-content:center;text-align:center;padding:24px;gap:10px}
+.sec-overlay{position:absolute;inset:0;z-index:8;background:rgba(10,25,41,.94);color:#fff;display:none;place-content:center;text-align:center;padding:20px;gap:10px}
 .scr.blurred .sec-overlay,.scr.tampered .sec-overlay{display:grid}
 .sc-u{font-size:14px;color:var(--cyan);opacity:.9;position:relative;z-index:2}
-.sc-t{font:700 clamp(22px,4vw,36px) 'Readex Pro',sans-serif;position:relative;z-index:2}
-.sc-f{font:700 clamp(26px,5vw,48px) 'Caveat',cursive;color:#38BDF8;clip-path:inset(0 100% 0 0);animation:write 2.4s .4s ease forwards;position:relative;z-index:2}
+.sc-t{font:700 clamp(20px,3.8vw,34px) 'Readex Pro',sans-serif;position:relative;z-index:2}
+.sc-f{font:700 clamp(22px,4.5vw,44px) 'Caveat',cursive;color:#38BDF8;clip-path:inset(0 100% 0 0);animation:write 2.4s .4s ease forwards;position:relative;z-index:2}
 @keyframes write{to{clip-path:inset(0 0 0 0)}}
-.bigp{position:absolute;z-index:5;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;box-shadow:0 8px 28px rgba(252,108,86,.55);transition:opacity .2s;pointer-events:none}
-.bigp svg{width:30px;height:30px}
+.bigp{position:absolute;z-index:5;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(56px,8vw,74px);height:clamp(56px,8vw,74px);border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;box-shadow:0 8px 28px rgba(252,108,86,.55);transition:opacity .2s;pointer-events:none}
+.bigp svg{width:28px;height:28px}
 .scr.on .bigp{opacity:0}
-.ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.ib{height:42px;min-width:42px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--soft);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+.ctl{display:grid;gap:8px;width:100%;transition:opacity .25s ease,transform .25s ease}
+.ctl-prog{display:flex;align-items:center;width:100%}
+.ctl-btns{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:nowrap}
+.ctl-grp{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+.ib{height:40px;min-width:40px;padding:0 10px;border-radius:11px;border:1px solid var(--line);background:var(--soft);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none;touch-action:manipulation}
 .ib:hover{background:var(--line)}
-#prog{direction:ltr;flex:1;min-width:120px;accent-color:var(--acc);min-height:0;padding:0;border:0;background:none}
-.tm{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted);white-space:nowrap}
+#prog{direction:ltr;width:100%;height:26px;cursor:pointer;accent-color:var(--acc);min-height:0;padding:0;border:0;background:transparent;touch-action:pan-x}
+.tm{font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);white-space:nowrap}
+
+/* وضع ملء الشاشة الحقيقي والمدمج للموبايل (Android & iOS) واللابتوب مع بقاء شريط التقدم والسرعة والأزرار */
+.fs-stage:fullscreen,.fs-stage:-webkit-full-screen,.fs-stage.pseudo-fs{
+  position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;
+  z-index:99990!important;background:#000!important;display:flex!important;
+  align-items:center;justify-content:center;padding:0!important;margin:0!important
+}
+.fs-stage:fullscreen .scr,.fs-stage:-webkit-full-screen .scr,.fs-stage.pseudo-fs .scr{
+  width:100%!important;height:100%!important;max-height:100dvh!important;
+  aspect-ratio:auto!important;border:0!important;border-radius:0!important;box-shadow:none!important
+}
+.fs-stage:fullscreen .ctl,.fs-stage:-webkit-full-screen .ctl,.fs-stage.pseudo-fs .ctl{
+  position:absolute!important;left:0;right:0;bottom:0;z-index:15;
+  padding:18px max(16px,env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+  background:linear-gradient(to top,rgba(4,11,20,.94) 0%,rgba(4,11,20,.72) 65%,transparent 100%);
+  color:#fff
+}
+.fs-stage:fullscreen .ib,.fs-stage:-webkit-full-screen .ib,.fs-stage.pseudo-fs .ib{
+  background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.26);backdrop-filter:blur(6px)
+}
+.fs-stage:fullscreen .tm,.fs-stage:-webkit-full-screen .tm,.fs-stage.pseudo-fs .tm{color:#E2E8F0}
+.fs-stage.fs-idle .ctl{opacity:0;pointer-events:none;transform:translateY(8px)}
+
 .pinfo{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap}
-.pinfo h3{margin-bottom:4px}
-.pinfo p{color:var(--muted);font-size:14px}
+.pinfo h3{margin-bottom:4px;font-size:clamp(17px,2.2vw,20px)}
+.pinfo p{color:var(--muted);font-size:13.5px}
 .sec-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;background:color-mix(in srgb,var(--blue) 15%,transparent);color:var(--blue);padding:4px 10px;border-radius:999px;font-weight:600}
 .big{width:100%;border-radius:12px;display:block}
 
@@ -340,7 +366,8 @@ h4{margin:16px 0 6px}
 .adm{padding:clamp(24px,4vw,48px) max(5vw,16px);min-height:70vh}
 .ahead{margin-bottom:18px;display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
 .ahead h1{font-size:clamp(26px,3vw,36px)}
-.adm-t{margin-bottom:20px;flex-wrap:nowrap;overflow-x:auto}
+.adm-t{margin-bottom:20px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.adm-t::-webkit-scrollbar{display:none}
 .adm-t button{white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
@@ -385,11 +412,46 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 .dev-tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;background:var(--soft);padding:2px 8px;border-radius:6px;color:var(--ink)}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0c1714;color:#f3f0e6;padding:12px 20px;border-radius:12px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.3);font-weight:600;max-width:calc(100% - 32px);text-align:center}
 .toast[hidden]{display:none}
-@media(max-width:1000px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:760px){.nav{display:none}.acct{margin-inline-start:auto}.brand small{display:none}.units{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:560px){.topin{gap:8px;min-height:62px}.mark{width:34px;height:34px;font-size:18px;border-radius:10px}.brand{gap:7px}.brand b{font-size:13.5px;gap:5px}.acct{gap:6px}.acct .btn.sm{padding:6px 10px;min-height:36px;font-size:13px}.plans{grid-template-columns:minmax(0,1fr)}.rcard{grid-template-columns:auto minmax(0,1fr)}.ramt{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}.pick{grid-template-columns:minmax(0,1fr)}.subs{grid-template-columns:minmax(0,1fr)}.dlg{padding:20px 16px}.bar{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}}
-@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-bottom:1px solid var(--line)}.stack td{display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;padding:4px 0}.stack td::before{content:attr(data-l);color:var(--muted);font-size:13px}}
+@media(max-width:1040px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr);gap:24px}.htxt p{font-size:16px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:minmax(0,1fr)}.brand small{display:none}}
+@media(max-width:760px){.nav{display:none}.acct{margin-inline-start:auto}.units{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:minmax(0,1fr)}.hide-sm{display:none}}
+@media(max-width:720px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;gap:4px;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border:0;padding:4px 0}.stack td::before{content:attr(data-l);color:var(--muted);font-size:13px;font-weight:600}}
+@media(max-width:560px){
+  .topin{gap:6px;min-height:60px}
+  .mark{width:34px;height:34px;font-size:18px;border-radius:10px}
+  .brand{gap:6px;min-width:0}
+  .brand b{font-size:clamp(12.5px,3.8vw,15px);gap:4px}
+  .acct{gap:5px}
+  .acct .btn.sm{padding:6px 10px;min-height:36px;font-size:13px}
+  .ctas .btn{flex:1 1 calc(50% - 6px);padding:11px 14px;font-size:14.5px}
+  .facts{gap:18px}
+  .facts b{font-size:24px}
+  .sechead{align-items:stretch}
+  .sechead .tabs{width:100%}
+  .sechead .tabs button{flex:1}
+  .unit{padding:14px}
+  .plans{grid-template-columns:minmax(0,1fr)}
+  .fgrid{grid-template-columns:minmax(0,1fr)}
+  .rcard{grid-template-columns:auto minmax(0,1fr)}
+  .ramt{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}
+  .pick{grid-template-columns:minmax(0,1fr)}
+  .subs{grid-template-columns:minmax(0,1fr)}
+  .modal{padding:8px}
+  .dlg{padding:18px 14px;border-radius:16px;max-height:calc(100dvh - 16px)}
+  .dlg.wide{padding:12px;width:100%}
+  .scr{border-width:2px;border-radius:12px;padding:12px;max-height:56dvh}
+  .ib{height:36px;min-width:36px;padding:0 8px;font-size:12px;border-radius:9px}
+  .ctl-grp{gap:4px}
+  .tm{font-size:11.5px}
+  .bar{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}
+  .ci-emblem{width:112px;height:112px}
+  .ci-formulas{font-size:17px;gap:10px}
+}
+@media(max-height:740px) and (min-width:761px){
+  .band{padding-block:28px}
+  .scr{max-height:calc(100dvh - 205px)}
+  .dlg.wide{padding:14px 18px}
+}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.sc-f{clip-path:none}}
 </style>
 </head>
@@ -437,7 +499,7 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
 
 <div class="demo" id="demoBar" hidden>
   <div class="wrap demoin">
-    <span>🔒 وضع الإدارة — <b dir="ltr">Shadi Obaid | شادي عبيد</b> (هذا الشريط يظهر لك أنت فقط ولا يراه الطلاب)</span>
+    <span>🔒 وضع الإدارة — <b dir="ltr">Shadi Obaid | شادي عبيد</b> <span class="hide-sm">(يظهر لك فقط ولا يراه الطلاب)</span></span>
     <div class="seg" role="group" aria-label="تبديل الواجهة">
       <button type="button" data-act="view" data-view="admin" aria-pressed="true">لوحة تحكم المدرّس <span class="badge" id="pc"></span></button>
       <button type="button" data-act="view" data-view="student" aria-pressed="false">معاينة واجهة الطالب</button>
@@ -925,7 +987,7 @@ function hero() {
   const ctaBtn = firstFree
     ? `<button type="button" class="btn" data-act="play" data-subj="${firstFree.k}" data-id="${firstFree.id}">${I.play} ابدأ التعلم الآن</button>`
     : `<a class="btn" href="#lessons">${I.play} ابدأ التعلم الآن</a>`;
-  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1 style="direction:ltr;display:flex;align-items:baseline;justify-content:flex-end;gap:12px;flex-wrap:wrap"><span style="color:#38BDF8">Shadi Obaid</span> <span style="color:rgba(248,250,252,.45);font-weight:400">|</span> <span>شادي عبيد</span></h1><p style="font-size:20px;color:#BAE6FD;font-weight:600;margin-top:10px">طريقك نحو التفوق في التاريخ والجغرافيا</p><p>شروحات مصوّرة دقيقة ومركّزة للدروس، مع الملخصات الشاملة والخرائط المفاهيمية والخطوط الزمنية ومتابعة مستمرة لتقدمك.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (التاريخ والجغرافيا)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
+  return `<section class="board band" id="top"><div class="wrap hero"><div class="htxt"><h1 style="direction:ltr;display:flex;align-items:baseline;justify-content:flex-end;gap:10px;flex-wrap:nowrap;font-size:clamp(22px,5.2vw,44px);white-space:nowrap"><span style="color:#38BDF8">Shadi Obaid</span> <span style="color:rgba(248,250,252,.45);font-weight:400">|</span> <span>شادي عبيد</span></h1><p style="font-size:clamp(17px,2.2vw,20px);color:#BAE6FD;font-weight:600;margin-top:10px">طريقك نحو التفوق في التاريخ والجغرافيا</p><p>شروحات مصوّرة دقيقة ومركّزة للدروس، مع الملخصات الشاملة والخرائط المفاهيمية والخطوط الزمنية ومتابعة مستمرة لتقدمك.</p><div class="ctas">${ctaBtn}<a class="btn chalk" href="#plans">الاشتراكات والأسعار</a></div><ul class="facts">${all.length ? `<li><b>${all.length}</b>درسًا مصوّرًا</li><li><b>${fr}</b>دروس مجانية</li>` : ''}<li><b>2</b>مادتان (التاريخ والجغرافيا)</li></ul></div><div class="hpic">${HERO}</div></div></section>`;
 }
 
 function getLessonProgress(lid) {
@@ -1183,7 +1245,32 @@ function render() {
 /* ============================================================================
  * 5. النوافذ المنبثقة ومشغل الفيديو المعزول (YouTube Unlisted / Drive / Shield)
  * ============================================================================ */
+let safeTransitionUntil = 0;
+let fsIdleTimer = null;
+
+function isStageFullscreen() {
+  const st = document.getElementById('fsStage');
+  return Boolean(
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    (st && st.classList.contains('pseudo-fs'))
+  );
+}
+
+function wakeFsControls() {
+  const st = document.getElementById('fsStage');
+  if (!st) return;
+  st.classList.remove('fs-idle');
+  clearTimeout(fsIdleTimer);
+  if (isStageFullscreen() && P && P.on) {
+    fsIdleTimer = setTimeout(() => {
+      if (isStageFullscreen() && P && P.on) st.classList.add('fs-idle');
+    }, 3800);
+  }
+}
+
 function openM(html, wide) {
+  safeTransitionUntil = Date.now() + 900;
   stopPlayerCleanup();
   modal.innerHTML = `<div class="dlg ${wide ? 'wide' : ''}" role="dialog" aria-modal="true"><button type="button" class="x" data-act="close" aria-label="إغلاق">×</button>${html}</div>`;
   modal.hidden = false;
@@ -1195,7 +1282,16 @@ function openM(html, wide) {
 function stopPlayerCleanup() {
   clearInterval(tick);
   clearInterval(wmT);
+  clearTimeout(fsIdleTimer);
   if (wmObserver) { wmObserver.disconnect(); wmObserver = null; }
+  if (document.fullscreenElement && document.exitFullscreen) {
+    document.exitFullscreen().catch(() => {});
+  } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+    try { document.webkitExitFullscreen(); } catch (_) {}
+  }
+  if (screen.orientation && typeof screen.orientation.unlock === 'function') {
+    try { screen.orientation.unlock(); } catch (_) {}
+  }
   if (P && S.user && P.lessonId && P.pos > 3) {
     saveLessonProgress(P.lessonId, P.pos, P.pos >= P.dur * 0.85, true);
   }
@@ -1207,6 +1303,7 @@ function stopPlayerCleanup() {
 }
 
 function closeM() {
+  safeTransitionUntil = Date.now() + 900;
   stopPlayerCleanup();
   modal.hidden = true;
   modal.innerHTML = '';
@@ -1390,29 +1487,40 @@ function playM(k, id) {
     mediaEmbedHtml = `<div class="sc-u">${SUBJ[k]} · ${esc(l.u)}</div><div class="sc-t">${esc(l.t)}</div><div class="sc-f" dir="ltr">${esc(l.f)}</div><div class="v-shield" data-act="pp"></div>`;
   }
 
+  safeTransitionUntil = Date.now() + 1400;
   openM(`<div class="player" oncontextmenu="return false">
-    <div class="scr on" id="scr" role="region" aria-label="مشغل الفيديو المحمي">
-      ${mediaEmbedHtml}
-      <div class="wm" id="wm">${esc(who)}</div>
-      <div class="wm-ghost" id="wmGhost">${esc(MY_DEVICE_FP)}</div>
-      <div class="wm-diag" id="wmDiag">Shadi Obaid | شادي عبيد · ${esc(who)}</div>
-      <div class="bigp">${I.play}</div>
-      <div class="sec-overlay" id="secOverlay">
-        <div>
-          <h3 style="color:var(--acc);margin-bottom:6px">🛡️ وضع حماية المحتوى</h3>
-          <p id="secMsg">تم إيقاف الفيديو مؤقتاً لأن النافذة فقدت التركيز أو تم فتح أداة خارجية. اضغط للعودة للمشاهدة.</p>
-          <button type="button" class="btn sm" style="margin-top:12px" data-act="resumeSec">متابعة المشاهدة</button>
+    <div class="fs-stage" id="fsStage">
+      <div class="scr on" id="scr" role="region" aria-label="مشغل الفيديو المحمي">
+        ${mediaEmbedHtml}
+        <div class="wm" id="wm">${esc(who)}</div>
+        <div class="wm-ghost" id="wmGhost">${esc(MY_DEVICE_FP)}</div>
+        <div class="wm-diag" id="wmDiag">Shadi Obaid | شادي عبيد · ${esc(who)}</div>
+        <div class="bigp">${I.play}</div>
+        <div class="sec-overlay" id="secOverlay">
+          <div>
+            <h3 style="color:var(--acc);margin-bottom:6px">🛡️ وضع حماية المحتوى</h3>
+            <p id="secMsg">تم إيقاف الفيديو مؤقتاً لحماية الدرس عند مغادرة الصفحة. اضغط للمتابعة.</p>
+            <button type="button" class="btn sm" style="margin-top:12px" data-act="resumeSec">متابعة المشاهدة</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="ctl">
-      <button type="button" class="ib" data-act="pp" id="ppb" aria-label="إيقاف مؤقت">${I.pause}</button>
-      <button type="button" class="ib" data-act="seek" data-d="-10" aria-label="رجوع 10 ثوانٍ" dir="ltr">−10s</button>
-      <button type="button" class="ib" data-act="seek" data-d="10" aria-label="تقديم 10 ثوانٍ" dir="ltr">+10s</button>
-      <input type="range" id="prog" min="0" max="${totalSec}" value="${startPos}" step="1" aria-label="موضع التشغيل">
-      <span class="tm" id="tm" dir="ltr">${fmtT(startPos)} / ${l.d}</span>
-      <button type="button" class="ib" data-act="speed" id="spdBtn" title="سرعة التشغيل" dir="ltr">1x</button>
-      <button type="button" class="ib" data-act="fs" title="ملء الشاشة مع الحماية">${I.fs}</button>
+      <div class="ctl" id="pCtl">
+        <div class="ctl-prog">
+          <input type="range" id="prog" min="0" max="${totalSec}" value="${startPos}" step="1" aria-label="موضع التشغيل">
+        </div>
+        <div class="ctl-btns">
+          <div class="ctl-grp">
+            <button type="button" class="ib" data-act="pp" id="ppb" aria-label="إيقاف مؤقت">${I.pause}</button>
+            <button type="button" class="ib" data-act="seek" data-d="-10" aria-label="رجوع 10 ثوانٍ" dir="ltr">−10s</button>
+            <button type="button" class="ib" data-act="seek" data-d="10" aria-label="تقديم 10 ثوانٍ" dir="ltr">+10s</button>
+            <span class="tm" id="tm" dir="ltr">${fmtT(startPos)} / ${l.d}</span>
+          </div>
+          <div class="ctl-grp">
+            <button type="button" class="ib" data-act="speed" id="spdBtn" title="سرعة التشغيل" dir="ltr">1x</button>
+            <button type="button" class="ib" data-act="fs" id="fsBtn" title="ملء الشاشة مع شريط التحكم">${I.fs}</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="pinfo">
       <div>
@@ -1497,6 +1605,12 @@ function playM(k, id) {
   }, 3200);
 
   setupWatermarkMutationGuard();
+  const fsSt = document.getElementById('fsStage');
+  if (fsSt) {
+    ['pointermove', 'touchstart'].forEach(ev => {
+      fsSt.addEventListener(ev, () => wakeFsControls(), { passive: true });
+    });
+  }
 }
 
 function initMediaController() {
@@ -1538,18 +1652,21 @@ function createYtInstance() {
   if (/^https?:/.test(window.location.protocol)) {
     pVars.origin = window.location.origin;
   }
+  safeTransitionUntil = Date.now() + 1400;
   ytPlayer = new window.YT.Player('ytMount', {
     videoId: P.videoId,
     playerVars: pVars,
     events: {
       onReady: (e) => {
+        safeTransitionUntil = Date.now() + 1000;
         if (P && P.pos > 0) e.target.seekTo(P.pos, true);
         e.target.playVideo();
       },
       onStateChange: (e) => {
         if (!P) return;
-        if (e.data === 1) { P.on = true; upd(); }
-        else if (e.data === 2 || e.data === 0) { P.on = false; upd(); }
+        safeTransitionUntil = Date.now() + 600;
+        if (e.data === 1) { P.on = true; upd(); wakeFsControls(); }
+        else if (e.data === 2 || e.data === 0) { P.on = false; upd(); wakeFsControls(); }
       }
     }
   });
@@ -1595,8 +1712,14 @@ function upd() {
   if (spd) spd.textContent = P.speed + 'x';
 }
 
-function togglePlayPause() {
+function togglePlayPause(fromShield = false) {
   if (!P) return;
+  const st = document.getElementById('fsStage');
+  // في وضع ملء الشاشة إذا كان شريط التحكم مخفياً، اللمسة الأولى على الشاشة تُظهر الشريط بدلاً من إيقاف الفيديو بالخطأ
+  if (fromShield && st && isStageFullscreen() && st.classList.contains('fs-idle')) {
+    wakeFsControls();
+    return;
+  }
   if (P.pos >= P.dur) P.pos = 0;
   P.on = !P.on;
   if (P.provider === 'youtube' && ytPlayer && typeof ytPlayer.playVideo === 'function') {
@@ -1606,6 +1729,7 @@ function togglePlayPause() {
     if (vid) { if (P.on) vid.play(); else vid.pause(); }
   }
   upd();
+  wakeFsControls();
 }
 
 function seekPlayer(targetSec) {
@@ -1618,6 +1742,7 @@ function seekPlayer(targetSec) {
     if (vid) vid.currentTime = P.pos;
   }
   upd();
+  wakeFsControls();
 }
 
 function cycleSpeed() {
@@ -1633,17 +1758,61 @@ function cycleSpeed() {
   }
   toast(`سرعة التشغيل: ${next}x`);
   upd();
+  wakeFsControls();
 }
 
 function toggleFullscreen() {
-  const sc = $('#scr');
-  if (!sc) return;
-  if (!document.fullscreenElement) {
-    (sc.requestFullscreen || sc.webkitRequestFullscreen || function(){}).call(sc);
+  const st = document.getElementById('fsStage');
+  if (!st) return;
+  safeTransitionUntil = Date.now() + 1200;
+
+  if (isStageFullscreen()) {
+    st.classList.remove('pseudo-fs', 'fs-idle');
+    if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+      try { document.webkitExitFullscreen(); } catch (_) {}
+    }
+    if (screen.orientation && typeof screen.orientation.unlock === 'function') {
+      try { screen.orientation.unlock(); } catch (_) {}
+    }
+    return;
+  }
+
+  const reqFs = st.requestFullscreen || st.webkitRequestFullscreen;
+  if (reqFs) {
+    try {
+      const p = reqFs.call(st);
+      if (p && typeof p.then === 'function') {
+        p.then(() => {
+          if (screen.orientation && typeof screen.orientation.lock === 'function') {
+            screen.orientation.lock('landscape').catch(() => {});
+          }
+          wakeFsControls();
+        }).catch(() => {
+          st.classList.add('pseudo-fs');
+          wakeFsControls();
+        });
+      } else {
+        wakeFsControls();
+      }
+    } catch (_) {
+      st.classList.add('pseudo-fs');
+      wakeFsControls();
+    }
   } else {
-    (document.exitFullscreen || document.webkitExitFullscreen || function(){}).call(document);
+    // دعم هواتف iPhone (iOS Safari) التي لا تدعم requestFullscreen على العناصر المركّبة
+    st.classList.add('pseudo-fs');
+    wakeFsControls();
   }
 }
+
+document.addEventListener('fullscreenchange', () => {
+  safeTransitionUntil = Date.now() + 900;
+  const st = document.getElementById('fsStage');
+  if (st && !document.fullscreenElement) st.classList.remove('fs-idle');
+  else wakeFsControls();
+});
 
 function startSub(d) {
   if (d.plan) sub.plan = d.plan;
@@ -1661,7 +1830,7 @@ let hardLockAt = 0;
 let revealBoxTimer = null;
 let lastDriveTapAt = 0;
 
-function pauseActiveVideoImmediate() {
+function pauseActiveVideoImmediate(showSecOverlay = true) {
   if (!P) return;
   P.on = false;
   if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
@@ -1670,7 +1839,7 @@ function pauseActiveVideoImmediate() {
   const vid = document.getElementById('html5Vid');
   if (vid) { try { vid.pause(); } catch (e) {} }
   const sc = $('#scr');
-  if (sc) sc.classList.add('blurred');
+  if (sc && showSecOverlay) sc.classList.add('blurred');
   upd();
 }
 
@@ -1684,8 +1853,8 @@ function wipeClipboardRepeatedly() {
 }
 
 // تحويل كامل شاشة الموقع إلى اللون الأسود الصافي #000000 في 0 ملي ثانية قبل التقاط الصورة أو عند الخلفية
-function enterPureBlack(isHardCapture = false, reason = '') {
-  pauseActiveVideoImmediate();
+function enterPureBlack(isHardCapture = false, reason = '', showVideoOverlay = true) {
+  pauseActiveVideoImmediate(isHardCapture || showVideoOverlay);
   const cur = document.getElementById('captureCurtain');
   const rsn = document.getElementById('capReason');
   document.documentElement.classList.add('sec-black');
@@ -1824,6 +1993,8 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     const cur = document.getElementById('captureCurtain');
     if (cur && !cur.hidden) { dismissCaptureShield(); return; }
+    const st = document.getElementById('fsStage');
+    if (st && st.classList.contains('pseudo-fs')) { st.classList.remove('pseudo-fs', 'fs-idle'); return; }
     if (!modal.hidden) { closeM(); return; }
   }
   const capMsg = isCaptureShortcut(e);
@@ -1868,35 +2039,47 @@ document.addEventListener('touchmove', e => {
   }
 }, { capture: true, passive: true });
 
-// 5) إعتام كامل للموقع باللون الأسود #000000 فوراً (على اللابتوب والموبايل) بمجرد انتقال الموقع للخلفية أو فتح مركز التحكم/أداة خارجية
+// 5) إعتام الموقع باللون الأسود #000000 عند انتقاله للخلفية الحقيقية فقط (دون أي إغلاق خاطئ عند فتح الدروس أو الأزرار!)
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
-    enterPureBlack(false);
+    enterPureBlack(false, '', true);
   } else {
-    setTimeout(restoreFromBackgroundIfSafe, 90);
+    setTimeout(restoreFromBackgroundIfSafe, 60);
   }
-}, true);
+});
 
 window.addEventListener('pagehide', () => {
-  enterPureBlack(false);
-}, true);
+  enterPureBlack(false, '', true);
+});
 
-window.addEventListener('blur', () => {
-  // إذا كان الطالب قد نقر للتو داخل مشغل Google Drive فقط لا نغلق الشاشة
-  if (P && P.provider === 'drive' && Date.now() - lastDriveTapAt < 300) {
-    setTimeout(() => {
-      const ae = document.activeElement;
-      if (ae && ae.tagName === 'IFRAME' && $('#scr') && $('#scr').contains(ae)) return;
-      if (!document.hasFocus()) enterPureBlack(false);
-    }, 20);
-    return;
+window.addEventListener('blur', e => {
+  // تجاهل فقدان التركيز من الأزرار والحقول الداخلية (لا نعمل إلا عند فقدان نافذة المتصفح نفسها للتركيز)
+  if (e && e.target && e.target !== window) return;
+  if (Date.now() < safeTransitionUntil || isStageFullscreen()) return;
+
+  setTimeout(() => {
+    if (Date.now() < safeTransitionUntil || isStageFullscreen()) return;
+    // إذا انتقل التركيز إلى إطار مشغل الدرس نفسه (YouTube أو Google Drive) فالمستخدم يشاهد الدرس طبيعياً!
+    const ae = document.activeElement;
+    if (ae && ae.tagName === 'IFRAME') return;
+    if (!document.hasFocus()) {
+      enterPureBlack(false, '', false);
+    }
+  }, 45);
+});
+
+window.addEventListener('focus', e => {
+  if (e && e.target && e.target !== window) return;
+  setTimeout(restoreFromBackgroundIfSafe, 40);
+});
+
+document.addEventListener('mousemove', () => {
+  if (!hardCaptureLock && !document.hidden && document.hasFocus()) {
+    document.documentElement.classList.remove('sec-black');
+    const cur = document.getElementById('captureCurtain');
+    if (cur && cur.classList.contains('pure-black')) cur.hidden = true;
   }
-  enterPureBlack(false);
-}, true);
-
-window.addEventListener('focus', () => {
-  setTimeout(restoreFromBackgroundIfSafe, 90);
-}, true);
+}, { passive: true });
 
 /* ============================================================================
  * 7. معالجة النقرات والأحداث والنماذج
@@ -2018,7 +2201,7 @@ document.addEventListener('click', e => {
       closeM();
       break;
     case 'pp':
-      togglePlayPause();
+      togglePlayPause(b.classList.contains('v-shield'));
       break;
     case 'seek':
       if (P) seekPlayer(P.pos + Number(d.d));
