@@ -750,7 +750,7 @@ function isUserTypingInApp() {
 
 function saveLocalOnly() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S, sync: { pending: cloudDirty, adminForce: pendingAdminForce } }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S, sync: { version: 2, pending: cloudDirty, adminForce: pendingAdminForce } }));
     return true;
   } catch (e) { return false; }
 }
@@ -769,6 +769,7 @@ function loadState() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const parsed = JSON.parse(raw);
+    const needsSyncMigration = !parsed.sync || parsed.sync.version !== 2;
     cloudDirty = Boolean(parsed.sync && parsed.sync.pending);
     pendingAdminForce = Boolean(parsed.sync && parsed.sync.adminForce);
     if (cloudDirty) mutationSeq++;
@@ -786,6 +787,13 @@ function loadState() {
       if (S.user && S.user.role !== 'admin') {
         const fresh = S.students.find(x => x.id === S.user.id);
         if (fresh) S.user = fresh;
+        // Older clients kept the signed-in user even after a failed save and an empty cloud pull.
+        // Recover that account once, before another pull can overwrite the legacy snapshot.
+        if (needsSyncMigration && S.user.role === 'student' && S.user.id && S.user.name && S.user.phone) {
+          if (!fresh) S.students.unshift(S.user);
+          cloudDirty = true;
+          mutationSeq++;
+        }
       }
     }
   } catch (e) {}
