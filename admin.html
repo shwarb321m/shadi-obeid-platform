@@ -547,6 +547,7 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
     </div>
   </div>
 </div>
+<div id="cloudSyncStatus" class="note" role="status" aria-live="polite" style="margin:12px 5%;font-size:14px" hidden></div>
 <main id="app"></main>
 <div id="modal" class="modal" hidden></div>
 <div id="toast" class="toast" role="status" hidden></div>
@@ -749,8 +750,9 @@ function isUserTypingInApp() {
 
 function saveLocalOnly() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S }));
-  } catch (e) {}
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ L, S, sync: { pending: cloudDirty, adminForce: pendingAdminForce } }));
+    return true;
+  } catch (e) { return false; }
 }
 
 function normalizeWallets(arr) {
@@ -767,6 +769,9 @@ function loadState() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const parsed = JSON.parse(raw);
+    cloudDirty = Boolean(parsed.sync && parsed.sync.pending);
+    pendingAdminForce = Boolean(parsed.sync && parsed.sync.adminForce);
+    if (cloudDirty) mutationSeq++;
     if (parsed.L && (Array.isArray(parsed.L.math) || Array.isArray(parsed.L.phys))) {
       L = {
         math: Array.isArray(parsed.L.math) ? parsed.L.math : [],
@@ -867,90 +872,138 @@ function updateBadgesOnly() {
 
 let syncInFlight = false;
 let pushInFlight = false;
-let pendingPush = false;
+let cloudDirty = false;
 let pendingAdminForce = false;
 let mutationSeq = 0;
+let pushPromise = null;
+let retryTimer = null;
+let retryDelay = 3000;
+let lastLocalSaveOk = true;
+
+function showSyncStatus(message = '') {
+  const el = document.getElementById('cloudSyncStatus');
+  if (el) { el.textContent = message; el.hidden = !message; }
+}
+
+async function cloudRequest(url, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 35000);
+  try {
+    const res = await fetch(url, Object.assign({}, options, { signal: controller.signal }));
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    if (!json || !json.ok || !json.data || !json.data.S) {
+      throw new Error(json && json.error ? json.error : 'استجابة غير صالحة من الخادم');
+    }
+    return json;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 async function syncFromCloud(quiet = true) {
   if (!API_URL) API_URL = DEFAULT_API_URL;
-  if (!API_URL || syncInFlight || pushInFlight || pendingPush) return;
+  if (!API_URL || syncInFlight || pushInFlight || cloudDirty) return false;
   syncInFlight = true;
   const seqAtStart = mutationSeq;
   try {
     const akParam = (S.user && S.user.role === 'admin' && S.adminPass) ? '&ak=' + encodeURIComponent(S.adminPass) : '';
-    const res = await fetch(API_URL + '?action=get&t=' + Date.now() + akParam, { method: 'GET' });
-    const json = await res.json();
-    // إذا قام المستخدم بحفظ تعديل محلي أثناء انتظار الشبكة، نتجاهل الرد القديم منعاً لمسح التعديل الجديد
-    if (seqAtStart !== mutationSeq || pushInFlight || pendingPush) return;
-    if (json && json.ok && json.data) {
-      const changed = applyCloudData(json.data);
-      updateBadgesOnly();
-      if (!quiet) {
-        if (modal.hidden && !isUserTypingInApp()) render();
-      } else if (changed && modal.hidden && !isUserTypingInApp()) {
-        render();
-      }
-    }
+    const json = await cloudRequest(API_URL + '?action=get&t=' + Date.now() + akParam, { method: 'GET' });
+    if (seqAtStart !== mutationSeq || pushInFlight || cloudDirty) return false;
+    const changed = applyCloudData(json.data);
+    updateBadgesOnly();
+    showSyncStatus();
+    if ((!quiet || changed) && modal.hidden && !isUserTypingInApp()) render();
+    return true;
   } catch (e) {
+    showSyncStatus('تعذّر تحديث البيانات من الخادم. سيتم إعادة المحاولة تلقائياً.');
     if (!quiet) toast('تعذّر تحديث البيانات السحابية حالياً');
+    return false;
   } finally {
     syncInFlight = false;
   }
 }
 
-async function pushToCloud(adminForce = false) {
+function scheduleCloudRetry() {
+  if (retryTimer || !cloudDirty) return;
+  retryTimer = setTimeout(() => {
+    retryTimer = null;
+    pushToCloud();
+  }, retryDelay);
+  retryDelay = Math.min(retryDelay * 2, 60000);
+}
+
+function pushToCloud() {
+  if (pushPromise) return pushPromise;
+  if (!cloudDirty) return Promise.resolve(true);
   if (!API_URL) API_URL = DEFAULT_API_URL;
-  if (!API_URL) return;
-  if (pushInFlight) {
-    pendingPush = true;
-    pendingAdminForce = pendingAdminForce || Boolean(adminForce);
-    return;
-  }
+  clearTimeout(retryTimer);
+  retryTimer = null;
   pushInFlight = true;
-  const seqSent = mutationSeq;
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        action: 'sync',
-        payload: getCloudPayload(adminForce)
-      })
-    });
-    const json = await res.json();
-    // لا نطبّق بيانات الرد إلا إذا لم يجرِ تعديل محلي أحدث أثناء الإرسال
-    if (seqSent === mutationSeq && !pendingPush && json && json.ok && json.data) {
-      const changed = applyCloudData(json.data);
-      updateBadgesOnly();
-      if (changed && modal.hidden && !isUserTypingInApp()) {
-        render();
+  pushPromise = (async () => {
+    try {
+      while (cloudDirty) {
+        const seqSent = mutationSeq;
+        const payload = JSON.parse(JSON.stringify(getCloudPayload(pendingAdminForce)));
+        showSyncStatus('جارٍ حفظ التغييرات على الخادم...');
+        const json = await cloudRequest(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'save', payload })
+        });
+        // A successful HTTP response alone is not an acknowledgement. Check record IDs too.
+        const hasAll = (sent, received) => {
+          const ids = new Set((received || []).map(x => String(x.id)));
+          return (sent || []).every(x => ids.has(String(x.id)));
+        };
+        if (!hasAll(payload.S.students, json.data.S.students) || !hasAll(payload.S.requests, json.data.S.requests)) {
+          throw new Error('لم يؤكد الخادم حفظ الحساب أو الطلب');
+        }
+        if (seqSent !== mutationSeq) continue;
+        cloudDirty = false;
+        pendingAdminForce = false;
+        retryDelay = 3000;
+        const changed = applyCloudData(json.data);
+        updateBadgesOnly();
+        showSyncStatus(json.sheetSync && !json.sheetSync.ok && S.user && S.user.role === 'admin'
+          ? 'تم الحفظ على الخادم، لكن نسخة Google Sheets لم تتحدّث. راجع ربط الجدول وصلاحياته.' : '');
+        if (changed && modal.hidden && !isUserTypingInApp()) render();
       }
+      return true;
+    } catch (e) {
+      lastLocalSaveOk = saveLocalOnly();
+      showSyncStatus(lastLocalSaveOk
+        ? 'لم يؤكد الخادم الحفظ بعد. التغييرات محفوظة على هذا الجهاز، وستتم إعادة المحاولة تلقائياً.'
+        : 'تعذّر الحفظ على الخادم وعلى الجهاز. أبقِ الصفحة مفتوحة وأعد الاتصال للمحاولة مجدداً.');
+      console.warn('Cloud save failed:', e.message);
+      scheduleCloudRetry();
+      return false;
+    } finally {
+      pushInFlight = false;
+      pushPromise = null;
     }
-  } catch (e) {
-  } finally {
-    pushInFlight = false;
-    if (pendingPush) {
-      const nextForce = pendingAdminForce;
-      pendingPush = false;
-      pendingAdminForce = false;
-      pushToCloud(nextForce);
-    }
-  }
+  })();
+  return pushPromise;
 }
 
 function saveState(adminForce = false) {
   mutationSeq++;
-  saveLocalOnly();
-  const isAdmin = !!(S.user && S.user.role === 'admin');
-  pushToCloud(adminForce || isAdmin);
+  cloudDirty = true;
+  pendingAdminForce = pendingAdminForce || Boolean(adminForce) || !!(S.user && S.user.role === 'admin');
+  lastLocalSaveOk = saveLocalOnly();
+  return pushToCloud();
 }
 
 loadState();
-// جلب أحدث البيانات من السحابة فور فتح المنصة، وتحديثها دورياً بهدوء دون مسح أي حقل يكتب فيه المستخدم
-syncFromCloud(true);
+if (cloudDirty) pushToCloud();
+else syncFromCloud(true);
 setInterval(() => {
-  if (modal.hidden && !isUserTypingInApp()) syncFromCloud(true);
+  if (!cloudDirty && modal.hidden && !isUserTypingInApp()) syncFromCloud(true);
 }, 12000);
+window.addEventListener('online', () => {
+  if (cloudDirty) pushToCloud();
+  else syncFromCloud(true);
+});
 
 /**
  * استدعاء خادم Google Apps Script المباشر
@@ -2135,7 +2188,7 @@ if (IS_PROTECTED_APP) {
 /* ============================================================================
  * 7. معالجة النقرات والأحداث والنماذج
  * ============================================================================ */
-document.addEventListener('click', e => {
+document.addEventListener('click', async e => {
   const qp = document.getElementById('qualPop');
   if (qp && !qp.hidden && !e.target.closest('.q-wrap')) qp.hidden = true;
   const b = e.target.closest('[data-act]');
@@ -2249,11 +2302,15 @@ document.addEventListener('click', e => {
       S.requests.unshift(r);
       sub.file = null;
       sub.txRef = '';
-      saveState(false);
+      b.disabled = true;
+      const saved = await saveState(false);
+      b.disabled = false;
       render();
       doneM(
-        'تم إرسال طلبك بنجاح',
-        'سيراجع الأستاذ إشعار الدفع ورقم العملية، وتُفتح الدروس في حسابك فور الموافقة.'
+        saved ? 'تم إرسال طلبك بنجاح' : 'طلبك بانتظار الإرسال',
+        saved
+          ? 'وصل طلبك إلى الخادم. سيراجع الأستاذ إشعار الدفع ورقم العملية، وتُفتح الدروس فور الموافقة.'
+          : (lastLocalSaveOk ? 'حُفظ الطلب على هذا الجهاز، لكنه لم يصل للإدارة بعد. سنعيد الإرسال تلقائياً؛ لا ترسل طلباً جديداً.' : 'لم يؤكد الخادم الحفظ وتعذّر التخزين على الجهاز. أبقِ الصفحة مفتوحة حتى يتم الإرسال.')
       );
       break;
     }
@@ -2503,8 +2560,11 @@ document.addEventListener('submit', async e => {
       };
       S.students.unshift(s);
       S.user = s;
-      saveState(false);
-      toast('أهلاً ' + name.split(' ')[0] + '، تم إنشاء حسابك وربطه بجهازك');
+      if (btn) { btn.disabled = true; btn.textContent = 'جارٍ حفظ الحساب...'; }
+      const saved = await saveState(false);
+      if (btn) btn.disabled = false;
+      toast(saved ? 'أهلاً ' + name.split(' ')[0] + '، تم إنشاء حسابك على الخادم وربطه بجهازك'
+        : (lastLocalSaveOk ? 'بيانات الحساب محفوظة على جهازك، وبانتظار تأكيد الخادم. ستتم إعادة المحاولة تلقائياً.' : 'لم يكتمل حفظ الحساب. أبقِ الصفحة مفتوحة حتى يعود الاتصال.'));
     } else {
       const mailIn = ph.toLowerCase();
       const s = ph.includes('@')
@@ -2770,9 +2830,9 @@ document.addEventListener('submit', async e => {
     const mailerInput = mailerEl ? mailerEl.value.trim() : '';
     MAILER_URL = mailerInput || DEFAULT_MAILER_URL;
     localStorage.setItem('SHADI_MAILER_URL_V4', MAILER_URL);
-    saveState(true);
+    const saved = await saveState(true);
     render();
-    toast('✓ تم حفظ الإعدادات ومزامنتها سحابياً بنجاح');
+    toast(saved ? '✓ تم حفظ الإعدادات ومزامنتها سحابياً بنجاح' : 'لم تتزامن الإعدادات بعد. ستتم إعادة المحاولة تلقائياً.');
   }
 });
 
